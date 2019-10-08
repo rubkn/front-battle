@@ -43,12 +43,34 @@ public class Game implements KeyboardHandler {
     public void checkCollisions() {
 
         for (int i = 0; i < bullet.length; i++) {
+
+            //if bullet is not fired continue to next bullet
             if(!bullet[i].isFired()) {
                 continue;
             }
+
+            //check if bullet is out of range by left or right side of screen
+            if (bullet[i].getPosition().getCol() < 0 || bullet[i].getPosition().getCol() > field.getWidth()) {
+                bullet[i].setFired(false);
+            }
+
+            //check if bullet is out of range by top or lower side of screen
+            if (bullet[i].getPosition().getRow() < 0 || bullet[i].getPosition().getRow() > field.getHeight()) {
+                bullet[i].setFired(false);
+            }
+
+            //check if any bullet is hitting player 1
             if (player1.getPosition().equals(bullet[i].getPosition())) {
                 player1.hit(bullet[i].getBulletDamage());
+                bullet[i].setFired(false);
             }
+
+            //check if any bullet is hitting player 2
+            if (player2.getPosition().equals(bullet[i].getPosition())) {
+                player2.hit(bullet[i].getBulletDamage());
+                bullet[i].setFired(false);
+            }
+
         }
     }
 
