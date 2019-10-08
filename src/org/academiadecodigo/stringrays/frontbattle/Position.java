@@ -22,4 +22,23 @@ public class Position {
     public int getRow() {
         return row;
     }
+
+    public void moveUp() {
+        int oldCol = getCol();
+        int oldRow = getRow();
+
+
+    }
+
+    public void moveDown() {
+
+    }
+
+    public void moveLeft() {
+
+    }
+
+    public void moveRight() {
+
+    }
 }

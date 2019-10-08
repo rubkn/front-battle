@@ -29,23 +29,22 @@ public class Player implements Movables{
     }
 
     @Override
-    public void moveUp() {
+    public void move(Direction direction) {
 
-    }
-
-    @Override
-    public void moveDown() {
-
-    }
-
-    @Override
-    public void moveLeft() {
-
-    }
-
-    @Override
-    public void moveRight() {
-
+        switch (direction) {
+            case UP:
+                position.moveUp();
+                break;
+            case DOWN:
+                position.moveDown();
+                break;
+            case LEFT:
+                position.moveLeft();
+                break;
+            case RIGHT:
+                position.moveRight();
+                break;
+        }
     }
 
     public void hit(int damage) {

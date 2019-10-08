@@ -1,7 +1,9 @@
 package org.academiadecodigo.stringrays.frontbattle.Movables;
 
-public interface Movables {
-
-    void move(Direction direction);
+public enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT;
 
 }
