@@ -52,10 +52,10 @@ public class Field{
     }
 
     public int rowToY(int row) {
-        return PADDING + (row * cellSize);
+        return row * cellSize;
     }
 
     public int columnToX(int column) {
-        return PADDING + (column * cellSize);
+        return column * cellSize;
     }
 }

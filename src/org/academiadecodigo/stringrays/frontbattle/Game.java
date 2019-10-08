@@ -14,23 +14,22 @@ public class Game implements KeyboardHandler {
 
     private Player player1;
     private Player player2;
-    private int padding = 10;
     private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
-    private Bullet[] bullet;
+    private Bullet[] bullets;
 
     public void creation() {
         field = new Field(25, 25);
         field.init();
         player1 = new Player("player1", new Position( 1,field.getRows()/2, field), Color.BLUE);
         player1.getPosition().show();
-        player2 = new Player("player1", new Position( 24,field.getRows()/2, field), Color.RED);
+        player2 = new Player("player1", new Position( 23,field.getRows()/2, field), Color.RED);
         player2.getPosition().show();
 
-        bullet = new Bullet[100];
-        for (int i = 0; i < bullet.length; i++) {
-            bullet[i] = new Bullet(new Position(15,15,field));
+        bullets = new Bullet[100];
+        for (int i = 0; i < bullets.length; i++) {
+            bullets[i] = new Bullet(new Position(0,0,field));
         }
     }
 
@@ -39,7 +38,7 @@ public class Game implements KeyboardHandler {
         keyboardKeys();
 
         while (true) {
-            Thread.sleep(3);
+            Thread.sleep(100);
             moveAll();
             checkCollisions();
         }
@@ -47,41 +46,38 @@ public class Game implements KeyboardHandler {
 
     public void checkCollisions() {
 
-        for (int i = 0; i < bullet.length; i++) {
+        for (int i = 0; i < bullets.length; i++) {
 
             //if bullet is not fired continue to next bullet
-            if(!bullet[i].isFired()) {
+            if(!bullets[i].isFired()) {
                 continue;
             }
 
             //check if bullet is out of range by left or right side of screen
-            if (bullet[i].getPosition().getCol() < 0 || bullet[i].getPosition().getCol() > field.getWidth()) {
-                bullet[i].setFired(false);
+            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getWidth()) {
+                bullets[i].setFired(false);
             }
 
             //check if bullet is out of range by top or lower side of screen
-            if (bullet[i].getPosition().getRow() < 0 || bullet[i].getPosition().getRow() > field.getHeight()) {
-                bullet[i].setFired(false);
+            if (bullets[i].getPosition().getRow() < 0 || bullets[i].getPosition().getRow() > field.getHeight()) {
+                bullets[i].setFired(false);
             }
 
             //check if any bullet is hitting player 1
-            if (player1.getPosition().equals(bullet[i].getPosition())) {
-                player1.hit(bullet[i].getBulletDamage());
-                bullet[i].setFired(false);
+            if (player1.getPosition().equals(bullets[i].getPosition())) {
+                player1.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
             }
 
             //check if any bullet is hitting player 2
-            if (player2.getPosition().equals(bullet[i].getPosition())) {
-                player2.hit(bullet[i].getBulletDamage());
-                bullet[i].setFired(false);
+            if (player2.getPosition().equals(bullets[i].getPosition())) {
+                player2.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
             }
 
         }
     }
 
-    public void collide() {
-        //verify if pos equals pos
-    }
 
     public void addKeyboardEvent(int key, KeyboardEventType type) throws InterruptedException {
         KeyboardEvent event = new KeyboardEvent();
@@ -107,6 +103,8 @@ public class Game implements KeyboardHandler {
         addKeyboardEvent(KeyboardEvent.KEY_A, KeyboardEventType.KEY_RELEASED);
         addKeyboardEvent(KeyboardEvent.KEY_D, KeyboardEventType.KEY_PRESSED);
         addKeyboardEvent(KeyboardEvent.KEY_D, KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_RELEASED);
 
     }
 
@@ -114,28 +112,48 @@ public class Game implements KeyboardHandler {
     public void moveAll() throws InterruptedException {
 
         if (upKey) {
-            player1.getPosition().moveUp();
-        }
-        if (downKey) {
-            player1.getPosition().moveDown();
-        }
-        if (rightKey) {
-            player1.getPosition().moveRight();
-        }
-        if (leftKey) {
-            player1.getPosition().moveLeft();
-        }
-        if (wKey) {
             player2.getPosition().moveUp();
         }
-        if (sKey) {
+        if (downKey) {
             player2.getPosition().moveDown();
         }
-        if (aKey) {
+        if (rightKey) {
+            player2.getPosition().moveRight();
+        }
+        if (leftKey) {
             player2.getPosition().moveLeft();
         }
+        if (wKey) {
+            player1.getPosition().moveUp();
+        }
+        if (sKey) {
+            player1.getPosition().moveDown();
+        }
+        if (aKey) {
+            player1.getPosition().moveLeft();
+        }
         if (dKey) {
-            player2.getPosition().moveRight();
+            player1.getPosition().moveRight();
+        }
+        if (spaceKey) {
+            for (int i = 0; i < bullets.length; i++) {
+                if (!bullets[i].isFired()) {
+                    int oldCol = bullets[i].getPosition().getCol();
+                    int oldRow = bullets[i].getPosition().getRow();
+
+                    bullets[i].getPosition().setPos(player1.getPosition().getCol(), player1.getPosition().getRow());
+
+                    int newCol = bullets[i].getPosition().getCol() - oldCol;
+                    int newRow = bullets[i].getPosition().getRow() - oldRow;
+
+                    bullets[i].getPosition().getRectangle().translate(field.columnToX(newCol), field.rowToY(newRow));
+
+                    bullets[i].setFired(true);
+                    bullets[i].getPosition().moveRight();
+
+                    break;
+                }
+            }
         }
     }
 

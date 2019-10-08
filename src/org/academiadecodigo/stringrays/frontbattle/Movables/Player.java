@@ -22,9 +22,9 @@ public class Player implements Movables {
         return position;
     }
 
-    public void attack() {
+    public void attack(Direction direction) {
 
-    }
+        }
 
     @Override
     public void move(Direction direction) {

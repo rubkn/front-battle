@@ -16,6 +16,10 @@ public class Position {
         rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
     public void setPos(int col, int row) {
         this.col = col;
         this.row = row;
@@ -43,26 +47,26 @@ public class Position {
 
     public void moveUp() {
         if(rectangle.getY() > field.getY()) {
-            rectangle.translate(0, -1);
+            rectangle.translate(0, -1*Field.cellSize);
         }
     }
 
     public void moveDown() {
         if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
-            rectangle.translate(0, 1);
+            rectangle.translate(0, 1*Field.cellSize);
         }
     }
 
     public void moveLeft() {
         if(rectangle.getX() > field.getX()) {
-            rectangle.translate(-1, 0);
+            rectangle.translate(-1*Field.cellSize, 0);
         }
 
     }
 
     public void moveRight() {
         if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
-            rectangle.translate(1, 0);
+            rectangle.translate(1*Field.cellSize, 0);
         }
 
     }
