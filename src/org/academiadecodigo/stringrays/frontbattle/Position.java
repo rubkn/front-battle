@@ -14,8 +14,7 @@ public class Position {
         this.row = row;
         this.field = field;
         rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
-        rectangle.setColor(Color.RED);
-        rectangle.fill();
+        show();
     }
 
     public void setPos(int col, int row) {
@@ -25,6 +24,10 @@ public class Position {
 
     public void show() {
         rectangle.fill();
+    }
+
+    public void setColor(Color color) {
+        rectangle.setColor(color);
     }
 
     public void hide() {
@@ -40,21 +43,28 @@ public class Position {
     }
 
     public void moveUp() {
-        rectangle.translate(0, -1*Field.cellSize);
+        if(rectangle.getY() > field.getY()) {
+            rectangle.translate(0, -1);
+        }
     }
 
     public void moveDown() {
-        rectangle.translate(0, Field.cellSize);
-
+        if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
+            rectangle.translate(0, 1);
+        }
     }
 
     public void moveLeft() {
-        rectangle.translate(-1*Field.cellSize, 0);
+        if(rectangle.getX() > field.getX()) {
+            rectangle.translate(-1, 0);
+        }
 
     }
 
     public void moveRight() {
-        rectangle.translate(Field.cellSize, 0);
+        if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
+            rectangle.translate(1, 0);
+        }
 
     }
 }

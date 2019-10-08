@@ -15,11 +15,11 @@ public class Player implements Movables{
     public Player(String name, Position position, Color color) {
         this.name = name;
         this.position = position;
+        position.setColor(color);
+    }
 
-        //bullets = new Bullet[100];
-        /*for (int i = 0; i < bullets.length; i++) {
-            bullets[i] = new Bullet();
-        }*/
+    public Position getPosition() {
+        return position;
     }
 
     public void attack() {
