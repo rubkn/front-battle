@@ -14,7 +14,6 @@ public class Position {
         this.row = row;
         this.field = field;
         rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
-        show();
     }
 
     public void setPos(int col, int row) {

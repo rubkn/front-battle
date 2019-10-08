@@ -22,10 +22,6 @@ public class Player implements Movables {
         return position;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
     public void attack() {
 
     }

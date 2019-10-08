@@ -7,6 +7,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
 public class Game implements KeyboardHandler {
 
@@ -17,12 +18,20 @@ public class Game implements KeyboardHandler {
     private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
+    private Bullet[] bullet;
 
     public void creation() {
         field = new Field(25, 25);
         field.init();
         player1 = new Player("player1", new Position( 1,field.getRows()/2, field), Color.BLUE);
+        player1.getPosition().show();
         player2 = new Player("player1", new Position( 24,field.getRows()/2, field), Color.RED);
+        player2.getPosition().show();
+
+        bullet = new Bullet[100];
+        for (int i = 0; i < bullet.length; i++) {
+            bullet[i] = new Bullet(new Position(15,15,field));
+        }
     }
 
     public void gameStart() throws InterruptedException {
@@ -32,6 +41,41 @@ public class Game implements KeyboardHandler {
         while (true) {
             Thread.sleep(3);
             moveAll();
+            checkCollisions();
+        }
+    }
+
+    public void checkCollisions() {
+
+        for (int i = 0; i < bullet.length; i++) {
+
+            //if bullet is not fired continue to next bullet
+            if(!bullet[i].isFired()) {
+                continue;
+            }
+
+            //check if bullet is out of range by left or right side of screen
+            if (bullet[i].getPosition().getCol() < 0 || bullet[i].getPosition().getCol() > field.getWidth()) {
+                bullet[i].setFired(false);
+            }
+
+            //check if bullet is out of range by top or lower side of screen
+            if (bullet[i].getPosition().getRow() < 0 || bullet[i].getPosition().getRow() > field.getHeight()) {
+                bullet[i].setFired(false);
+            }
+
+            //check if any bullet is hitting player 1
+            if (player1.getPosition().equals(bullet[i].getPosition())) {
+                player1.hit(bullet[i].getBulletDamage());
+                bullet[i].setFired(false);
+            }
+
+            //check if any bullet is hitting player 2
+            if (player2.getPosition().equals(bullet[i].getPosition())) {
+                player2.hit(bullet[i].getBulletDamage());
+                bullet[i].setFired(false);
+            }
+
         }
     }
 
