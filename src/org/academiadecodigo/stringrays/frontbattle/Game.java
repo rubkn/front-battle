@@ -3,6 +3,7 @@ package org.academiadecodigo.stringrays.frontbattle;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 
 public class Game implements KeyboardHandler {
@@ -17,8 +18,8 @@ public class Game implements KeyboardHandler {
     public void creation() {
         field = new Field(25,25);
         field.init();
-        player1 = new Player("player1", new Position(field.getX() + Field.PADDING,field.getHeight()/2), Color.ORANGE);
-        player2 = new Player("player2", new Position(field.getWidth() - field.getCellSize(), field.getHeight()/2), Color.RED);
+        player1 = new Player("player1", new Position(15,15, field), Color.ORANGE);
+
     }
 
     public void gameStart() {
@@ -29,7 +30,12 @@ public class Game implements KeyboardHandler {
         //verify if pos equals pos
     }
 
-    public void moveAll() {
+    public void moveAll() throws InterruptedException{
+        Thread.sleep(555);
+
+        while(upKey) {
+            player1.move(Direction.UP);
+        }
     }
 
     @Override

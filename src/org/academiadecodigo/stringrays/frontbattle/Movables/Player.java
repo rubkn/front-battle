@@ -8,20 +8,18 @@ public class Player implements Movables{
 
     private Position position;
     private String name;
-    private int health;
+    private int health = 100;
     private boolean destroyed;
-    private Bullet[] bullets;
+    //private Bullet[] bullets;
 
     public Player(String name, Position position, Color color) {
         this.name = name;
-        health = 100;
-        Rectangle player = new Rectangle(position.getCol(), position.getRow(), Field.cellSize, Field.cellSize);
-        player.setColor(color);
-        player.fill();
-        bullets = new Bullet[100];
-        for (int i = 0; i < bullets.length; i++) {
+        this.position = position;
+
+        //bullets = new Bullet[100];
+        /*for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new Bullet();
-        }
+        }*/
     }
 
     public void attack() {

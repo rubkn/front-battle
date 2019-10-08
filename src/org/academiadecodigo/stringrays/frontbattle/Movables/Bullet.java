@@ -1,4 +1,4 @@
-package org.academiadecodigo.stringrays.frontbattle.Movables;
+/*package org.academiadecodigo.stringrays.frontbattle.Movables;
 
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
@@ -9,27 +9,12 @@ public class Bullet implements Movables {
     private boolean isFired;
 
     public Bullet() {
-        position = new Position(0, 0);
+        position = new Position(0,0, );
         damage = 10;
     }
 
     @Override
-    public void moveUp() {
-
-    }
-
-    @Override
-    public void moveDown() {
-
-    }
-
-    @Override
-    public void moveLeft() {
-
-    }
-
-    @Override
-    public void moveRight() {
+    public void move(Direction direction) {
 
     }
 
@@ -45,3 +30,4 @@ public class Bullet implements Movables {
         return isFired;
     }
 }
+*/
