@@ -1,20 +1,22 @@
-/*package org.academiadecodigo.stringrays.frontbattle.Movables;
+package org.academiadecodigo.stringrays.frontbattle.Movables;
 
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
 public class Bullet implements Movables {
 
     private Position position;
-    private int damage;
+    private int bulletDamage;
     private boolean isFired;
 
-    public Bullet() {
-        position = new Position(0,0, );
-        damage = 10;
+    public Bullet(Position position) {
+        this.position = position;
+        bulletDamage = 10;
     }
 
     @Override
     public void move(Direction direction) {
+
+        //TODO: IMPLEMENT BULLET MOVEMENT
 
     }
 
@@ -22,12 +24,22 @@ public class Bullet implements Movables {
         return position;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
     public boolean isFired() {
         return isFired;
     }
+
+    public void setFired(boolean fired) {
+        if(!fired) {
+            position.hide();
+        }
+        if (fired) {
+            //TODO: PLAYER NEEDS TO SET POSITION TO WHERE HE IS SHOOTING
+            position.show();
+        }
+        isFired = fired;
+    }
+
+    public int getBulletDamage() {
+        return bulletDamage;
+    }
 }
-*/

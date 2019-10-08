@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.stringrays.frontbattle.Field;
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
-public class Player implements Movables{
+public class Player implements Movables {
 
     private Position position;
     private String name;
@@ -16,6 +16,10 @@ public class Player implements Movables{
         this.name = name;
         this.position = position;
         position.setColor(color);
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     public Position getPosition() {
