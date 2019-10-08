@@ -1,8 +1,10 @@
-package org.academiadecodigo.stringrays.frontbattle;
+package org.academiadecodigo.stringrays.frontbattle.Movables;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Field;
+import org.academiadecodigo.stringrays.frontbattle.Position;
 
-public class Player {
+public class Player implements Movables{
 
     private Position position;
     private String name;
@@ -13,7 +15,7 @@ public class Player {
     public Player(String name, Position position, Color color) {
         this.name = name;
         health = 100;
-        Rectangle player = new Rectangle(position.getX(), position.getY(), 30, 30);
+        Rectangle player = new Rectangle(position.getCol(), position.getRow(), Field.cellSize, Field.cellSize);
         player.setColor(color);
         player.fill();
         bullets = new Bullet[100];
@@ -23,12 +25,27 @@ public class Player {
     }
 
     public void attack() {
-        //set bullet position & translate
-        //set bullet move to true
+
     }
 
-    public void move() {
-        //player set pos
+    @Override
+    public void moveUp() {
+
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void moveRight() {
+
     }
 
     public void hit(int damage) {

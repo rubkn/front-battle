@@ -1,6 +1,8 @@
-package org.academiadecodigo.stringrays.frontbattle;
+package org.academiadecodigo.stringrays.frontbattle.Movables;
 
-public class Bullet {
+import org.academiadecodigo.stringrays.frontbattle.Position;
+
+public class Bullet implements Movables {
 
     private Position position;
     private int damage;
@@ -9,6 +11,26 @@ public class Bullet {
     public Bullet() {
         position = new Position(0, 0);
         damage = 10;
+    }
+
+    @Override
+    public void moveUp() {
+
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void moveRight() {
+
     }
 
     public Position getPosition() {

@@ -3,25 +3,22 @@ package org.academiadecodigo.stringrays.frontbattle;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 
 public class Game implements KeyboardHandler {
 
 
     private Player player1;
     private Player player2;
-    private Rectangle border;
     private int padding = 10;
-    private Rectangle field;
+    private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
 
     public void creation() {
-        border = new Rectangle(padding, padding, 1000, 800);
-        border.fill();
-        field = new Rectangle(padding + 10, padding + 10, 980, 780);
-        field.setColor(Color.LIGHT_GRAY);
-        field.fill();
-        player1 = new Player("Player1", new Position(field.getX() + padding, field.getHeight() / 2), Color.BLUE);
-        player2 = new Player("Player2", new Position(field.getWidth() - padding * 2, field.getHeight() / 2), Color.GREEN);
+        field = new Field(25,25);
+        field.init();
+        player1 = new Player("player1", new Position(field.getX() + Field.PADDING,field.getHeight()/2), Color.ORANGE);
+        player2 = new Player("player2", new Position(field.getWidth() - field.getCellSize(), field.getHeight()/2), Color.RED);
     }
 
     public void gameStart() {
@@ -33,31 +30,40 @@ public class Game implements KeyboardHandler {
     }
 
     public void moveAll() {
-        //move all objects
     }
 
     @Override
     public void keyPressed(KeyboardEvent e) {
         switch (e.getKey()) {
             case (KeyboardEvent.KEY_W):
+                wKey = true;
                 break;
             case (KeyboardEvent.KEY_A):
+                aKey = true;
                 break;
             case (KeyboardEvent.KEY_S):
+                sKey = true;
                 break;
             case (KeyboardEvent.KEY_D):
+                dKey = true;
                 break;
             case (KeyboardEvent.KEY_SPACE):
+                spaceKey = true;
                 break;
             case (KeyboardEvent.KEY_UP):
+                upKey = true;
                 break;
             case (KeyboardEvent.KEY_LEFT):
+                leftKey = true;
                 break;
             case (KeyboardEvent.KEY_DOWN):
+                downKey = true;
                 break;
             case (KeyboardEvent.KEY_RIGHT):
+                rightKey = true;
                 break;
             case (KeyboardEvent.KEY_P):
+                pKey = true;
                 break;
         }
     }
@@ -66,24 +72,28 @@ public class Game implements KeyboardHandler {
     public void keyReleased(KeyboardEvent e) {
         switch (e.getKey()) {
             case (KeyboardEvent.KEY_W):
+                wKey = false;
                 break;
             case (KeyboardEvent.KEY_A):
+                aKey = false;
                 break;
             case (KeyboardEvent.KEY_S):
+                sKey = false;
                 break;
             case (KeyboardEvent.KEY_D):
-                break;
-            case (KeyboardEvent.KEY_SPACE):
+                dKey = false;
                 break;
             case (KeyboardEvent.KEY_UP):
+                upKey = false;
                 break;
             case (KeyboardEvent.KEY_LEFT):
+                leftKey = false;
                 break;
             case (KeyboardEvent.KEY_DOWN):
+                downKey = false;
                 break;
             case (KeyboardEvent.KEY_RIGHT):
-                break;
-            case (KeyboardEvent.KEY_P):
+                rightKey = false;
                 break;
         }
 

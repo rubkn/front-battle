@@ -2,19 +2,24 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 public class Position {
 
-    private int x;
-    private int y;
+    private int col;
+    private int row;
 
-    public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Position(int col, int row) {
+        this.col = col;
+        this.row = row;
     }
 
-    public int getX() {
-        return x;
+    public void setPos(int col, int row) {
+        this.col = col;
+        this.row = row;
     }
 
-    public int getY() {
-        return y;
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
     }
 }
