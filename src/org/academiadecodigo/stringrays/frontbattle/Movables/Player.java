@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.stringrays.frontbattle.Field;
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
-public class Player implements Movables{
+public class Player implements Movables {
 
     private Position position;
     private String name;
@@ -20,6 +20,10 @@ public class Player implements Movables{
         /*for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new Bullet();
         }*/
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     public void attack() {

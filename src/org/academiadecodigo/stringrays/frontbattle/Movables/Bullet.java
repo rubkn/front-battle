@@ -1,16 +1,18 @@
-/*package org.academiadecodigo.stringrays.frontbattle.Movables;
+package org.academiadecodigo.stringrays.frontbattle.Movables;
 
+import org.academiadecodigo.stringrays.frontbattle.Field;
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
 public class Bullet implements Movables {
 
     private Position position;
-    private int damage;
+    private int bulletDamage;
     private boolean isFired;
+    private Field field;
 
-    public Bullet() {
-        position = new Position(0,0, );
-        damage = 10;
+    public Bullet(Position position) {
+        this.position = position;
+        bulletDamage = 10;
     }
 
     @Override
@@ -29,5 +31,12 @@ public class Bullet implements Movables {
     public boolean isFired() {
         return isFired;
     }
+
+    public void setFired(boolean fired) {
+        isFired = fired;
+    }
+
+    public int getBulletDamage() {
+        return bulletDamage;
+    }
 }
-*/

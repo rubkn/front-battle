@@ -15,7 +15,6 @@ public class Position {
         this.field = field;
         rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
         rectangle.setColor(Color.RED);
-        rectangle.fill();
     }
 
     public void setPos(int col, int row) {

@@ -3,6 +3,7 @@ package org.academiadecodigo.stringrays.frontbattle;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 
@@ -15,19 +16,40 @@ public class Game implements KeyboardHandler {
     private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
 
+    private Bullet[] bullet;
+
     public void creation() {
         field = new Field(25,25);
         field.init();
+
         player1 = new Player("player1", new Position(15,15, field), Color.ORANGE);
+        player1.getPosition().show();
+
+        //bullets
+        bullet = new Bullet[100];
+        for (int i = 0; i < bullet.length; i++) {
+            bullet[i] = new Bullet(new Position(15, 15, field));
+        }
 
     }
 
-    public void gameStart() {
-
+    public void gameStart() throws Exception {
+        while (true) {
+            moveAll();
+            checkCollisions();
+        }
     }
 
-    public void collide() {
-        //verify if pos equals pos
+    public void checkCollisions() {
+
+        for (int i = 0; i < bullet.length; i++) {
+            if(!bullet[i].isFired()) {
+                continue;
+            }
+            if (player1.getPosition().equals(bullet[i].getPosition())) {
+                player1.hit(bullet[i].getBulletDamage());
+            }
+        }
     }
 
     public void moveAll() throws InterruptedException{
