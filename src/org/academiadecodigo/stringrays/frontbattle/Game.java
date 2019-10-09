@@ -25,13 +25,13 @@ public class Game implements KeyboardHandler {
     //private List<Bullet> bullets;
 
     public void creation() {
-        field = new Field(40, 40);
+        field = new Field(80, 80);
         field.init();
         player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
         player1.getPosition().show();
         player2 = new Player("player2", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
         player2.getPosition().show();
-        bullets = new Bullet[100];
+        bullets = new Bullet[1000];
         //bullets = new LinkedList<>();
 
     }
@@ -41,7 +41,7 @@ public class Game implements KeyboardHandler {
         keyboardKeys();
 
         while (true) {
-            Thread.sleep(50);
+            Thread.sleep(30);
             checkCollisions();
             movePlayers();
             createBullets();
@@ -107,7 +107,7 @@ public class Game implements KeyboardHandler {
             }
         }
 
-        if (bulletCounter >= 99) {
+        if (bulletCounter >= 999) {
             bulletCounter = 0;
         }
     }
