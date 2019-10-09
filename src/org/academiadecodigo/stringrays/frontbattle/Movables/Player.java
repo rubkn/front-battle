@@ -55,8 +55,8 @@ public class Player implements Movables {
 
     public void hit(int damage) {
         health -= damage;
-        position.hide();
-        position.show();
+        //position.hide();
+        //position.show();
         if (health <= 0) position.hide();
         destroyed = true;
 

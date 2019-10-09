@@ -21,8 +21,10 @@ public class Game implements KeyboardHandler {
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
     private int bulletCounter;
+    private boolean bulletDelay = true;
     private Bullet[] bullets;
     //private List<Bullet> bullets;
+
 
     public void creation() {
         field = new Field(80, 80);
@@ -44,8 +46,11 @@ public class Game implements KeyboardHandler {
             Thread.sleep(30);
             checkCollisions();
             movePlayers();
-            createBullets();
+            if (bulletDelay) {
+                createBullets();
+            }
             moveBullets();
+            bulletDelay = !bulletDelay;
         }
     }
 
