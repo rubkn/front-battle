@@ -10,25 +10,27 @@ public class Player implements Movables {
     private String name;
     private int health = 100;
     private boolean destroyed;
+    private Field field;
 
-    public Player(String name, Position position, Color color) {
+    public Player(String name, Position position, Color color, Field field) {
         this.name = name;
         this.position = position;
         position.setColor(color);
+        this.field = field;
     }
 
     public Position getPosition() {
         return position;
     }
 
-    public void attack(Direction direction) {
-
-        }
+    public Bullet attack() {
+        return new Bullet(new Position(position.getCol(), position.getRow(), field));
+    }
 
     @Override
     public void move(Direction direction) {
 
-        switch (direction) {
+        switch (direction){
             case UP:
                 position.moveUp();
                 break;

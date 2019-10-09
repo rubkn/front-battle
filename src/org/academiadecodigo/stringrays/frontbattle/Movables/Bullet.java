@@ -16,7 +16,20 @@ public class Bullet implements Movables {
     @Override
     public void move(Direction direction) {
 
-        //TODO: IMPLEMENT BULLET MOVEMENT
+        switch (direction) {
+            case UP:
+                position.moveUp();
+                break;
+            case DOWN:
+                position.moveDown();
+                break;
+            case LEFT:
+                position.moveLeft();
+                break;
+            case RIGHT:
+                position.moveRight();
+                break;
+        }
 
     }
 
