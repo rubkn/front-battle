@@ -48,6 +48,7 @@ public class Player implements Movables {
 
     public void hit(int damage) {
         health -= damage;
+        System.out.println(health);
     }
 
     public boolean isDestroyed() {

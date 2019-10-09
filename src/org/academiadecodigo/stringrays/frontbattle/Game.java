@@ -36,8 +36,9 @@ public class Game implements KeyboardHandler {
         keyboardKeys();
 
         while (true) {
-            Thread.sleep(100);
+            Thread.sleep(50);
             movePlayers();
+            createBullets();
             moveBullets();
             checkCollisions();
         }
@@ -73,7 +74,10 @@ public class Game implements KeyboardHandler {
                 player2.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
             }
+        }
 
+        if (bulletCounter >= 100) {
+            bulletCounter = 0;
         }
     }
 
@@ -134,12 +138,20 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public void moveBullets() {
+    public void createBullets() {
         if (spaceKey) {
             bullets[bulletCounter] = player1.attack();
             bullets[bulletCounter].setFired(true);
-            bullets[bulletCounter].move(Direction.RIGHT);
             bulletCounter++;
+        }
+    }
+
+    public void moveBullets() {
+
+        for (int i = 0; i < bulletCounter; i++) {
+            if (bullets[i].isFired()) {
+                bullets[i].move(Direction.RIGHT);
+            }
         }
     }
 
