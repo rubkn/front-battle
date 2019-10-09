@@ -39,7 +39,8 @@ public class Game implements KeyboardHandler {
 
         while (true) {
             Thread.sleep(100);
-            movePlayers(); //TODO: SEPARATE MOVE ALL TO MOVE PLAYERS AND MOVE BULLETS
+            movePlayers();
+            moveBullets();
             checkCollisions();
         }
     }
