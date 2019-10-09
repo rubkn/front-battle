@@ -145,30 +145,54 @@ public class Game implements KeyboardHandler {
 
     public void movePlayers() {
 
-        if (upKey) {
-            player2.getPosition().moveUp();
-        }
-        if (downKey) {
-            player2.getPosition().moveDown();
-        }
-        if (rightKey) {
-            player2.getPosition().moveRight();
-        }
-        if (leftKey) {
-            player2.getPosition().moveLeft();
-        }
-        if (wKey) {
-            player1.getPosition().moveUp();
-        }
-        if (sKey) {
-            player1.getPosition().moveDown();
-        }
-        if (aKey) {
-            player1.getPosition().moveLeft();
-        }
-        if (dKey) {
-            player1.getPosition().moveRight();
-        }
+            if (upKey) {
+                if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
+                        player2.getPosition().getRow() != player1.getPosition().getRow() + 1) {
+                    player2.getPosition().moveUp();
+                }
+            }
+            if (downKey) {
+                if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
+                        player2.getPosition().getRow() != player1.getPosition().getRow() - 1) {
+                    player2.getPosition().moveDown();
+                }
+            }
+            if (rightKey) {
+                if (player2.getPosition().getCol() != player1.getPosition().getCol() - 1 ||
+                        player2.getPosition().getRow() != player1.getPosition().getRow()) {
+                    player2.getPosition().moveRight();
+                }
+            }
+            if (leftKey) {
+                if (player2.getPosition().getCol() != player1.getPosition().getCol() + 1 ||
+                        player2.getPosition().getRow() != player1.getPosition().getRow()) {
+                    player2.getPosition().moveLeft();
+                }
+            }
+            if (wKey) {
+                if (player1.getPosition().getCol() != player2.getPosition().getCol()||
+                        player1.getPosition().getRow() != player2.getPosition().getRow() + 1) {
+                    player1.getPosition().moveUp();
+                }
+            }
+            if (sKey) {
+                if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
+                        player1.getPosition().getRow() != player2.getPosition().getRow() - 1) {
+                    player1.getPosition().moveDown();
+                }
+            }
+            if (aKey) {
+                if (player1.getPosition().getCol() != player2.getPosition().getCol() + 1 ||
+                        player1.getPosition().getRow() != player2.getPosition().getRow()) {
+                    player1.getPosition().moveLeft();
+                }
+            }
+            if (dKey) {
+                if (player1.getPosition().getCol() != player2.getPosition().getCol() - 1 ||
+                        player1.getPosition().getRow() != player2.getPosition().getRow()) {
+                    player1.getPosition().moveRight();
+                }
+            }
     }
 
     public void createBullets() {
