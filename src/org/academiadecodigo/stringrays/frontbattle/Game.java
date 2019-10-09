@@ -81,6 +81,8 @@ public class Game implements KeyboardHandler {
                 continue;
             }
 
+            //TODO CHECK BULLET POSITIONS TO SETFIRED = FALSE
+
             //check if bullet is out of range by left or right side of screen
             if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getCols()) {
                 bullets[i].setFired(false);
