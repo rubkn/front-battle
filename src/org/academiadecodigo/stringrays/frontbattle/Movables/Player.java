@@ -11,12 +11,14 @@ public class Player implements Movables {
     private int health = 100;
     private boolean destroyed;
     private Field field;
+    private Direction direction;
 
-    public Player(String name, Position position, Color color, Field field) {
+    public Player(String name, Position position, Color color, Field field, Direction direction) {
         this.name = name;
         this.position = position;
         position.setColor(color);
         this.field = field;
+        this.direction = direction;
     }
 
     public Position getPosition() {
@@ -24,7 +26,11 @@ public class Player implements Movables {
     }
 
     public Bullet attack() {
-        return new Bullet(new Position(position.getCol(), position.getRow(), field));
+        return new Bullet(new Position(position.getCol(), position.getRow(), field), direction);
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override
@@ -48,9 +54,11 @@ public class Player implements Movables {
 
     public void hit(int damage) {
         health -= damage;
+        if (health <= 0) position.hide();
+        destroyed = true;
     }
 
     public boolean isDestroyed() {
-        return false;
+        return destroyed;
     }
 }

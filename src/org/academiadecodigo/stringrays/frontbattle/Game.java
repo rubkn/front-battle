@@ -25,11 +25,11 @@ public class Game implements KeyboardHandler {
     //private List<Bullet> bullets;
 
     public void creation() {
-        field = new Field(25, 25);
+        field = new Field(40, 40);
         field.init();
-        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field);
+        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
         player1.getPosition().show();
-        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED, field);
+        player2 = new Player("player2", new Position(39, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
         player2.getPosition().show();
         bullets = new Bullet[100];
         //bullets = new LinkedList<>();
@@ -104,7 +104,7 @@ public class Game implements KeyboardHandler {
             }
         }
 
-        if (bulletCounter >= 100) {
+        if (bulletCounter >= 99) {
             bulletCounter = 0;
         }
     }
@@ -135,6 +135,8 @@ public class Game implements KeyboardHandler {
         addKeyboardEvent(KeyboardEvent.KEY_D, KeyboardEventType.KEY_RELEASED);
         addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_PRESSED);
         addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_P, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_P, KeyboardEventType.KEY_RELEASED);
 
     }
 
@@ -172,6 +174,12 @@ public class Game implements KeyboardHandler {
             bullets[bulletCounter].setFired(true);
             bulletCounter++;
         }
+
+        if (pKey) {
+            bullets[bulletCounter] = player2.attack();
+            bullets[bulletCounter].setFired(true);
+            bulletCounter++;
+        }
     }
 
     public void moveBullets() {
@@ -183,7 +191,7 @@ public class Game implements KeyboardHandler {
             }
 
             if (bullets[i].isFired()) {
-                bullets[i].move(Direction.RIGHT);
+                bullets[i].move();
             }
         }
     }
@@ -193,30 +201,38 @@ public class Game implements KeyboardHandler {
 
         switch (e.getKey()) {
             case (KeyboardEvent.KEY_W):
+                player1.setDirection(Direction.UP);
                 wKey = true;
                 break;
             case (KeyboardEvent.KEY_A):
+                player1.setDirection(Direction.LEFT);
                 aKey = true;
                 break;
             case (KeyboardEvent.KEY_S):
+                player1.setDirection(Direction.DOWN);
                 sKey = true;
                 break;
             case (KeyboardEvent.KEY_D):
+                player1.setDirection(Direction.RIGHT);
                 dKey = true;
                 break;
             case (KeyboardEvent.KEY_SPACE):
                 spaceKey = true;
                 break;
             case (KeyboardEvent.KEY_UP):
+                player2.setDirection(Direction.UP);
                 upKey = true;
                 break;
             case (KeyboardEvent.KEY_LEFT):
+                player2.setDirection(Direction.LEFT);
                 leftKey = true;
                 break;
             case (KeyboardEvent.KEY_DOWN):
+                player2.setDirection(Direction.DOWN);
                 downKey = true;
                 break;
             case (KeyboardEvent.KEY_RIGHT):
+                player2.setDirection(Direction.RIGHT);
                 rightKey = true;
                 break;
             case (KeyboardEvent.KEY_P):
@@ -255,6 +271,8 @@ public class Game implements KeyboardHandler {
             case (KeyboardEvent.KEY_RIGHT):
                 rightKey = false;
                 break;
+            case (KeyboardEvent.KEY_P):
+                pKey = false;
         }
 
     }

@@ -2,19 +2,20 @@ package org.academiadecodigo.stringrays.frontbattle.Movables;
 
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
-public class Bullet implements Movables {
+public class Bullet {
 
     private Position position;
     private int bulletDamage;
     private boolean isFired;
+    private Direction direction;
 
-    public Bullet(Position position) {
+    public Bullet(Position position, Direction direction) {
         this.position = position;
+        this.direction = direction;
         bulletDamage = 10;
     }
 
-    @Override
-    public void move(Direction direction) {
+    public void move() {
 
         switch (direction) {
             case UP:
