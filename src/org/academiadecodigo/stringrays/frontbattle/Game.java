@@ -82,12 +82,12 @@ public class Game implements KeyboardHandler {
             }
 
             //check if bullet is out of range by left or right side of screen
-            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getWidth() - Field.cellSize) {
+            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getCols()) {
                 bullets[i].setFired(false);
             }
 
             //check if bullet is out of range by top or lower side of screen
-            if (bullets[i].getPosition().getRow() < 0 || bullets[i].getPosition().getRow() > field.getHeight()) {
+            if (bullets[i].getPosition().getRow() < 0 || bullets[i].getPosition().getRow() > field.getRows()) {
                 bullets[i].setFired(false);
             }
 
@@ -116,7 +116,7 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(event);
     }
 
-    public void keyboardKeys() throws InterruptedException {
+    public void keyboardKeys() {
         addKeyboardEvent(KeyboardEvent.KEY_UP, KeyboardEventType.KEY_PRESSED);
         addKeyboardEvent(KeyboardEvent.KEY_UP, KeyboardEventType.KEY_RELEASED);
         addKeyboardEvent(KeyboardEvent.KEY_DOWN, KeyboardEventType.KEY_PRESSED);

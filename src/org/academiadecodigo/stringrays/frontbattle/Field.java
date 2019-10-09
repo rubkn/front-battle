@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Field{
 
-    public static final int cellSize = 20;
+    public static final int cellSize = 10;
     public static final int PADDING = 10;
     private Rectangle field;
     private int cols;
