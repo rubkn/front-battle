@@ -2,6 +2,8 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
 
+import java.io.PipedOutputStream;
+
 public class Position {
 
     private int col;
@@ -47,18 +49,21 @@ public class Position {
 
     public void moveUp() {
         if(rectangle.getY() > field.getY()) {
+            row--;
             rectangle.translate(0, -1*Field.cellSize);
         }
     }
 
     public void moveDown() {
         if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
+            row++;
             rectangle.translate(0, 1*Field.cellSize);
         }
     }
 
     public void moveLeft() {
         if(rectangle.getX() > field.getX()) {
+            col--;
             rectangle.translate(-1*Field.cellSize, 0);
         }
 
@@ -66,8 +71,13 @@ public class Position {
 
     public void moveRight() {
         if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
+            col++;
             rectangle.translate(1*Field.cellSize, 0);
         }
 
+    }
+
+    public boolean equals(Position position) {
+        return this.col == position.getCol() && this.row == position.getRow() ? true : false;
     }
 }

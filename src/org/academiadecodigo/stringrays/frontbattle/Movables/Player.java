@@ -10,11 +10,13 @@ public class Player implements Movables {
     private String name;
     private int health = 100;
     private boolean destroyed;
+    private Field field;
 
-    public Player(String name, Position position, Color color) {
+    public Player(String name, Position position, Color color, Field field) {
         this.name = name;
         this.position = position;
         position.setColor(color);
+        this.field = field;
     }
 
     public Position getPosition() {

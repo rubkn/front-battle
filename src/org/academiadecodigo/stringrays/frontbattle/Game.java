@@ -25,7 +25,7 @@ public class Game implements KeyboardHandler {
         field.init();
         player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field);
         player1.getPosition().show();
-        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED,field);
+        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED, field);
         player2.getPosition().show();
         bullets = new Bullet[100];
 
@@ -39,13 +39,13 @@ public class Game implements KeyboardHandler {
             Thread.sleep(100);
             movePlayers();
             moveBullets();
-            //checkCollisions();
+            checkCollisions();
         }
     }
 
     public void checkCollisions() {
 
-        for (int i = 0; i < bullets.length; i++) {
+        for (int i = 0; i < bulletCounter ; i++) {
 
             //if bullet is not fired continue to next bullet
             if (!bullets[i].isFired()) {
