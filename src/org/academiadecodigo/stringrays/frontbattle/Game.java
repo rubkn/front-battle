@@ -29,7 +29,7 @@ public class Game implements KeyboardHandler {
         field.init();
         player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
         player1.getPosition().show();
-        player2 = new Player("player2", new Position(39, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
+        player2 = new Player("player2", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
         player2.getPosition().show();
         bullets = new Bullet[100];
         //bullets = new LinkedList<>();
@@ -42,14 +42,15 @@ public class Game implements KeyboardHandler {
 
         while (true) {
             Thread.sleep(50);
+            checkCollisions();
             movePlayers();
             createBullets();
             moveBullets();
-            checkCollisions();
         }
     }
 
     public void checkCollisions() {
+
 
         //TODO: CHANGE BULLET ARRAY TO LIST
         /*
@@ -84,12 +85,12 @@ public class Game implements KeyboardHandler {
             //TODO CHECK BULLET POSITIONS TO SETFIRED = FALSE
 
             //check if bullet is out of range by left or right side of screen
-            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getCols()) {
+            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
                 bullets[i].setFired(false);
             }
 
             //check if bullet is out of range by top or lower side of screen
-            if (bullets[i].getPosition().getRow() < 0 || bullets[i].getPosition().getRow() > field.getRows()) {
+            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
                 bullets[i].setFired(false);
             }
 

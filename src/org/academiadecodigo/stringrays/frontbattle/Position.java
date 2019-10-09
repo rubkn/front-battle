@@ -1,6 +1,7 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
 import java.io.PipedOutputStream;
 
@@ -48,21 +49,24 @@ public class Position {
     }
 
     public void moveUp() {
-        if(rectangle.getY() > field.getY()) {
+        //if(rectangle.getY() > field.getY()) {
+        if (row > 0) {
             row--;
             rectangle.translate(0, -1*Field.cellSize);
         }
     }
 
     public void moveDown() {
-        if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
+        //if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
+        if (row < field.getRows() - 1) {
             row++;
             rectangle.translate(0, 1*Field.cellSize);
         }
     }
 
     public void moveLeft() {
-        if(rectangle.getX() > field.getX()) {
+       // if(rectangle.getX() > field.getX()) {
+        if (col > 0) {
             col--;
             rectangle.translate(-1*Field.cellSize, 0);
         }
@@ -70,9 +74,11 @@ public class Position {
     }
 
     public void moveRight() {
-        if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
+        //if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
+        if (col < field.getCols() - 1) {
             col++;
             rectangle.translate(1*Field.cellSize, 0);
+
         }
 
     }
