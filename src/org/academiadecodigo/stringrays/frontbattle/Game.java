@@ -9,6 +9,9 @@ import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
+//import java.util.LinkedList;
+//import java.util.List;
+
 public class Game implements KeyboardHandler {
 
 
@@ -17,8 +20,9 @@ public class Game implements KeyboardHandler {
     private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
-    private Bullet[] bullets;
     private int bulletCounter;
+    private Bullet[] bullets;
+    //private List<Bullet> bullets;
 
     public void creation() {
         field = new Field(25, 25);
@@ -28,6 +32,7 @@ public class Game implements KeyboardHandler {
         player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED, field);
         player2.getPosition().show();
         bullets = new Bullet[100];
+        //bullets = new LinkedList<>();
 
     }
 
@@ -46,7 +51,30 @@ public class Game implements KeyboardHandler {
 
     public void checkCollisions() {
 
-        for (int i = 0; i < bulletCounter ; i++) {
+        //TODO: CHANGE BULLET ARRAY TO LIST
+        /*
+        System.out.println(bulletCounter);
+
+        Iterator<Bullet> bulletIterator = bullets.iterator();
+
+        while (bulletIterator.hasNext()) {
+            Bullet bullet = bulletIterator.next();
+
+            if bulletIterator.next()
+
+            if () {
+                bulletIterator.remove();
+            }
+
+        }
+        */
+
+        for (int i = 0; i < bullets.length; i++) {
+
+            //if position is null continue
+            if (bullets[i] == null) {
+                continue;
+            }
 
             //if bullet is not fired continue to next bullet
             if (!bullets[i].isFired()) {
@@ -81,7 +109,7 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public void addKeyboardEvent(int key, KeyboardEventType type) throws InterruptedException {
+    public void addKeyboardEvent(int key, KeyboardEventType type) {
         KeyboardEvent event = new KeyboardEvent();
         event.setKey(key);
         event.setKeyboardEventType(type);
@@ -110,7 +138,7 @@ public class Game implements KeyboardHandler {
 
     }
 
-    public void movePlayers() throws InterruptedException {
+    public void movePlayers() {
 
         if (upKey) {
             player2.getPosition().moveUp();
@@ -148,7 +176,12 @@ public class Game implements KeyboardHandler {
 
     public void moveBullets() {
 
-        for (int i = 0; i < bulletCounter; i++) {
+        for (int i = 0; i < bullets.length; i++) {
+
+            if (bullets[i] == null) {
+                continue;
+            }
+
             if (bullets[i].isFired()) {
                 bullets[i].move(Direction.RIGHT);
             }
