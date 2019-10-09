@@ -21,8 +21,7 @@ public class Player implements Movables {
         return position;
     }
 
-    public void attack(Direction direction) {
-
+    public Bullet attack(Direction direction) {
         }
 
     @Override

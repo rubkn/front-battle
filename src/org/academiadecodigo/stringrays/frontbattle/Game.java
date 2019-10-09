@@ -79,7 +79,6 @@ public class Game implements KeyboardHandler {
         }
     }
 
-
     public void addKeyboardEvent(int key, KeyboardEventType type) throws InterruptedException {
         KeyboardEvent event = new KeyboardEvent();
         event.setKey(key);
@@ -108,7 +107,6 @@ public class Game implements KeyboardHandler {
         addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_RELEASED);
 
     }
-
 
     public void movePlayers() throws InterruptedException {
 
