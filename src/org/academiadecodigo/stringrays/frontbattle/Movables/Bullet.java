@@ -35,6 +35,9 @@ public class Bullet implements Movables {
         if (fired) {
             //TODO: PLAYER NEEDS TO SET POSITION TO WHERE HE IS SHOOTING
             position.show();
+            /*while (fired) {
+                position.moveRight();
+            }*/
         }
         isFired = fired;
     }

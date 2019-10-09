@@ -5,7 +5,6 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
@@ -18,18 +17,19 @@ public class Game implements KeyboardHandler {
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
     private Bullet[] bullets;
+    private int bulletCounter;
 
     public void creation() {
         field = new Field(25, 25);
         field.init();
-        player1 = new Player("player1", new Position( 1,field.getRows()/2, field), Color.BLUE);
+        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE);
         player1.getPosition().show();
-        player2 = new Player("player1", new Position( 23,field.getRows()/2, field), Color.RED);
+        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED);
         player2.getPosition().show();
 
         bullets = new Bullet[100];
         for (int i = 0; i < bullets.length; i++) {
-            bullets[i] = new Bullet(new Position(0,0,field));
+            bullets[i] = new Bullet(new Position(0, 0, field));
         }
     }
 
@@ -39,7 +39,7 @@ public class Game implements KeyboardHandler {
 
         while (true) {
             Thread.sleep(100);
-            moveAll();
+            movePlayers(); //TODO: SEPARATE MOVE ALL TO MOVE PLAYERS AND MOVE BULLETS
             checkCollisions();
         }
     }
@@ -49,12 +49,12 @@ public class Game implements KeyboardHandler {
         for (int i = 0; i < bullets.length; i++) {
 
             //if bullet is not fired continue to next bullet
-            if(!bullets[i].isFired()) {
+            if (!bullets[i].isFired()) {
                 continue;
             }
 
             //check if bullet is out of range by left or right side of screen
-            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getWidth()) {
+            if (bullets[i].getPosition().getCol() < 0 || bullets[i].getPosition().getCol() > field.getWidth() - Field.cellSize) {
                 bullets[i].setFired(false);
             }
 
@@ -109,7 +109,7 @@ public class Game implements KeyboardHandler {
     }
 
 
-    public void moveAll() throws InterruptedException {
+    public void movePlayers() throws InterruptedException {
 
         if (upKey) {
             player2.getPosition().moveUp();
@@ -135,24 +135,31 @@ public class Game implements KeyboardHandler {
         if (dKey) {
             player1.getPosition().moveRight();
         }
+    }
+
+    public void moveBullets() {
         if (spaceKey) {
-            for (int i = 0; i < bullets.length; i++) {
-                if (!bullets[i].isFired()) {
-                    int oldCol = bullets[i].getPosition().getCol();
-                    int oldRow = bullets[i].getPosition().getRow();
-
-                    bullets[i].getPosition().setPos(player1.getPosition().getCol(), player1.getPosition().getRow());
-
-                    int newCol = bullets[i].getPosition().getCol() - oldCol;
-                    int newRow = bullets[i].getPosition().getRow() - oldRow;
-
-                    bullets[i].getPosition().getRectangle().translate(field.columnToX(newCol), field.rowToY(newRow));
-
-                    bullets[i].setFired(true);
-                    bullets[i].getPosition().moveRight();
-
-                    break;
+            /*for (int i = bulletCounter; i < bullets.length; i++) {
+                if (bullets[i].isFired()) {
+                    continue;
                 }
+                */
+
+            if (!bullets[bulletCounter].isFired()) {
+                System.out.println("Bullet " + bulletCounter);
+                int oldCol = bullets[bulletCounter].getPosition().getCol();
+                int oldRow = bullets[bulletCounter].getPosition().getRow();
+
+                bullets[bulletCounter].getPosition().setPos(player1.getPosition().getCol(), player1.getPosition().getRow());
+
+                int newCol = bullets[bulletCounter].getPosition().getCol() - oldCol;
+                int newRow = bullets[bulletCounter].getPosition().getRow() - oldRow;
+
+                bullets[bulletCounter].getPosition().getRectangle().translate(field.columnToX(newCol), field.rowToY(newRow));
+
+                bullets[bulletCounter].setFired(true);
+                //bullets[i].getPosition().moveRight();
+                bulletCounter++;
             }
         }
     }

@@ -10,7 +10,6 @@ public class Player implements Movables {
     private String name;
     private int health = 100;
     private boolean destroyed;
-    //private Bullet[] bullets;
 
     public Player(String name, Position position, Color color) {
         this.name = name;
