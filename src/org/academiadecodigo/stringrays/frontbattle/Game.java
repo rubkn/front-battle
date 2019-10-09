@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
@@ -22,15 +23,12 @@ public class Game implements KeyboardHandler {
     public void creation() {
         field = new Field(25, 25);
         field.init();
-        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE);
+        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field);
         player1.getPosition().show();
-        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED);
+        player2 = new Player("player1", new Position(23, field.getRows() / 2, field), Color.RED,field);
         player2.getPosition().show();
-
         bullets = new Bullet[100];
-        for (int i = 0; i < bullets.length; i++) {
-            bullets[i] = new Bullet(new Position(0, 0, field));
-        }
+
     }
 
     public void gameStart() throws InterruptedException {
@@ -41,7 +39,7 @@ public class Game implements KeyboardHandler {
             Thread.sleep(100);
             movePlayers();
             moveBullets();
-            checkCollisions();
+            //checkCollisions();
         }
     }
 
@@ -138,28 +136,10 @@ public class Game implements KeyboardHandler {
 
     public void moveBullets() {
         if (spaceKey) {
-            /*for (int i = bulletCounter; i < bullets.length; i++) {
-                if (bullets[i].isFired()) {
-                    continue;
-                }
-                */
-
-            if (!bullets[bulletCounter].isFired()) {
-                System.out.println("Bullet " + bulletCounter);
-                int oldCol = bullets[bulletCounter].getPosition().getCol();
-                int oldRow = bullets[bulletCounter].getPosition().getRow();
-
-                bullets[bulletCounter].getPosition().setPos(player1.getPosition().getCol(), player1.getPosition().getRow());
-
-                int newCol = bullets[bulletCounter].getPosition().getCol() - oldCol;
-                int newRow = bullets[bulletCounter].getPosition().getRow() - oldRow;
-
-                bullets[bulletCounter].getPosition().getRectangle().translate(field.columnToX(newCol), field.rowToY(newRow));
-
-                bullets[bulletCounter].setFired(true);
-                //bullets[i].getPosition().moveRight();
-                bulletCounter++;
-            }
+            bullets[bulletCounter] = player1.attack();
+            bullets[bulletCounter].setFired(true);
+            bullets[bulletCounter].move(Direction.RIGHT);
+            bulletCounter++;
         }
     }
 
@@ -214,6 +194,9 @@ public class Game implements KeyboardHandler {
                 break;
             case (KeyboardEvent.KEY_D):
                 dKey = false;
+                break;
+            case KeyboardEvent.KEY_SPACE:
+                spaceKey = false;
                 break;
             case (KeyboardEvent.KEY_UP):
                 upKey = false;
