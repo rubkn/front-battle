@@ -12,6 +12,7 @@ public class Player implements Movables {
     private boolean destroyed;
     private Field field;
     private Direction direction;
+    private Bullet bullet;
 
     public Player(String name, Position position, Color color, Field field, Direction direction) {
         this.name = name;
@@ -54,8 +55,11 @@ public class Player implements Movables {
 
     public void hit(int damage) {
         health -= damage;
+        position.hide();
+        position.show();
         if (health <= 0) position.hide();
         destroyed = true;
+
     }
 
     public boolean isDestroyed() {
