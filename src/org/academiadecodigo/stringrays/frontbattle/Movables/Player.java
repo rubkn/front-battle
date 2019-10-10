@@ -61,6 +61,38 @@ public class Player implements Movables {
 
     public void hit(int damage) {
         health -= damage;
+
+        switch (health) {
+            case 90:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/90health.png");
+                break;
+            case 80:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/80health.png");
+                break;
+            case 70:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/70health.png");
+                break;
+            case 60:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/60health.png");
+                break;
+            case 50:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/50health.png");
+                break;
+            case 40:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/40health.png");
+                break;
+            case 30:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/30health.png");
+                break;
+            case 20:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/20health.png");
+                break;
+            case 10:
+                healthPicture.load("/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/10health.png");
+                break;
+            case 0:
+                healthPicture.delete();
+        }
         //position.hide();
         //position.show();
         if (health <= 0) position.hide();

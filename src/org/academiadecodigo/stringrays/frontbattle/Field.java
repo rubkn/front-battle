@@ -2,6 +2,7 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Field{
 
@@ -10,6 +11,7 @@ public class Field{
     private Rectangle field;
     private int cols;
     private int rows;
+    private Picture fieldPicture;
 
 
     public Field(int cols, int rows){
@@ -21,6 +23,8 @@ public class Field{
         field = new Rectangle(PADDING,  PADDING, cols*cellSize, rows*cellSize);
         field.setColor(Color.LIGHT_GRAY);
         field.fill();
+        fieldPicture = new Picture(PADDING, PADDING, "/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/field.png");
+        fieldPicture.draw();
     }
 
     public int getCols() {
