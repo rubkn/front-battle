@@ -55,16 +55,13 @@ public class Player implements Movables {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void hit(int damage) {
         health -= damage;
         //position.hide();
         //position.show();
         if (health <= 0) position.hide();
         destroyed = true;
+
 
     }
 
@@ -76,4 +73,7 @@ public class Player implements Movables {
         return health;
     }
 
+    public String getName() {
+        return name;
+    }
 }

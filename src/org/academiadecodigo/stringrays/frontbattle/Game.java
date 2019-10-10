@@ -23,17 +23,30 @@ public class Game implements KeyboardHandler {
     private int bulletCounter;
     private boolean bulletDelay = true;
     private Bullet[] bullets;
+    //private Text playerOneHealth;
+    //private Text playerTwoHealth;
     //private List<Bullet> bullets;
 
 
     public void creation() {
         field = new Field(80, 80);
         field.init();
-        player1 = new Player("player1", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
+        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
         player1.getPosition().show();
-        player2 = new Player("player2", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
+        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
         player2.getPosition().show();
         bullets = new Bullet[1000];
+
+        //TODO: PLAYERS HEALTH SCORE BOARD
+
+        //Rectangle playerOneHealth = new Rectangle(Field.PADDING, field.getHeight() + Field.PADDING, player1.getHealth(), Field.PADDING );
+        //playerOneHealth.fill();
+
+        /*playerOneHealth = new Text(Field.PADDING, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
+        playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
+        playerOneHealth.draw();
+        playerTwoHealth.draw();*/
+
         //bullets = new LinkedList<>();
 
     }
@@ -51,22 +64,20 @@ public class Game implements KeyboardHandler {
             }
             moveBullets();
             bulletDelay = !bulletDelay;
-            //scoreBoard();
         }
     }
 
     //TODO: IMPLEMENT SCORE BOARD
 
+
     /*
     public void scoreBoard() {
-        Text playerOneHealth = new Text(100, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
-        playerOneHealth.setColor(Color.BLUE);
-        playerOneHealth.grow(10, 10);
-        playerOneHealth.draw();
 
-        Text playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
-        playerTwoHealth.setColor(Color.RED);
-        playerTwoHealth.grow(10, 10);
+        playerOneHealth.delete();
+        playerTwoHealth.delete();
+        playerOneHealth = new Text(Field.PADDING, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
+        playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
+        playerOneHealth.draw();
         playerTwoHealth.draw();
 
     }
@@ -165,55 +176,58 @@ public class Game implements KeyboardHandler {
 
     public void movePlayers() {
 
-            if (upKey) {
-                if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
-                        player2.getPosition().getRow() != player1.getPosition().getRow() + 1) {
-                    player2.getPosition().moveUp();
-                }
+        if (upKey) {
+            if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
+                    player2.getPosition().getRow() != player1.getPosition().getRow() + 1) {
+                player2.getPosition().moveUp();
             }
-            if (downKey) {
-                if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
-                        player2.getPosition().getRow() != player1.getPosition().getRow() - 1) {
-                    player2.getPosition().moveDown();
-                }
+        }
+        if (downKey) {
+            if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
+                    player2.getPosition().getRow() != player1.getPosition().getRow() - 1) {
+                player2.getPosition().moveDown();
             }
-            if (rightKey) {
-                if (player2.getPosition().getCol() != player1.getPosition().getCol() - 1 ||
-                        player2.getPosition().getRow() != player1.getPosition().getRow()) {
-                    player2.getPosition().moveRight();
-                }
+        }
+        if (rightKey) {
+            if (player2.getPosition().getCol() != player1.getPosition().getCol() - 1 ||
+                    player2.getPosition().getRow() != player1.getPosition().getRow()) {
+                player2.getPosition().moveRight();
             }
-            if (leftKey) {
-                if (player2.getPosition().getCol() != player1.getPosition().getCol() + 1 ||
-                        player2.getPosition().getRow() != player1.getPosition().getRow()) {
-                    player2.getPosition().moveLeft();
-                }
+        }
+        if (leftKey) {
+            if (player2.getPosition().getCol() != player1.getPosition().getCol() + 1 ||
+                    player2.getPosition().getRow() != player1.getPosition().getRow()) {
+                player2.getPosition().moveLeft();
             }
-            if (wKey) {
-                if (player1.getPosition().getCol() != player2.getPosition().getCol()||
-                        player1.getPosition().getRow() != player2.getPosition().getRow() + 1) {
-                    player1.getPosition().moveUp();
-                }
+        }
+        if (wKey) {
+            if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
+                    player1.getPosition().getRow() != player2.getPosition().getRow() + 1) {
+                player1.getPosition().moveUp();
             }
-            if (sKey) {
-                if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
-                        player1.getPosition().getRow() != player2.getPosition().getRow() - 1) {
-                    player1.getPosition().moveDown();
-                }
+        }
+        if (sKey) {
+            if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
+                    player1.getPosition().getRow() != player2.getPosition().getRow() - 1) {
+                player1.getPosition().moveDown();
             }
-            if (aKey) {
-                if (player1.getPosition().getCol() != player2.getPosition().getCol() + 1 ||
-                        player1.getPosition().getRow() != player2.getPosition().getRow()) {
-                    player1.getPosition().moveLeft();
-                }
+        }
+        if (aKey) {
+            if (player1.getPosition().getCol() != player2.getPosition().getCol() + 1 ||
+                    player1.getPosition().getRow() != player2.getPosition().getRow()) {
+                player1.getPosition().moveLeft();
             }
-            if (dKey) {
-                if (player1.getPosition().getCol() != player2.getPosition().getCol() - 1 ||
-                        player1.getPosition().getRow() != player2.getPosition().getRow()) {
-                    player1.getPosition().moveRight();
-                }
+        }
+        if (dKey) {
+            if (player1.getPosition().getCol() != player2.getPosition().getCol() - 1 ||
+                    player1.getPosition().getRow() != player2.getPosition().getRow()) {
+                player1.getPosition().moveRight();
             }
+        }
     }
+
+
+    //TODO: DELETE CREATEBULLETS() EXCEPTION AND IMPLEMENT A REAL METHOD FOR ROUND MANAGEMENT
 
     public void createBullets() {
         try {
@@ -228,13 +242,11 @@ public class Game implements KeyboardHandler {
                 bullets[bulletCounter].setFired(true);
                 bulletCounter++;
             }
-        }
-        catch (Exception exception) {
-            Text gameOver = new Text(field.getWidth()/2, field.getHeight()/2, "GAME OVER");
+        } catch (Exception exception) {
+            Text gameOver = new Text(field.getWidth() / 2, field.getHeight() / 2, "GAME OVER");
             gameOver.setColor(Color.BLACK);
             gameOver.grow(200, 40);
             gameOver.draw();
-            System.out.println("GAME OVER!");
         }
     }
 
