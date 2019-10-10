@@ -51,11 +51,28 @@ public class Game implements KeyboardHandler {
             }
             moveBullets();
             bulletDelay = !bulletDelay;
+            //scoreBoard();
         }
     }
 
-    public void checkCollisions() {
+    //TODO: IMPLEMENT SCORE BOARD
 
+    /*
+    public void scoreBoard() {
+        Text playerOneHealth = new Text(100, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
+        playerOneHealth.setColor(Color.BLUE);
+        playerOneHealth.grow(10, 10);
+        playerOneHealth.draw();
+
+        Text playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
+        playerTwoHealth.setColor(Color.RED);
+        playerTwoHealth.grow(10, 10);
+        playerTwoHealth.draw();
+
+    }
+    */
+
+    public void checkCollisions() {
 
         //TODO: CHANGE BULLET ARRAY TO LIST
         /*
@@ -86,8 +103,6 @@ public class Game implements KeyboardHandler {
             if (!bullets[i].isFired()) {
                 continue;
             }
-
-            //TODO CHECK BULLET POSITIONS TO SETFIRED = FALSE
 
             //check if bullet is out of range by left or right side of screen
             if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
