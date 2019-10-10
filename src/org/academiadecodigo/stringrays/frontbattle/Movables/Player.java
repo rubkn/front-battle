@@ -27,7 +27,24 @@ public class Player implements Movables {
 
     public Bullet attack() {
         if (health > 0) {
-            return new Bullet(new Position(position.getCol(), position.getRow(), field), direction);
+            switch (direction) {
+                case UP:
+                    if (position.getRow() != 0) {
+                        return new Bullet(new Position(position.getCol(), position.getRow() - 1, field), direction);
+                    }
+                case DOWN:
+                    if (position.getRow() != field.getRows() - 1) {
+                        return new Bullet(new Position(position.getCol(), position.getRow() + 1, field), direction);
+                    }
+                case LEFT:
+                    if (position.getCol() != 0) {
+                        return new Bullet(new Position(position.getCol() - 1, position.getRow(), field), direction);
+                    }
+                case RIGHT:
+                    if (position.getCol() != field.getRows() - 1) {
+                    return new Bullet(new Position(position.getCol() + 1, position.getRow(), field), direction);
+                }
+            }
         }
         return null;
     }

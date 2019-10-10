@@ -61,9 +61,10 @@ public class Game implements KeyboardHandler {
                 createBullets();
             }
             moveBullets();
+            checkCollisions();
             movePlayers();
             bulletDelay = !bulletDelay;
-            checkCollisions();
+
         }
     }
 
@@ -218,6 +219,7 @@ public class Game implements KeyboardHandler {
                 player1.getPosition().moveRight();
             }
         }
+        checkCollisions();
     }
 
 
