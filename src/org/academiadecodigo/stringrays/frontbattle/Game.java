@@ -31,9 +31,9 @@ public class Game implements KeyboardHandler {
     public void creation() {
         field = new Field(80, 80);
         field.init();
-        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
+        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field, true), Color.BLUE, field, Direction.RIGHT);
         player1.getPosition().show();
-        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
+        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field, true), Color.RED, field, Direction.LEFT);
         player2.getPosition().show();
         bullets = new Bullet[1000];
 
@@ -57,13 +57,13 @@ public class Game implements KeyboardHandler {
 
         while (true) {
             Thread.sleep(30);
-            checkCollisions();
-            movePlayers();
             if (bulletDelay) {
                 createBullets();
             }
             moveBullets();
+            movePlayers();
             bulletDelay = !bulletDelay;
+            checkCollisions();
         }
     }
 
@@ -105,37 +105,31 @@ public class Game implements KeyboardHandler {
 
         for (int i = 0; i < bullets.length; i++) {
 
-            //if position is null continue
-            if (bullets[i] == null) {
+            //if position is null or bullet is not fired, continue
+            if (bullets[i] == null || !bullets[i].isFired()) {
                 continue;
-            }
-
-            //if bullet is not fired continue to next bullet
-            if (!bullets[i].isFired()) {
-                continue;
-            }
-
-            //check if bullet is out of range by left or right side of screen
-            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
-                bullets[i].setFired(false);
-            }
-
-            //check if bullet is out of range by top or lower side of screen
-            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
-                bullets[i].setFired(false);
             }
 
             //check if any bullet is hitting player 1
             if (player1.getPosition().equals(bullets[i].getPosition())) {
                 player1.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
+                continue;
             }
 
             //check if any bullet is hitting player 2
             if (player2.getPosition().equals(bullets[i].getPosition())) {
                 player2.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
+                continue;
             }
+
+            //check if bullet is out of screen
+            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1 ||
+                bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
+                bullets[i].setFired(false);
+            }
+
         }
 
         if (bulletCounter >= 999) {

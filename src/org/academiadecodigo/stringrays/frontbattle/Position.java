@@ -11,12 +11,21 @@ public class Position {
     private int row;
     private Field field;
     private Rectangle rectangle;
+    private boolean isPlayer = false;
+
+    public Position(int col, int row, Field field, boolean isPlayer) {
+        this.col = col;
+        this.row = row;
+        this.field = field;
+        this.isPlayer = isPlayer;
+        rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
+    }
 
     public Position(int col, int row, Field field) {
         this.col = col;
         this.row = row;
         this.field = field;
-        rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
+        rectangle = new Rectangle(field.columnToX(col) + (Field.cellSize / 3),field.rowToY(row) + (Field.cellSize / 3),(field.getCellSize() / 2), (field.getCellSize() / 2));
     }
 
     public Rectangle getRectangle() {
@@ -52,7 +61,7 @@ public class Position {
         //if(rectangle.getY() > field.getY()) {
         if (row > 0) {
             row--;
-            rectangle.translate(0, -1*Field.cellSize);
+            rectangle.translate(0, -Field.cellSize);
         }
     }
 
@@ -60,7 +69,7 @@ public class Position {
         //if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
         if (row < field.getRows() - 1) {
             row++;
-            rectangle.translate(0, 1*Field.cellSize);
+            rectangle.translate(0, Field.cellSize);
         }
     }
 
@@ -68,7 +77,7 @@ public class Position {
        // if(rectangle.getX() > field.getX()) {
         if (col > 0) {
             col--;
-            rectangle.translate(-1*Field.cellSize, 0);
+            rectangle.translate(-Field.cellSize, 0);
         }
 
     }
@@ -77,13 +86,13 @@ public class Position {
         //if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
         if (col < field.getCols() - 1) {
             col++;
-            rectangle.translate(1*Field.cellSize, 0);
+            rectangle.translate(Field.cellSize, 0);
 
         }
 
     }
 
     public boolean equals(Position position) {
-        return this.col == position.getCol() && this.row == position.getRow() ? true : false;
+        return this.col == position.getCol() && this.row == position.getRow();
     }
 }

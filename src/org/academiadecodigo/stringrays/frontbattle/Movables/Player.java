@@ -25,11 +25,11 @@ public class Player implements Movables {
         return position;
     }
 
-    public Bullet attack() throws Exception {
+    public Bullet attack() {
         if (health > 0) {
             return new Bullet(new Position(position.getCol(), position.getRow(), field), direction);
         }
-        throw new Exception();
+        return null;
     }
 
     public void setDirection(Direction direction) {
@@ -61,8 +61,6 @@ public class Player implements Movables {
         //position.show();
         if (health <= 0) position.hide();
         destroyed = true;
-
-
     }
 
     public boolean isDestroyed() {
