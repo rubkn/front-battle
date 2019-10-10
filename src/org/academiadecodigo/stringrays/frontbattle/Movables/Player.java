@@ -1,6 +1,7 @@
 package org.academiadecodigo.stringrays.frontbattle.Movables;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stringrays.frontbattle.Field;
 import org.academiadecodigo.stringrays.frontbattle.Position;
 
@@ -12,13 +13,16 @@ public class Player implements Movables {
     private boolean destroyed;
     private Field field;
     private Direction direction;
+    private Picture healthPicture;
 
-    public Player(String name, Position position, Color color, Field field, Direction direction) {
+    public Player(String name, Position position, Color color, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
         this.position = position;
         position.setColor(color);
         this.field = field;
         this.direction = direction;
+        this.healthPicture = healthPicture;
+        healthPicture.draw();
     }
 
     public Position getPosition() {

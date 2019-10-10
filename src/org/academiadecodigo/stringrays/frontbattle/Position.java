@@ -1,6 +1,7 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
 import java.io.PipedOutputStream;
@@ -11,6 +12,7 @@ public class Position {
     private int row;
     private Field field;
     private Rectangle rectangle;
+    private Picture healthPicture;
 
     public Position(int col, int row, Field field) {
         this.col = col;

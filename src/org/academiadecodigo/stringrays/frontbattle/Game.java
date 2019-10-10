@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
@@ -31,9 +32,9 @@ public class Game implements KeyboardHandler {
     public void creation() {
         field = new Field(80, 80);
         field.init();
-        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT);
+        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field), Color.BLUE, field, Direction.RIGHT, new Picture(field.getWidth() - 100, field.getHeight() + 20, "/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/fullheart.png"));
         player1.getPosition().show();
-        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT);
+        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field), Color.RED, field, Direction.LEFT, new Picture(Field.PADDING, field.getHeight() + 20, "/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/fullheart.png"));
         player2.getPosition().show();
         bullets = new Bullet[1000];
 
