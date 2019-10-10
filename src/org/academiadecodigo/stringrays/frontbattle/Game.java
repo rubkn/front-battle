@@ -201,16 +201,25 @@ public class Game implements KeyboardHandler {
     }
 
     public void createBullets() {
-        if (spaceKey) {
-            bullets[bulletCounter] = player1.attack();
-            bullets[bulletCounter].setFired(true);
-            bulletCounter++;
-        }
+        try {
+            if (spaceKey) {
+                bullets[bulletCounter] = player1.attack();
+                bullets[bulletCounter].setFired(true);
+                bulletCounter++;
+            }
 
-        if (pKey) {
-            bullets[bulletCounter] = player2.attack();
-            bullets[bulletCounter].setFired(true);
-            bulletCounter++;
+            if (pKey) {
+                bullets[bulletCounter] = player2.attack();
+                bullets[bulletCounter].setFired(true);
+                bulletCounter++;
+            }
+        }
+        catch (Exception exception) {
+            Text gameOver = new Text(field.getWidth()/2, field.getHeight()/2, "GAME OVER");
+            gameOver.setColor(Color.BLACK);
+            gameOver.grow(200, 40);
+            gameOver.draw();
+            System.out.println("GAME OVER!");
         }
     }
 

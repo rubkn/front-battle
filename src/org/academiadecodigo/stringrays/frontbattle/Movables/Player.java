@@ -12,7 +12,6 @@ public class Player implements Movables {
     private boolean destroyed;
     private Field field;
     private Direction direction;
-    private Bullet bullet;
 
     public Player(String name, Position position, Color color, Field field, Direction direction) {
         this.name = name;
@@ -26,8 +25,11 @@ public class Player implements Movables {
         return position;
     }
 
-    public Bullet attack() {
-        return new Bullet(new Position(position.getCol(), position.getRow(), field), direction);
+    public Bullet attack() throws Exception {
+        if (health > 0) {
+            return new Bullet(new Position(position.getCol(), position.getRow(), field), direction);
+        }
+        throw new Exception();
     }
 
     public void setDirection(Direction direction) {
