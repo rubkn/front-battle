@@ -14,7 +14,6 @@ import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
 public class Game implements KeyboardHandler {
 
-
     private Player player1;
     private Player player2;
     private Field field;
@@ -61,10 +60,10 @@ public class Game implements KeyboardHandler {
                 createBullets();
             }
             moveBullets();
-            checkCollisions();
+            checkBulletBounds();
             movePlayers();
             bulletDelay = !bulletDelay;
-
+            System.out.println(player1.getPosition().getCol());
         }
     }
 
@@ -84,7 +83,7 @@ public class Game implements KeyboardHandler {
     }
     */
 
-    public void checkCollisions() {
+    public void checkBulletHits() {
 
         //TODO: CHANGE BULLET ARRAY TO LIST
         /*
@@ -122,19 +121,33 @@ public class Game implements KeyboardHandler {
             if (player2.getPosition().equals(bullets[i].getPosition())) {
                 player2.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
-                continue;
             }
-
-            //check if bullet is out of screen
-            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1 ||
-                bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
-                bullets[i].setFired(false);
-            }
-
         }
 
         if (bulletCounter >= 999) {
             bulletCounter = 0;
+        }
+    }
+
+    public void checkBulletBounds() {
+
+        //check if bullet is out of screen
+        for (int i = 0; i < bullets.length; i++) {
+
+            if (bullets[i] == null || !bullets[i].isFired()) {
+                continue;
+            }
+
+            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
+                continue;
+            }
+
+            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
+            }
         }
     }
 
@@ -219,7 +232,7 @@ public class Game implements KeyboardHandler {
                 player1.getPosition().moveRight();
             }
         }
-        checkCollisions();
+        checkBulletHits();
     }
 
 
@@ -228,16 +241,27 @@ public class Game implements KeyboardHandler {
     public void createBullets() {
         try {
             if (spaceKey) {
-                bullets[bulletCounter] = player1.attack();
-                bullets[bulletCounter].setFired(true);
-                bulletCounter++;
+                if (player1.getPosition().getCol() > 0 && player1.getPosition().getRow() > 0) {
+                    Bullet newBullet = player1.attack();
+                    if (newBullet != null) {
+                        bullets[bulletCounter] = newBullet;
+                        bullets[bulletCounter].setFired(true);
+                        bulletCounter++;
+                    }
+                }
             }
 
             if (pKey) {
-                bullets[bulletCounter] = player2.attack();
-                bullets[bulletCounter].setFired(true);
-                bulletCounter++;
+                if (player2.getPosition().getCol() > 0 && player2.getPosition().getRow() > 0) {
+                    Bullet newBullet = player2.attack();
+                    if (newBullet != null) {
+                        bullets[bulletCounter] = newBullet;
+                        bullets[bulletCounter].setFired(true);
+                        bulletCounter++;
+                    }
+                }
             }
+
         } catch (Exception exception) {
             Text gameOver = new Text(field.getWidth() / 2, field.getHeight() / 2, "GAME OVER");
             gameOver.setColor(Color.BLACK);
@@ -258,6 +282,7 @@ public class Game implements KeyboardHandler {
                 bullets[i].move();
             }
         }
+        checkBulletHits();
     }
 
     @Override

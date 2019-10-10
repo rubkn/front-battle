@@ -12,7 +12,7 @@ public class Bullet {
     public Bullet(Position position, Direction direction) {
         this.position = position;
         this.direction = direction;
-        bulletDamage = 1;
+        bulletDamage = 10;
     }
 
     public void move() {
