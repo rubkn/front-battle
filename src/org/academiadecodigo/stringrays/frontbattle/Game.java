@@ -102,24 +102,24 @@ public class Game implements KeyboardHandler {
         }
         */
 
-        for (int i = 0; i < bullets.length; i++) {
+        for (Bullet bullet : bullets) {
 
             //if position is null or bullet is not fired, continue
-            if (bullets[i] == null || !bullets[i].isFired()) {
+            if (bullet == null || !bullet.isFired()) {
                 continue;
             }
 
             //check if any bullet is hitting player 1
-            if (player1.getPosition().equals(bullets[i].getPosition())) {
-                player1.hit(bullets[i].getBulletDamage());
-                bullets[i].setFired(false);
+            if (player1.getPosition().equals(bullet.getPosition())) {
+                player1.hit(bullet.getBulletDamage());
+                bullet.setFired(false);
                 continue;
             }
 
             //check if any bullet is hitting player 2
-            if (player2.getPosition().equals(bullets[i].getPosition())) {
-                player2.hit(bullets[i].getBulletDamage());
-                bullets[i].setFired(false);
+            if (player2.getPosition().equals(bullet.getPosition())) {
+                player2.hit(bullet.getBulletDamage());
+                bullet.setFired(false);
             }
         }
 
@@ -128,24 +128,24 @@ public class Game implements KeyboardHandler {
         }
     }
 
+
     public void checkBulletBounds() {
 
-        //check if bullet is out of screen
-        for (int i = 0; i < bullets.length; i++) {
+        for (Bullet bullet : bullets) {
 
-            if (bullets[i] == null || !bullets[i].isFired()) {
+            if (bullet == null || !bullet.isFired()) {
                 continue;
             }
 
-            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
-                bullets[i].setFired(false);
-                bullets[i] = null;
+            if (bullet.getPosition().getCol() == 0 || bullet.getPosition().getCol() == field.getCols() - 1) {
+                bullet.setFired(false);
+                bullet = null;
                 continue;
             }
 
-            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
-                bullets[i].setFired(false);
-                bullets[i] = null;
+            if (bullet.getPosition().getRow() == 0 || bullet.getPosition().getRow() == field.getRows() - 1) {
+                bullet.setFired(false);
+                bullet = null;
             }
         }
     }
@@ -271,14 +271,12 @@ public class Game implements KeyboardHandler {
 
     public void moveBullets() {
 
-        for (int i = 0; i < bullets.length; i++) {
-
-            if (bullets[i] == null) {
+        for (Bullet bullet : bullets) {
+            if (bullet == null) {
                 continue;
             }
-
-            if (bullets[i].isFired()) {
-                bullets[i].move();
+            if (bullet.isFired()) {
+                bullet.move();
             }
         }
         checkBulletHits();
