@@ -63,7 +63,6 @@ public class Game implements KeyboardHandler {
             checkBulletBounds();
             movePlayers();
             bulletDelay = !bulletDelay;
-            System.out.println(player1.getPosition().getCol());
         }
     }
 
