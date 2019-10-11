@@ -1,6 +1,4 @@
-package org.academiadecodigo.stringrays.frontbattle.Movables;
-
-import org.academiadecodigo.stringrays.frontbattle.Position;
+package org.academiadecodigo.stringrays.frontbattle;
 
 public class Bullet {
 

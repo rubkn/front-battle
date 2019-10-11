@@ -6,9 +6,6 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
 //import java.util.LinkedList;
 //import java.util.List;
@@ -60,12 +57,12 @@ public class Game implements KeyboardHandler {
 
         while (true) {
             Thread.sleep(30);
-            checkCollisions();
-            movePlayers();
             if (bulletDelay) {
                 createBullets();
             }
             moveBullets();
+            checkBulletBounds();
+            movePlayers();
             bulletDelay = !bulletDelay;
         }
     }
@@ -86,7 +83,7 @@ public class Game implements KeyboardHandler {
     }
     */
 
-    public void checkCollisions() {
+    public void checkBulletHits() {
 
         //TODO: CHANGE BULLET ARRAY TO LIST
         /*
@@ -108,41 +105,48 @@ public class Game implements KeyboardHandler {
 
         for (int i = 0; i < bullets.length; i++) {
 
-            //if position is null continue
-            if (bullets[i] == null) {
+            //if position is null or bullet is not fired, continue
+            if (bullets[i] == null || !bullets[i].isFired()) {
                 continue;
-            }
-
-            //if bullet is not fired continue to next bullet
-            if (!bullets[i].isFired()) {
-                continue;
-            }
-
-            //check if bullet is out of range by left or right side of screen
-            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
-                bullets[i].setFired(false);
-            }
-
-            //check if bullet is out of range by top or lower side of screen
-            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
-                bullets[i].setFired(false);
             }
 
             //check if any bullet is hitting player 1
             if (player1.getPosition().equals(bullets[i].getPosition())) {
                 player1.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
+                bullets[i] = null;
+                continue;
             }
 
             //check if any bullet is hitting player 2
             if (player2.getPosition().equals(bullets[i].getPosition())) {
                 player2.hit(bullets[i].getBulletDamage());
                 bullets[i].setFired(false);
+                bullets[i] = null;
             }
         }
 
         if (bulletCounter >= 999) {
             bulletCounter = 0;
+        }
+    }
+
+    public void checkBulletBounds() {
+
+        for (Bullet bullet : bullets) {
+
+            if (bullet == null || !bullet.isFired()) {
+                continue;
+            }
+
+            if (bullet.getPosition().getCol() == 0 || bullet.getPosition().getCol() == field.getCols() - 1) {
+                bullet.setFired(false);
+                continue;
+            }
+
+            if (bullet.getPosition().getRow() == 0 || bullet.getPosition().getRow() == field.getRows() - 1) {
+                bullet.setFired(false);
+            }
         }
     }
 
@@ -227,44 +231,83 @@ public class Game implements KeyboardHandler {
                 player1.getPosition().moveRight();
             }
         }
+        checkBulletHits();
     }
 
+    //TODO BEST METHOD FOR PLAYER MOVEMENT
+    /*
+    public void movePlayer(Player player, Direction direction) {
+
+        Player otherPlayer = player2;
+
+        if (player == player2) {
+            otherPlayer = player1;
+        }
+
+        switch (direction) {
+            case UP:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() + 1) {
+                    player.getPosition().moveUp();
+                }
+                break;
+            case DOWN:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() - 1) {
+                    player.getPosition().moveDown();
+                }
+                break;
+            case LEFT:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() + 1 ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
+                    player.getPosition().moveLeft();
+                }
+                break;
+            case RIGHT:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() - 1 ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
+                    player.getPosition().moveRight();
+                }
+                break;
+        }
+    }
+    */
 
     //TODO: DELETE CREATEBULLETS() EXCEPTION AND IMPLEMENT A REAL METHOD FOR ROUND MANAGEMENT
 
     public void createBullets() {
-        try {
-            if (spaceKey) {
-                bullets[bulletCounter] = player1.attack();
-                bullets[bulletCounter].setFired(true);
-                bulletCounter++;
-            }
 
-            if (pKey) {
-                bullets[bulletCounter] = player2.attack();
+        if (spaceKey) {
+            shootBullet(player1);
+        }
+
+        if (pKey) {
+            shootBullet(player2);
+        }
+    }
+
+    public void shootBullet(Player player) {
+        if (player.getPosition().getCol() > 0 && player.getPosition().getRow() > 0) {
+            Bullet newBullet = player.attack();
+            if (newBullet != null) {
+                bullets[bulletCounter] = newBullet;
                 bullets[bulletCounter].setFired(true);
                 bulletCounter++;
             }
-        } catch (Exception exception) {
-            Text gameOver = new Text(field.getWidth() / 2, field.getHeight() / 2, "GAME OVER");
-            gameOver.setColor(Color.BLACK);
-            gameOver.grow(200, 40);
-            gameOver.draw();
         }
     }
 
     public void moveBullets() {
 
-        for (int i = 0; i < bullets.length; i++) {
-
-            if (bullets[i] == null) {
+        for (Bullet bullet : bullets) {
+            if (bullet == null) {
                 continue;
             }
-
-            if (bullets[i].isFired()) {
-                bullets[i].move();
+            if (bullet.isFired()) {
+                bullet.move();
             }
         }
+        checkBulletHits();
     }
 
     @Override

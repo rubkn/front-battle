@@ -1,9 +1,7 @@
-package org.academiadecodigo.stringrays.frontbattle.Movables;
+package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stringrays.frontbattle.Field;
-import org.academiadecodigo.stringrays.frontbattle.Position;
 
 public class Player implements Movables {
 
@@ -30,11 +28,29 @@ public class Player implements Movables {
         return position;
     }
 
-    public Bullet attack() throws Exception {
+    public Bullet attack() {
         if (health > 0) {
-            return new Bullet(new Position(position.getCol(), position.getRow(), field, "img/bullet.png"), direction);
+            //return new Bullet(new Position(position.getCol(), position.getRow(), field, "img/bullet.png"), direction);
+            switch (direction) {
+                case UP:
+                    if (this.position.getRow() > 0) {
+                        return new Bullet(new Position(position.getCol(), position.getRow() - 1, field, "img/bullet.png"), direction);
+                    }
+                case DOWN:
+                    if (this.position.getRow() < field.getRows() - 1) {
+                        return new Bullet(new Position(position.getCol(), position.getRow() + 1, field, "img/bullet.png"), direction);
+                    }
+                case LEFT:
+                    if (this.position.getCol() > 0) {
+                        return new Bullet(new Position(position.getCol() - 1, position.getRow(), field, "img/bullet.png"), direction);
+                    }
+                case RIGHT:
+                    if (this.position.getCol() < field.getRows() - 1) {
+                    return new Bullet(new Position(position.getCol() + 1, position.getRow(), field, "img/bullet.png"), direction);
+                }
+            }
         }
-        throw new Exception();
+        return null;
     }
 
     public void setDirection(Direction direction) {
@@ -96,10 +112,11 @@ public class Player implements Movables {
         }
         //position.hide();
         //position.show();
-        if (health <= 0) position.hide();
-        destroyed = true;
-
-
+        if (health <= 0) {
+            position.hide();
+            destroyed = true;
+            GameOver.gameOver(field);
+        }
     }
 
     public boolean isDestroyed() {

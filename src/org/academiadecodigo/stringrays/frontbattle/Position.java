@@ -2,7 +2,8 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
+
+//TODO DO I NEED THIS?
 
 import java.io.PipedOutputStream;
 
@@ -22,6 +23,8 @@ public class Position {
         picture = new Picture(field.columnToX(col),field.rowToY(row), path);
 
     }
+
+    //TODO REFACTOR METHOD NAME
 
     public Picture getRectangle() {
         return picture;
