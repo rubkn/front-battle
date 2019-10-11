@@ -9,6 +9,7 @@ import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
 import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
 
+//import java.util.Iterator;
 //import java.util.LinkedList;
 //import java.util.List;
 
@@ -128,7 +129,6 @@ public class Game implements KeyboardHandler {
         }
     }
 
-
     public void checkBulletBounds() {
 
         for (Bullet bullet : bullets) {
@@ -139,13 +139,11 @@ public class Game implements KeyboardHandler {
 
             if (bullet.getPosition().getCol() == 0 || bullet.getPosition().getCol() == field.getCols() - 1) {
                 bullet.setFired(false);
-                bullet = null;
                 continue;
             }
 
             if (bullet.getPosition().getRow() == 0 || bullet.getPosition().getRow() == field.getRows() - 1) {
                 bullet.setFired(false);
-                bullet = null;
             }
         }
     }
