@@ -4,11 +4,7 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-
-//import java.util.LinkedList;
-//import java.util.List;
 
 public class Game implements KeyboardHandler {
 
@@ -21,40 +17,36 @@ public class Game implements KeyboardHandler {
     private int bulletCounter;
     private boolean bulletDelay = true;
     private Bullet[] bullets;
-    //private Text playerOneHealth;
-    //private Text playerTwoHealth;
-    //private List<Bullet> bullets;
+
 
 
     public void creation() {
+
+        //instantiate new field with 80 by 80 positions
         field = new Field(80, 80);
         field.init();
-        player1 = new Player("Player One", new Position(1, field.getRows() / 2, field,"img/player.png"), Color.BLUE, field, Direction.RIGHT,
+
+        //instantiate players with name, initial position, image, initial direction and health score board
+        player1 = new Player("Player One",
+                new Position(1, field.getRows() / 2, field,"img/player.png"), field, Direction.RIGHT,
                 new Picture(Field.PADDING, field.getHeight() + 20, "img/100health.png"));
-        player1.getPosition().show();
-        player2 = new Player("Player Two", new Position(field.getCols() - 2, field.getRows() / 2, field, "img/player2.png"), Color.RED, field, Direction.LEFT,
+
+        player2 = new Player("Player Two",
+                new Position(field.getCols() - 2, field.getRows() / 2, field, "img/player2.png"), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
+
+        player1.getPosition().show();
         player2.getPosition().show();
+
+        //bullet array for both players to use
         bullets = new Bullet[1000];
-
-        //TODO: PLAYERS HEALTH SCORE BOARD
-
-        //Rectangle playerOneHealth = new Rectangle(Field.PADDING, field.getHeight() + Field.PADDING, player1.getHealth(), Field.PADDING );
-        //playerOneHealth.fill();
-
-        /*playerOneHealth = new Text(Field.PADDING, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
-        playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
-        playerOneHealth.draw();
-        playerTwoHealth.draw();*/
-
-        //bullets = new LinkedList<>();
-
     }
 
     public void gameStart() throws InterruptedException {
 
         keyboardKeys();
 
+        //game engine
         while (true) {
             Thread.sleep(30);
             if (bulletDelay) {
@@ -66,22 +58,6 @@ public class Game implements KeyboardHandler {
             bulletDelay = !bulletDelay;
         }
     }
-
-    //TODO: IMPLEMENT SCORE BOARD
-
-
-    /*
-    public void scoreBoard() {
-
-        playerOneHealth.delete();
-        playerTwoHealth.delete();
-        playerOneHealth = new Text(Field.PADDING, field.getHeight() + 20, player1.getName() + " " + player1.getHealth() + " %");
-        playerTwoHealth = new Text(field.getWidth() - 100, field.getHeight() + 20,  player2.getName() + " " + player2.getHealth() + " %");
-        playerOneHealth.draw();
-        playerTwoHealth.draw();
-
-    }
-    */
 
     public void checkBulletHits() {
 
@@ -126,6 +102,7 @@ public class Game implements KeyboardHandler {
             }
         }
 
+        //if bullet counter gets to 999 return to the beginning of the array
         if (bulletCounter >= 999) {
             bulletCounter = 0;
         }
@@ -133,19 +110,24 @@ public class Game implements KeyboardHandler {
 
     public void checkBulletBounds() {
 
-        for (Bullet bullet : bullets) {
+        for (int i = 0; i < bullets.length; i++) {
 
-            if (bullet == null || !bullet.isFired()) {
+            //if bullets array position returns null or is not fired continue to next bullet
+            if (bullets[i] == null || !bullets[i].isFired()) {
                 continue;
             }
 
-            if (bullet.getPosition().getCol() == 0 || bullet.getPosition().getCol() == field.getCols() - 1) {
-                bullet.setFired(false);
+            //checks if bullet is out of bounds by left or right side of arena
+            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
                 continue;
             }
 
-            if (bullet.getPosition().getRow() == 0 || bullet.getPosition().getRow() == field.getRows() - 1) {
-                bullet.setFired(false);
+            //checks if bullet is out of bounds by top or bottom side of arena
+            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
             }
         }
     }
@@ -182,6 +164,9 @@ public class Game implements KeyboardHandler {
     }
 
     public void movePlayers() {
+
+        //all the keys to move the players but they only move if they're not trying to go against the other player
+        //needs to checkBulletHits() after every movement!
 
         if (upKey) {
             if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
@@ -231,6 +216,7 @@ public class Game implements KeyboardHandler {
                 player1.getPosition().moveRight();
             }
         }
+        //needs to checkBulletHits() after every movement!
         checkBulletHits();
     }
 
@@ -273,9 +259,9 @@ public class Game implements KeyboardHandler {
     }
     */
 
-    //TODO: DELETE CREATEBULLETS() EXCEPTION AND IMPLEMENT A REAL METHOD FOR ROUND MANAGEMENT
-
     public void createBullets() {
+
+        //the key for the players to shoot bullets
 
         if (spaceKey) {
             shootBullet(player1);
@@ -287,6 +273,9 @@ public class Game implements KeyboardHandler {
     }
 
     public void shootBullet(Player player) {
+
+        //method for returning a new bullet if the player presses the shoot key
+
         if (player.getPosition().getCol() > 0 && player.getPosition().getRow() > 0) {
             Bullet newBullet = player.attack();
             if (newBullet != null) {
@@ -298,6 +287,8 @@ public class Game implements KeyboardHandler {
     }
 
     public void moveBullets() {
+
+        //method to move bullets every game cycle and check for bullet hits
 
         for (Bullet bullet : bullets) {
             if (bullet == null) {
@@ -388,6 +379,5 @@ public class Game implements KeyboardHandler {
             case (KeyboardEvent.KEY_P):
                 pKey = false;
         }
-
     }
 }

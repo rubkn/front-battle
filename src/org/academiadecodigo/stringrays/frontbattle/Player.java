@@ -1,6 +1,5 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player implements Movables {
@@ -13,10 +12,9 @@ public class Player implements Movables {
     private Direction direction;
     private Picture healthPicture;
 
-    public Player(String name, Position position, Color color, Field field, Direction direction, Picture healthPicture) {
+    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
         this.position = position;
-        //position.setColor(color);
         this.field = field;
         this.direction = direction;
         this.healthPicture = healthPicture;
@@ -28,8 +26,9 @@ public class Player implements Movables {
     }
 
     public Bullet attack() {
+
         if (health > 0) {
-            //return new Bullet(new Position(position.getCol(), position.getRow(), field, "img/bullet.png"), direction);
+
             switch (direction) {
                 case UP:
                     if (this.position.getRow() > 0) {
@@ -45,7 +44,7 @@ public class Player implements Movables {
                     }
                 case RIGHT:
                     if (this.position.getCol() < field.getRows() - 1) {
-                    return new Bullet(new Position(position.getCol() + 1, position.getRow(), field, "img/bullet.png"), direction);
+                        return new Bullet(new Position(position.getCol() + 1, position.getRow(), field, "img/bullet.png"), direction);
                 }
             }
         }

@@ -1,14 +1,11 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Field{
 
     public static final int cellSize = 10;
     public static final int PADDING = 10;
-    private Rectangle field;
     private int cols;
     private int rows;
     private Picture fieldPicture;
@@ -20,9 +17,6 @@ public class Field{
     }
 
     public void init() {
-        field = new Rectangle(PADDING,  PADDING, cols*cellSize, rows*cellSize);
-        field.setColor(Color.LIGHT_GRAY);
-        field.fill();
         fieldPicture = new Picture(PADDING, PADDING, "img/field.png");
         fieldPicture.draw();
     }
@@ -36,23 +30,11 @@ public class Field{
     }
 
     public int getWidth() {
-        return field.getWidth();
+        return fieldPicture.getWidth();
     }
 
     public int getHeight() {
-        return field.getHeight();
-    }
-
-    public int getX() {
-        return field.getX();
-    }
-
-    public int getY() {
-        return field.getY();
-    }
-
-    public int getCellSize() {
-        return cellSize;
+        return fieldPicture.getHeight();
     }
 
     public int rowToY(int row) {
