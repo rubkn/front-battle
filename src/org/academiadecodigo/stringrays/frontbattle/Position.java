@@ -1,9 +1,7 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.*;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
-
-import java.io.PipedOutputStream;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.graphics.Color;
 
 public class Position {
 

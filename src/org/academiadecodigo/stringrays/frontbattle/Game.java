@@ -4,12 +4,9 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.simplegraphics.graphics.*;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Direction;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Player;
-import org.academiadecodigo.stringrays.frontbattle.Movables.Bullet;
+import org.academiadecodigo.simplegraphics.graphics.Color;
 
-//import java.util.Iterator;
+
 //import java.util.LinkedList;
 //import java.util.List;
 
@@ -103,24 +100,26 @@ public class Game implements KeyboardHandler {
         }
         */
 
-        for (Bullet bullet : bullets) {
+        for (int i = 0; i < bullets.length; i++) {
 
             //if position is null or bullet is not fired, continue
-            if (bullet == null || !bullet.isFired()) {
+            if (bullets[i] == null || !bullets[i].isFired()) {
                 continue;
             }
 
             //check if any bullet is hitting player 1
-            if (player1.getPosition().equals(bullet.getPosition())) {
-                player1.hit(bullet.getBulletDamage());
-                bullet.setFired(false);
+            if (player1.getPosition().equals(bullets[i].getPosition())) {
+                player1.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
+                bullets[i] = null;
                 continue;
             }
 
             //check if any bullet is hitting player 2
-            if (player2.getPosition().equals(bullet.getPosition())) {
-                player2.hit(bullet.getBulletDamage());
-                bullet.setFired(false);
+            if (player2.getPosition().equals(bullets[i].getPosition())) {
+                player2.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
+                bullets[i] = null;
             }
         }
 
@@ -232,38 +231,66 @@ public class Game implements KeyboardHandler {
         checkBulletHits();
     }
 
+    //TODO BEST METHOD FOR PLAYER MOVEMENT
+    /*
+    public void movePlayer(Player player, Direction direction) {
+
+        Player otherPlayer = player2;
+
+        if (player == player2) {
+            otherPlayer = player1;
+        }
+
+        switch (direction) {
+            case UP:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() + 1) {
+                    player.getPosition().moveUp();
+                }
+                break;
+            case DOWN:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() - 1) {
+                    player.getPosition().moveDown();
+                }
+                break;
+            case LEFT:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() + 1 ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
+                    player.getPosition().moveLeft();
+                }
+                break;
+            case RIGHT:
+                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() - 1 ||
+                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
+                    player.getPosition().moveRight();
+                }
+                break;
+        }
+    }
+    */
 
     //TODO: DELETE CREATEBULLETS() EXCEPTION AND IMPLEMENT A REAL METHOD FOR ROUND MANAGEMENT
 
     public void createBullets() {
-        try {
-            if (spaceKey) {
-                if (player1.getPosition().getCol() > 0 && player1.getPosition().getRow() > 0) {
-                    Bullet newBullet = player1.attack();
-                    if (newBullet != null) {
-                        bullets[bulletCounter] = newBullet;
-                        bullets[bulletCounter].setFired(true);
-                        bulletCounter++;
-                    }
-                }
-            }
 
-            if (pKey) {
-                if (player2.getPosition().getCol() > 0 && player2.getPosition().getRow() > 0) {
-                    Bullet newBullet = player2.attack();
-                    if (newBullet != null) {
-                        bullets[bulletCounter] = newBullet;
-                        bullets[bulletCounter].setFired(true);
-                        bulletCounter++;
-                    }
-                }
-            }
+        if (spaceKey) {
+            shootBullet(player1);
+        }
 
-        } catch (Exception exception) {
-            Text gameOver = new Text(field.getWidth() / 2, field.getHeight() / 2, "GAME OVER");
-            gameOver.setColor(Color.BLACK);
-            gameOver.grow(200, 40);
-            gameOver.draw();
+        if (pKey) {
+            shootBullet(player2);
+        }
+    }
+
+    public void shootBullet(Player player) {
+        if (player.getPosition().getCol() > 0 && player.getPosition().getRow() > 0) {
+            Bullet newBullet = player.attack();
+            if (newBullet != null) {
+                bullets[bulletCounter] = newBullet;
+                bullets[bulletCounter].setFired(true);
+                bulletCounter++;
+            }
         }
     }
 
@@ -358,6 +385,5 @@ public class Game implements KeyboardHandler {
             case (KeyboardEvent.KEY_P):
                 pKey = false;
         }
-
     }
 }

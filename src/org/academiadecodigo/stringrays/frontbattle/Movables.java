@@ -1,4 +1,4 @@
-package org.academiadecodigo.stringrays.frontbattle.Movables;
+package org.academiadecodigo.stringrays.frontbattle;
 
 public interface Movables {
 

@@ -1,8 +1,6 @@
-package org.academiadecodigo.stringrays.frontbattle.Movables;
+package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.*;
-import org.academiadecodigo.stringrays.frontbattle.Field;
-import org.academiadecodigo.stringrays.frontbattle.Position;
+import org.academiadecodigo.simplegraphics.graphics.Color;
 
 public class Player implements Movables {
 
@@ -76,8 +74,11 @@ public class Player implements Movables {
         health -= damage;
         //position.hide();
         //position.show();
-        if (health <= 0) position.hide();
-        destroyed = true;
+        if (health <= 0) {
+            position.hide();
+            destroyed = true;
+            GameOver.gameOver(field);
+        }
     }
 
     public boolean isDestroyed() {
