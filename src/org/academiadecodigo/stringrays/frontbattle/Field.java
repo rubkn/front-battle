@@ -23,7 +23,7 @@ public class Field{
         field = new Rectangle(PADDING,  PADDING, cols*cellSize, rows*cellSize);
         field.setColor(Color.LIGHT_GRAY);
         field.fill();
-        fieldPicture = new Picture(PADDING, PADDING, "/Users/codecadet/Desktop/JoaoMadeira/front-battle/img/field.png");
+        fieldPicture = new Picture(PADDING, PADDING, "img/field.png");
         fieldPicture.draw();
     }
 

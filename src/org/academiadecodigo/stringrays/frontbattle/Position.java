@@ -12,17 +12,19 @@ public class Position {
     private int row;
     private Field field;
     private Rectangle rectangle;
-    private Picture healthPicture;
+    private Picture picture;
 
-    public Position(int col, int row, Field field) {
+    public Position(int col, int row, Field field, String path) {
         this.col = col;
         this.row = row;
         this.field = field;
-        rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
+        //rectangle = new Rectangle(field.columnToX(col),field.rowToY(row),field.getCellSize(), field.getCellSize());
+        picture = new Picture(field.columnToX(col),field.rowToY(row), path);
+
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Picture getRectangle() {
+        return picture;
     }
 
     public void setPos(int col, int row) {
@@ -31,7 +33,8 @@ public class Position {
     }
 
     public void show() {
-        rectangle.fill();
+        //rectangle.fill();
+        picture.draw();
     }
 
     public void setColor(Color color) {
@@ -39,7 +42,8 @@ public class Position {
     }
 
     public void hide() {
-        rectangle.delete();
+        //rectangle.delete();
+        picture.delete();
     }
 
     public int getCol() {
@@ -54,7 +58,8 @@ public class Position {
         //if(rectangle.getY() > field.getY()) {
         if (row > 0) {
             row--;
-            rectangle.translate(0, -1*Field.cellSize);
+            //rectangle.translate(0, -1*Field.cellSize);
+            picture.translate(0, -1*Field.cellSize);
         }
     }
 
@@ -62,7 +67,8 @@ public class Position {
         //if(rectangle.getY() + rectangle.getHeight() < field.getHeight() + Field.PADDING) {
         if (row < field.getRows() - 1) {
             row++;
-            rectangle.translate(0, 1*Field.cellSize);
+            //rectangle.translate(0, 1*Field.cellSize);
+            picture.translate(0, 1*Field.cellSize);
         }
     }
 
@@ -70,7 +76,8 @@ public class Position {
        // if(rectangle.getX() > field.getX()) {
         if (col > 0) {
             col--;
-            rectangle.translate(-1*Field.cellSize, 0);
+            //rectangle.translate(-1*Field.cellSize, 0);
+            picture.translate(-1*Field.cellSize, 0);
         }
 
     }
@@ -79,7 +86,8 @@ public class Position {
         //if(rectangle.getX() + rectangle.getWidth() < field.getWidth() + Field.PADDING) {
         if (col < field.getCols() - 1) {
             col++;
-            rectangle.translate(1*Field.cellSize, 0);
+            //rectangle.translate(1*Field.cellSize, 0);
+            picture.translate(1*Field.cellSize, 0);
 
         }
 
