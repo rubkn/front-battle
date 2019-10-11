@@ -12,7 +12,6 @@ public class Player implements Movables {
     private Field field;
     private Direction direction;
     private Picture healthPicture;
-    private Picture playerPicture;
 
     public Player(String name, Position position, Color color, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
