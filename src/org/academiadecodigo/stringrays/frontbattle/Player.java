@@ -27,18 +27,21 @@ public class Player implements Movables {
 
     public Bullet attack() {
 
+        //TODO REMOVE THIS CONDITION IF THE GAME OVER IS WELL DONE
         if (health > 0) {
 
-            //TODO CHANGE ROWS AND COLS TO WIDTH
+            //TODO GET THE BULLET SIZE FIXED AND SHOOT RIGHT WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY(), field, "img/bullet.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 10, field, "img/bullet.png", 2), direction);
                 case DOWN:
                     return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet.png", 2), direction);
                 case LEFT:
-                    return new Bullet(new Position(position.getX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
+                    return new Bullet(new Position(position.getX() - 10, (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
                 case RIGHT:
-                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
+                    if (this.position.getMaxX() < field.getWidth() - 10) {
+                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
+                    }
             }
         }
         return null;

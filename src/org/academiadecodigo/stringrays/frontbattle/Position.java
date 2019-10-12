@@ -77,7 +77,10 @@ public class Position {
         return picture.getMaxY();
     }
 
-    public boolean equals(Position position) {
-        return this.x == position.getX() && this.y == position.getY();
+    public boolean colliding(Position position) {
+        return (this.getMaxX()) > (position.getX()) &&
+                (this.getX()) < (position.getMaxX()) &&
+                (this.getMaxY()) > (position.getY()) &&
+                (this.getY()) < (position.getMaxY());
     }
 }

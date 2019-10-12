@@ -8,7 +8,6 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game implements KeyboardHandler {
 
-
     private Player player1;
     private Player player2;
     private Field field;
@@ -36,7 +35,7 @@ public class Game implements KeyboardHandler {
         collision = new Collision();
 
         //bullet array for both players to use
-        bullets = new Bullet[1000];
+        bullets = new Bullet[100];
     }
 
     public void gameStart() throws InterruptedException {
@@ -57,56 +56,6 @@ public class Game implements KeyboardHandler {
             //TODO CHANGE BULLET DELAY
         }
     }
-
-    public void checkBulletHits() {
-
-        //TODO: CHANGE BULLET ARRAY TO LIST
-        /*
-        System.out.println(bulletCounter);
-
-        Iterator<Bullet> bulletIterator = bullets.iterator();
-
-        while (bulletIterator.hasNext()) {
-            Bullet bullet = bulletIterator.next();
-
-            if bulletIterator.next()
-
-            if () {
-                bulletIterator.remove();
-            }
-
-        }
-        */
-
-        for (int i = 0; i < bullets.length; i++) {
-
-            //if position is null or bullet is not fired, continue
-            if (bullets[i] == null || !bullets[i].isFired()) {
-                continue;
-            }
-
-            //check if any bullet is hitting player 1
-            if (player1.getPosition().equals(bullets[i].getPosition())) {
-                player1.hit(bullets[i].getBulletDamage());
-                bullets[i].setFired(false);
-                bullets[i] = null;
-                continue;
-            }
-
-            //check if any bullet is hitting player 2
-            if (player2.getPosition().equals(bullets[i].getPosition())) {
-                player2.hit(bullets[i].getBulletDamage());
-                bullets[i].setFired(false);
-                bullets[i] = null;
-            }
-        }
-
-        //if bullet counter gets to 999 return to the beginning of the array
-        if (bulletCounter >= 999) {
-            bulletCounter = 0;
-        }
-    }
-
 
 
     public void addKeyboardEvent(int key, KeyboardEventType type) {
@@ -187,7 +136,7 @@ public class Game implements KeyboardHandler {
             }
         }
         //needs to checkBulletHits() after every movement!
-        checkBulletHits();
+        collision.checkBulletHits(player1, player2, bullets);
     }
 
     //TODO BEST METHOD FOR PLAYER MOVEMENT
@@ -266,7 +215,10 @@ public class Game implements KeyboardHandler {
                 bullet.move();
             }
         }
-        checkBulletHits();
+        collision.checkBulletHits(player1, player2, bullets);
+        if (bulletCounter >= 99) {
+            bulletCounter = 0;
+        }
     }
 
     @Override

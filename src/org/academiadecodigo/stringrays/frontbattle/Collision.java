@@ -89,4 +89,30 @@ public class Collision {
             }
         }
     }
+
+    public void checkBulletHits(Player player1, Player player2, Bullet[] bullets) {
+
+        for (int i = 0; i < bullets.length; i++) {
+
+            //if position is null or bullet is not fired, continue
+            if (bullets[i] == null || !bullets[i].isFired()) {
+                continue;
+            }
+
+            //check if any bullet is hitting player 1
+            if (player1.getPosition().colliding(bullets[i].getPosition())) {
+                player1.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
+                bullets[i] = null;
+                continue;
+            }
+
+            //check if any bullet is hitting player 2
+            if (player2.getPosition().colliding(bullets[i].getPosition())) {
+                player2.hit(bullets[i].getBulletDamage());
+                bullets[i].setFired(false);
+                bullets[i] = null;
+            }
+        }
+    }
 }
