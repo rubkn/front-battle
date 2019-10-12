@@ -1,5 +1,6 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -17,29 +18,47 @@ public class Game implements KeyboardHandler {
     private int bulletCounter;
     private boolean bulletDelay = true;
     private Bullet[] bullets;
+    private Collision collision;
 
+    /*public void drawPlayerDebug () {
+        Rectangle rectangle1 = new Rectangle(player1.getPosition().getX(), player1.getPosition().getY(), 2, 2);
+        rectangle1.draw();
+
+        Rectangle rectangle2 = new Rectangle(player1.getPosition().getMaxX(), player1.getPosition().getY(), 2, 2);
+        rectangle2.draw();
+
+        Rectangle rectangle3 = new Rectangle(player1.getPosition().getX(), player1.getPosition().getMaxY(), 2, 2);
+        rectangle3.draw();
+
+        Rectangle rectangle4 = new Rectangle(player1.getPosition().getMaxX(), player1.getPosition().getMaxY(), 2, 2);
+        rectangle4.draw();
+
+    }*/
 
 
     public void creation() {
-
+        field = new Field();
         //instantiate new field with 80 by 80 positions
-        field = new Field(80, 80);
-        field.init();
+        //field = new Field(5, 5);
+        //field.init();
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(1, field.getRows() / 2, field,"img/player.png"), field, Direction.RIGHT,
+                new Position(field.getX(), field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
                 new Picture(Field.PADDING, field.getHeight() + 20, "img/100health.png"));
 
         player2 = new Player("Player Two",
-                new Position(field.getCols() - 2, field.getRows() / 2, field, "img/player2.png"), field, Direction.LEFT,
+                new Position(field.getWidth(), field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
         player1.getPosition().show();
+        player1.getPosition().getX();
         player2.getPosition().show();
 
         //bullet array for both players to use
         bullets = new Bullet[1000];
+        collision = new Collision();
+
     }
 
     public void gameStart() throws InterruptedException {
@@ -48,7 +67,7 @@ public class Game implements KeyboardHandler {
 
         //game engine
         while (true) {
-            Thread.sleep(30);
+            Thread.sleep(50);
             if (bulletDelay) {
                 createBullets();
             }
@@ -118,14 +137,14 @@ public class Game implements KeyboardHandler {
             }
 
             //checks if bullet is out of bounds by left or right side of arena
-            if (bullets[i].getPosition().getCol() == 0 || bullets[i].getPosition().getCol() == field.getCols() - 1) {
+            if (bullets[i].getPosition().getX() == 0 || bullets[i].getPosition().getX() == field.getWidth() - 1) {
                 bullets[i].setFired(false);
                 bullets[i] = null;
                 continue;
             }
 
             //checks if bullet is out of bounds by top or bottom side of arena
-            if (bullets[i].getPosition().getRow() == 0 || bullets[i].getPosition().getRow() == field.getRows() - 1) {
+            if (bullets[i].getPosition().getY() == 0 || bullets[i].getPosition().getY() == field.getHeight() - 1) {
                 bullets[i].setFired(false);
                 bullets[i] = null;
             }
@@ -169,50 +188,50 @@ public class Game implements KeyboardHandler {
         //needs to checkBulletHits() after every movement!
 
         if (upKey) {
-            if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
-                    player2.getPosition().getRow() != player1.getPosition().getRow() + 1) {
-                player2.getPosition().moveUp();
+                if (!collision.checkUp(player2, player1)) {
+                    player2.getPosition().moveUp();
+                }
+                System.out.println("Upkey");
             }
-        }
         if (downKey) {
-            if (player2.getPosition().getCol() != player1.getPosition().getCol() ||
-                    player2.getPosition().getRow() != player1.getPosition().getRow() - 1) {
+            if (player2.getPosition().getX() != player1.getPosition().getX() ||
+                    player2.getPosition().getY() != player1.getPosition().getY() - 1) {
                 player2.getPosition().moveDown();
             }
         }
         if (rightKey) {
-            if (player2.getPosition().getCol() != player1.getPosition().getCol() - 1 ||
-                    player2.getPosition().getRow() != player1.getPosition().getRow()) {
+            if (player2.getPosition().getX() != player1.getPosition().getX() - 1 ||
+                    player2.getPosition().getY() != player1.getPosition().getY()) {
                 player2.getPosition().moveRight();
             }
         }
         if (leftKey) {
-            if (player2.getPosition().getCol() != player1.getPosition().getCol() + 1 ||
-                    player2.getPosition().getRow() != player1.getPosition().getRow()) {
+            if (player2.getPosition().getX() != player1.getPosition().getX() + 1 ||
+                    player2.getPosition().getY() != player1.getPosition().getY()) {
                 player2.getPosition().moveLeft();
             }
         }
         if (wKey) {
-            if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
-                    player1.getPosition().getRow() != player2.getPosition().getRow() + 1) {
+            if (player1.getPosition().getX() != player2.getPosition().getX() ||
+                    player1.getPosition().getY() != player2.getPosition().getY() + 1) {
                 player1.getPosition().moveUp();
             }
         }
         if (sKey) {
-            if (player1.getPosition().getCol() != player2.getPosition().getCol() ||
-                    player1.getPosition().getRow() != player2.getPosition().getRow() - 1) {
+            if (player1.getPosition().getX() != player2.getPosition().getX() ||
+                    player1.getPosition().getY() != player2.getPosition().getY() - 1) {
                 player1.getPosition().moveDown();
             }
         }
         if (aKey) {
-            if (player1.getPosition().getCol() != player2.getPosition().getCol() + 1 ||
-                    player1.getPosition().getRow() != player2.getPosition().getRow()) {
+            if (player1.getPosition().getX() != player2.getPosition().getX() + 1 ||
+                    player1.getPosition().getY() != player2.getPosition().getY()) {
                 player1.getPosition().moveLeft();
             }
         }
         if (dKey) {
-            if (player1.getPosition().getCol() != player2.getPosition().getCol() - 1 ||
-                    player1.getPosition().getRow() != player2.getPosition().getRow()) {
+            if (player1.getPosition().getX() != player2.getPosition().getX() - 1 ||
+                    player1.getPosition().getY() != player2.getPosition().getY()) {
                 player1.getPosition().moveRight();
             }
         }
@@ -276,7 +295,7 @@ public class Game implements KeyboardHandler {
 
         //method for returning a new bullet if the player presses the shoot key
 
-        if (player.getPosition().getCol() > 0 && player.getPosition().getRow() > 0) {
+        if (player.getPosition().getX() > 0 && player.getPosition().getY() > 0) {
             Bullet newBullet = player.attack();
             if (newBullet != null) {
                 bullets[bulletCounter] = newBullet;

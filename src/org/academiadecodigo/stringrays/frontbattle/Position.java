@@ -1,20 +1,24 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
+import org.academiadecodigo.simplegraphics.graphics.Ellipse;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Position {
 
-    private int col;
-    private int row;
+    private int x;
+    private int y;
     private Field field;
     private Picture picture;
+    private Rectangle rectangle;
 
-    public Position(int col, int row, Field field, String path) {
-        this.col = col;
-        this.row = row;
+    public Position(int x, int y, Field field, String path) {
+        this.x = x;
+        this.y = y;
         this.field = field;
-        picture = new Picture(field.columnToX(col),field.rowToY(row), path);
-
+        picture = new Picture(field.getX(),field.getY(), path);
+        rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
+        rectangle.draw();
     }
 
     public void show() {
@@ -25,46 +29,67 @@ public class Position {
         picture.delete();
     }
 
-    public int getCol() {
+    /*public int getCol() {
         return col;
-    }
+    }*/
 
-    public int getRow() {
+    /*public int getRow() {
         return row;
-    }
+    }*/
 
     public void moveUp() {
-        if (row > 0) {
-            row--;
-            picture.translate(0, -1*Field.cellSize);
+        if (picture.getY() > 0) {
+            //row--;
+            picture.translate(0, -5);
+            rectangle.translate(0, -5);
         }
     }
 
     public void moveDown() {
-        if (row < field.getRows() - 1) {
-            row++;
-            picture.translate(0, Field.cellSize);
+        if (picture.getY() < field.getHeight() - 1) {
+            //row++;
+            //picture.translate(0, Field.cellSize);
+            picture.translate(0, 5);
+            rectangle.translate(0, 5);
         }
     }
 
     public void moveLeft() {
-        if (col > 0) {
-            col--;
-            picture.translate(-1*Field.cellSize, 0);
+        if (picture.getX() > 0) {
+            //col--;
+            picture.translate(5, 0);
+            rectangle.translate(5 , 0);
         }
 
     }
 
     public void moveRight() {
-        if (col < field.getCols() - 1) {
-            col++;
-            picture.translate(Field.cellSize, 0);
+        if (picture.getMaxX() < field.getWidth() - 1) {
+            //col++;
+            picture.translate(5, 0);
+            rectangle.translate(5 , 0);
 
         }
 
     }
 
+    public int getX () {
+        return rectangle.getX();
+    }
+
+    public int getY() {
+        return rectangle.getY();
+    }
+
+    public int getMaxX () {
+        return rectangle.getX() + rectangle.getWidth();
+    }
+
+    public int getMaxY () {
+        return rectangle.getY() + rectangle.getHeight();
+    }
+
     public boolean equals(Position position) {
-        return this.col == position.getCol() && this.row == position.getRow();
+        return this.x == position.getX() && this.y == position.getY();
     }
 }

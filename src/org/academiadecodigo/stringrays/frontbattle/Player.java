@@ -11,6 +11,7 @@ public class Player implements Movables {
     private Field field;
     private Direction direction;
     private Picture healthPicture;
+    private Collision collision;
 
     public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
@@ -31,20 +32,20 @@ public class Player implements Movables {
 
             switch (direction) {
                 case UP:
-                    if (this.position.getRow() > 0) {
-                        return new Bullet(new Position(position.getCol(), position.getRow() - 1, field, "img/bullet.png"), direction);
+                    if (this.position.getY() > 0) {
+                        return new Bullet(new Position(position.getX(), position.getY() - 1, field, "img/bullet.png"), direction);
                     }
                 case DOWN:
-                    if (this.position.getRow() < field.getRows() - 1) {
-                        return new Bullet(new Position(position.getCol(), position.getRow() + 1, field, "img/bullet.png"), direction);
+                    if (this.position.getY() < field.getRows() - 1) {
+                        return new Bullet(new Position(position.getX(), position.getY() + 1, field, "img/bullet.png"), direction);
                     }
                 case LEFT:
-                    if (this.position.getCol() > 0) {
-                        return new Bullet(new Position(position.getCol() - 1, position.getRow(), field, "img/bullet.png"), direction);
+                    if (this.position.getX() > 0) {
+                        return new Bullet(new Position(position.getX() - 1, position.getY(), field, "img/bullet.png"), direction);
                     }
                 case RIGHT:
-                    if (this.position.getCol() < field.getRows() - 1) {
-                        return new Bullet(new Position(position.getCol() + 1, position.getRow(), field, "img/bullet.png"), direction);
+                    if (this.position.getX() < field.getRows() - 1) {
+                        return new Bullet(new Position(position.getX() + 1, position.getY(), field, "img/bullet.png"), direction);
                 }
             }
         }
