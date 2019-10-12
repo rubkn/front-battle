@@ -32,21 +32,13 @@ public class Player implements Movables {
             //TODO CHANGE ROWS AND COLS TO WIDTH
             switch (direction) {
                 case UP:
-                    if (this.position.getY() > 0) {
-                        return new Bullet(new Position(position.getX(), position.getY() - 1, field, "img/bullet.png"), direction);
-                    }
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY(), field, "img/bullet.png", 2), direction);
                 case DOWN:
-                    if (this.position.getY() < field.getWidth() - 1) {
-                        return new Bullet(new Position(position.getX(), position.getY() + 1, field, "img/bullet.png"), direction);
-                    }
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet.png", 2), direction);
                 case LEFT:
-                    if (this.position.getX() > 0) {
-                        return new Bullet(new Position(position.getX() - 1, position.getY(), field, "img/bullet.png"), direction);
-                    }
+                    return new Bullet(new Position(position.getX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
                 case RIGHT:
-                    if (this.position.getX() < field.getX() - 1) {
-                        return new Bullet(new Position(position.getX() + 1, position.getY(), field, "img/bullet.png"), direction);
-                    }
+                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
             }
         }
         return null;

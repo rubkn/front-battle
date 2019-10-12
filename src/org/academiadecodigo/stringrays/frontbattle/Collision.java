@@ -65,4 +65,28 @@ public class Collision {
             return colliding;
         }
         */
+
+    public void checkBulletBounds(Bullet[] bullets, Field field) {
+
+        for (int i = 0; i < bullets.length; i++) {
+
+            //if bullets array position returns null or is not fired continue to next bullet
+            if (bullets[i] == null || !bullets[i].isFired()) {
+                continue;
+            }
+
+            //checks if bullet is out of bounds by left or right side of arena
+            if (bullets[i].getPosition().getX() <= field.getX() || bullets[i].getPosition().getX() >= field.getWidth()) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
+                continue;
+            }
+
+            //checks if bullet is out of bounds by top or bottom side of arena
+            if (bullets[i].getPosition().getY() <= field.getY() || bullets[i].getPosition().getY() >= field.getHeight()) {
+                bullets[i].setFired(false);
+                bullets[i] = null;
+            }
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class Game implements KeyboardHandler {
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
     private int bulletCounter;
-    private boolean bulletDelay = true;
+    private int delay = 30;
     private Bullet[] bullets;
     private Collision collision;
 
@@ -24,11 +24,11 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.RIGHT,
                 new Picture(field.getX(), field.getHeight() + 20, "img/100health.png"));
 
         player2 = new Player("Player Two",
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
         player1.getPosition().show();
@@ -46,13 +46,14 @@ public class Game implements KeyboardHandler {
         //game engine
         while (true) {
             Thread.sleep(3);
-            if (bulletDelay) {
+            if (delay == 30) {
                 createBullets();
+                delay = 0;
             }
             moveBullets();
-            checkBulletBounds();
+            collision.checkBulletBounds(bullets, field);
             movePlayers();
-            bulletDelay = !bulletDelay;
+            delay++;
             //TODO CHANGE BULLET DELAY
         }
     }
@@ -106,29 +107,7 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public void checkBulletBounds() {
 
-        for (int i = 0; i < bullets.length; i++) {
-
-            //if bullets array position returns null or is not fired continue to next bullet
-            if (bullets[i] == null || !bullets[i].isFired()) {
-                continue;
-            }
-
-            //checks if bullet is out of bounds by left or right side of arena
-            if (bullets[i].getPosition().getX() == 0 || bullets[i].getPosition().getX() == field.getWidth() - 1) {
-                bullets[i].setFired(false);
-                bullets[i] = null;
-                continue;
-            }
-
-            //checks if bullet is out of bounds by top or bottom side of arena
-            if (bullets[i].getPosition().getY() == 0 || bullets[i].getPosition().getY() == field.getHeight() - 1) {
-                bullets[i].setFired(false);
-                bullets[i] = null;
-            }
-        }
-    }
 
     public void addKeyboardEvent(int key, KeyboardEventType type) {
         KeyboardEvent event = new KeyboardEvent();
@@ -167,11 +146,11 @@ public class Game implements KeyboardHandler {
         //needs to checkBulletHits() after every movement!
 
         if (upKey) {
-                if (!collision.movableCollisions(player2, player1, Direction.UP)) {
-                    player2.getPosition().moveUp();
-                }
-
+            if (!collision.movableCollisions(player2, player1, Direction.UP)) {
+                player2.getPosition().moveUp();
             }
+
+        }
         if (downKey) {
             if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
                 player2.getPosition().moveDown();
@@ -267,13 +246,11 @@ public class Game implements KeyboardHandler {
 
         //method for returning a new bullet if the player presses the shoot key
 
-        if (player.getPosition().getX() > 0 && player.getPosition().getY() > 0) {
-            Bullet newBullet = player.attack();
-            if (newBullet != null) {
-                bullets[bulletCounter] = newBullet;
-                bullets[bulletCounter].setFired(true);
-                bulletCounter++;
-            }
+        Bullet newBullet = player.attack();
+        if (newBullet != null) {
+            bullets[bulletCounter] = newBullet;
+            bullets[bulletCounter].setFired(true);
+            bulletCounter++;
         }
     }
 
