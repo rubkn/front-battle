@@ -33,6 +33,13 @@ public class Position {
         picture.delete();
     }
 
+    public void moveUpLeft() {
+        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
+            picture.translate(-distance, -distance);
+            rectangle.translate(-distance, -distance);
+        }
+    }
+
     public void moveUp() {
         if (picture.getY() > Field.PADDING) {
             picture.translate(0, -distance);

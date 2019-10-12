@@ -109,7 +109,6 @@ public class Player implements Movables {
         if (health <= 0) {
             position.hide();
             destroyed = true;
-            GameOver.gameOver(field);
         }
     }
 

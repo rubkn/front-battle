@@ -43,7 +43,7 @@ public class Game implements KeyboardHandler {
         keyboardKeys();
 
         //game engine
-        while (true) {
+        while (player1.getHealth() > 0 && player2.getHealth() > 0) {
             Thread.sleep(3);
             if (delay == 30) {
                 createBullets();
@@ -55,6 +55,7 @@ public class Game implements KeyboardHandler {
             delay++;
             //TODO CHANGE BULLET DELAY
         }
+        GameOver.gameOver(field, player1, player2);
     }
 
 
@@ -135,6 +136,7 @@ public class Game implements KeyboardHandler {
                 player1.getPosition().moveRight();
             }
         }
+
         //needs to checkBulletHits() after every movement!
         collision.checkBulletHits(player1, player2, bullets);
     }
