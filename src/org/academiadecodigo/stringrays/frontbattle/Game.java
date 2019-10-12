@@ -44,11 +44,11 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX(), field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
+                new Position(100, field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
                 new Picture(Field.PADDING, field.getHeight() + 20, "img/100health.png"));
 
         player2 = new Player("Player Two",
-                new Position(field.getWidth(), field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
+                new Position(300, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
         player1.getPosition().show();
@@ -67,7 +67,7 @@ public class Game implements KeyboardHandler {
 
         //game engine
         while (true) {
-            Thread.sleep(50);
+            Thread.sleep(3);
             if (bulletDelay) {
                 createBullets();
             }
@@ -188,50 +188,43 @@ public class Game implements KeyboardHandler {
         //needs to checkBulletHits() after every movement!
 
         if (upKey) {
-                if (!collision.checkUp(player2, player1)) {
+                if (!collision.checkUp(player2, player1, Direction.UP)) {
                     player2.getPosition().moveUp();
                 }
-                System.out.println("Upkey");
+
             }
         if (downKey) {
-            if (player2.getPosition().getX() != player1.getPosition().getX() ||
-                    player2.getPosition().getY() != player1.getPosition().getY() - 1) {
+            if (!collision.checkUp(player2, player1, Direction.DOWN)) {
                 player2.getPosition().moveDown();
             }
         }
         if (rightKey) {
-            if (player2.getPosition().getX() != player1.getPosition().getX() - 1 ||
-                    player2.getPosition().getY() != player1.getPosition().getY()) {
+            if (!collision.checkUp(player2, player1, Direction.RIGHT)) {
                 player2.getPosition().moveRight();
             }
         }
         if (leftKey) {
-            if (player2.getPosition().getX() != player1.getPosition().getX() + 1 ||
-                    player2.getPosition().getY() != player1.getPosition().getY()) {
+            if (!collision.checkUp(player2, player1, Direction.LEFT)) {
                 player2.getPosition().moveLeft();
             }
         }
         if (wKey) {
-            if (player1.getPosition().getX() != player2.getPosition().getX() ||
-                    player1.getPosition().getY() != player2.getPosition().getY() + 1) {
+            if (!collision.checkUp(player1, player2, Direction.UP)) {
                 player1.getPosition().moveUp();
             }
         }
         if (sKey) {
-            if (player1.getPosition().getX() != player2.getPosition().getX() ||
-                    player1.getPosition().getY() != player2.getPosition().getY() - 1) {
+            if (!collision.checkUp(player1, player2, Direction.DOWN)) {
                 player1.getPosition().moveDown();
             }
         }
         if (aKey) {
-            if (player1.getPosition().getX() != player2.getPosition().getX() + 1 ||
-                    player1.getPosition().getY() != player2.getPosition().getY()) {
+            if (!collision.checkUp(player1, player2, Direction.LEFT)) {
                 player1.getPosition().moveLeft();
             }
         }
         if (dKey) {
-            if (player1.getPosition().getX() != player2.getPosition().getX() - 1 ||
-                    player1.getPosition().getY() != player2.getPosition().getY()) {
+            if (!collision.checkUp(player1, player2, Direction.RIGHT)) {
                 player1.getPosition().moveRight();
             }
         }

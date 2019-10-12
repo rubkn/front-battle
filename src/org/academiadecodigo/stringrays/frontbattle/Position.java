@@ -16,7 +16,7 @@ public class Position {
         this.x = x;
         this.y = y;
         this.field = field;
-        picture = new Picture(field.getX(),field.getY(), path);
+        picture = new Picture(x,y, path);
         rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
         rectangle.draw();
     }
@@ -40,8 +40,8 @@ public class Position {
     public void moveUp() {
         if (picture.getY() > 0) {
             //row--;
-            picture.translate(0, -5);
-            rectangle.translate(0, -5);
+            picture.translate(0, -1);
+            rectangle.translate(0, -1);
         }
     }
 
@@ -49,16 +49,16 @@ public class Position {
         if (picture.getY() < field.getHeight() - 1) {
             //row++;
             //picture.translate(0, Field.cellSize);
-            picture.translate(0, 5);
-            rectangle.translate(0, 5);
+            picture.translate(0, 1);
+            rectangle.translate(0, 1);
         }
     }
 
     public void moveLeft() {
         if (picture.getX() > 0) {
             //col--;
-            picture.translate(5, 0);
-            rectangle.translate(5 , 0);
+            picture.translate(1, 0);
+            rectangle.translate(1 , 0);
         }
 
     }
@@ -66,8 +66,8 @@ public class Position {
     public void moveRight() {
         if (picture.getMaxX() < field.getWidth() - 1) {
             //col++;
-            picture.translate(5, 0);
-            rectangle.translate(5 , 0);
+            picture.translate(1, 0);
+            rectangle.translate(1 , 0);
 
         }
 
