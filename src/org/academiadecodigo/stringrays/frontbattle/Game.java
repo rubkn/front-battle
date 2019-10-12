@@ -18,8 +18,6 @@ public class Game implements KeyboardHandler {
     private boolean bulletDelay = true;
     private Bullet[] bullets;
 
-
-
     public void creation() {
 
         //instantiate new field with 80 by 80 positions
@@ -56,28 +54,20 @@ public class Game implements KeyboardHandler {
             checkBulletBounds();
             movePlayers();
             bulletDelay = !bulletDelay;
+
+            System.out.println("Player 1 X: " + player1.getPosition().getX());
+            System.out.println("Player 1 Y: " + player1.getPosition().getY());
+            System.out.println("Player 1 maxX: " + player1.getPosition().getMaxX());
+            System.out.println("Player 1 maxY: " + player1.getPosition().getMaxY());
+
+            System.out.println("Player 2 X: " + player2.getPosition().getX());
+            System.out.println("Player 2 Y: " + player2.getPosition().getY());
+            System.out.println("Player 2 maxX: " + player2.getPosition().getMaxX());
+            System.out.println("Player 2 maxY: " + player2.getPosition().getMaxY());
         }
     }
 
     public void checkBulletHits() {
-
-        //TODO: CHANGE BULLET ARRAY TO LIST
-        /*
-        System.out.println(bulletCounter);
-
-        Iterator<Bullet> bulletIterator = bullets.iterator();
-
-        while (bulletIterator.hasNext()) {
-            Bullet bullet = bulletIterator.next();
-
-            if bulletIterator.next()
-
-            if () {
-                bulletIterator.remove();
-            }
-
-        }
-        */
 
         for (int i = 0; i < bullets.length; i++) {
 
@@ -107,6 +97,24 @@ public class Game implements KeyboardHandler {
             bulletCounter = 0;
         }
     }
+
+        //TODO: CHANGE BULLET ARRAY TO LIST
+        /*
+        System.out.println(bulletCounter);
+
+        Iterator<Bullet> bulletIterator = bullets.iterator();
+
+        while (bulletIterator.hasNext()) {
+            Bullet bullet = bulletIterator.next();
+
+            if bulletIterator.next()
+
+            if () {
+                bulletIterator.remove();
+            }
+
+        }
+        */
 
     public void checkBulletBounds() {
 

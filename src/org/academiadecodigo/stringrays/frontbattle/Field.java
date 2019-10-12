@@ -10,7 +10,6 @@ public class Field{
     private int rows;
     private Picture fieldPicture;
 
-
     public Field(int cols, int rows){
         this.cols = cols;
         this.rows = rows;

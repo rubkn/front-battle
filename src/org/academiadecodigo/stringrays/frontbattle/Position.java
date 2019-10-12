@@ -13,8 +13,7 @@ public class Position {
         this.col = col;
         this.row = row;
         this.field = field;
-        picture = new Picture(field.columnToX(col),field.rowToY(row), path);
-
+        picture = new Picture(field.columnToX(col), field.rowToY(row), path);
     }
 
     public void show() {
@@ -36,7 +35,7 @@ public class Position {
     public void moveUp() {
         if (row > 0) {
             row--;
-            picture.translate(0, -1*Field.cellSize);
+            picture.translate(0, -1 * Field.cellSize);
         }
     }
 
@@ -50,7 +49,7 @@ public class Position {
     public void moveLeft() {
         if (col > 0) {
             col--;
-            picture.translate(-1*Field.cellSize, 0);
+            picture.translate(-1 * Field.cellSize, 0);
         }
 
     }
@@ -61,10 +60,28 @@ public class Position {
             picture.translate(Field.cellSize, 0);
 
         }
-
     }
 
+    public int getX() {
+        return picture.getX();
+    }
+
+    public int getY() {
+        return picture.getY();
+    }
+
+    public int getMaxX() {
+        return picture.getMaxX();
+    }
+
+    public int getMaxY() {
+        return picture.getMaxY();
+    }
+
+
     public boolean equals(Position position) {
+        //if (this.picture.getX() < position.getMaxX()
+        //        this.picture.getMaxY()
         return this.col == position.getCol() && this.row == position.getRow();
     }
 }
