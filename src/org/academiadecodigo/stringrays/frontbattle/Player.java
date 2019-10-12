@@ -11,7 +11,6 @@ public class Player implements Movables {
     private Field field;
     private Direction direction;
     private Picture healthPicture;
-    private Collision collision;
 
     public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
@@ -30,13 +29,14 @@ public class Player implements Movables {
 
         if (health > 0) {
 
+            //TODO CHANGE ROWS AND COLS TO WIDTH
             switch (direction) {
                 case UP:
                     if (this.position.getY() > 0) {
                         return new Bullet(new Position(position.getX(), position.getY() - 1, field, "img/bullet.png"), direction);
                     }
                 case DOWN:
-                    if (this.position.getY() < field.getRows() - 1) {
+                    if (this.position.getY() < field.getWidth() - 1) {
                         return new Bullet(new Position(position.getX(), position.getY() + 1, field, "img/bullet.png"), direction);
                     }
                 case LEFT:
@@ -44,9 +44,9 @@ public class Player implements Movables {
                         return new Bullet(new Position(position.getX() - 1, position.getY(), field, "img/bullet.png"), direction);
                     }
                 case RIGHT:
-                    if (this.position.getX() < field.getRows() - 1) {
+                    if (this.position.getX() < field.getX() - 1) {
                         return new Bullet(new Position(position.getX() + 1, position.getY(), field, "img/bullet.png"), direction);
-                }
+                    }
             }
         }
         return null;

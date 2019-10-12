@@ -1,6 +1,5 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -20,45 +19,24 @@ public class Game implements KeyboardHandler {
     private Bullet[] bullets;
     private Collision collision;
 
-    /*public void drawPlayerDebug () {
-        Rectangle rectangle1 = new Rectangle(player1.getPosition().getX(), player1.getPosition().getY(), 2, 2);
-        rectangle1.draw();
-
-        Rectangle rectangle2 = new Rectangle(player1.getPosition().getMaxX(), player1.getPosition().getY(), 2, 2);
-        rectangle2.draw();
-
-        Rectangle rectangle3 = new Rectangle(player1.getPosition().getX(), player1.getPosition().getMaxY(), 2, 2);
-        rectangle3.draw();
-
-        Rectangle rectangle4 = new Rectangle(player1.getPosition().getMaxX(), player1.getPosition().getMaxY(), 2, 2);
-        rectangle4.draw();
-
-    }*/
-
-
     public void creation() {
         field = new Field();
-        //instantiate new field with 80 by 80 positions
-        //field = new Field(5, 5);
-        //field.init();
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(100, field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
-                new Picture(Field.PADDING, field.getHeight() + 20, "img/100health.png"));
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field,"img/player50.png"), field, Direction.RIGHT,
+                new Picture(field.getX(), field.getHeight() + 20, "img/100health.png"));
 
         player2 = new Player("Player Two",
-                new Position(300, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
         player1.getPosition().show();
-        player1.getPosition().getX();
         player2.getPosition().show();
+        collision = new Collision();
 
         //bullet array for both players to use
         bullets = new Bullet[1000];
-        collision = new Collision();
-
     }
 
     public void gameStart() throws InterruptedException {
@@ -75,6 +53,7 @@ public class Game implements KeyboardHandler {
             checkBulletBounds();
             movePlayers();
             bulletDelay = !bulletDelay;
+            //TODO CHANGE BULLET DELAY
         }
     }
 
@@ -188,43 +167,43 @@ public class Game implements KeyboardHandler {
         //needs to checkBulletHits() after every movement!
 
         if (upKey) {
-                if (!collision.checkUp(player2, player1, Direction.UP)) {
+                if (!collision.movableCollisions(player2, player1, Direction.UP)) {
                     player2.getPosition().moveUp();
                 }
 
             }
         if (downKey) {
-            if (!collision.checkUp(player2, player1, Direction.DOWN)) {
+            if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
                 player2.getPosition().moveDown();
             }
         }
         if (rightKey) {
-            if (!collision.checkUp(player2, player1, Direction.RIGHT)) {
+            if (!collision.movableCollisions(player2, player1, Direction.RIGHT)) {
                 player2.getPosition().moveRight();
             }
         }
         if (leftKey) {
-            if (!collision.checkUp(player2, player1, Direction.LEFT)) {
+            if (!collision.movableCollisions(player2, player1, Direction.LEFT)) {
                 player2.getPosition().moveLeft();
             }
         }
         if (wKey) {
-            if (!collision.checkUp(player1, player2, Direction.UP)) {
+            if (!collision.movableCollisions(player1, player2, Direction.UP)) {
                 player1.getPosition().moveUp();
             }
         }
         if (sKey) {
-            if (!collision.checkUp(player1, player2, Direction.DOWN)) {
+            if (!collision.movableCollisions(player1, player2, Direction.DOWN)) {
                 player1.getPosition().moveDown();
             }
         }
         if (aKey) {
-            if (!collision.checkUp(player1, player2, Direction.LEFT)) {
+            if (!collision.movableCollisions(player1, player2, Direction.LEFT)) {
                 player1.getPosition().moveLeft();
             }
         }
         if (dKey) {
-            if (!collision.checkUp(player1, player2, Direction.RIGHT)) {
+            if (!collision.movableCollisions(player1, player2, Direction.RIGHT)) {
                 player1.getPosition().moveRight();
             }
         }

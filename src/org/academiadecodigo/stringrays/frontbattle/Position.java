@@ -1,6 +1,5 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.Ellipse;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -16,7 +15,7 @@ public class Position {
         this.x = x;
         this.y = y;
         this.field = field;
-        picture = new Picture(x,y, path);
+        picture = new Picture(x, y, path);
         rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
         rectangle.draw();
     }
@@ -29,51 +28,35 @@ public class Position {
         picture.delete();
     }
 
-    /*public int getCol() {
-        return col;
-    }*/
-
-    /*public int getRow() {
-        return row;
-    }*/
-
     public void moveUp() {
-        if (picture.getY() > 0) {
-            //row--;
+        if (picture.getY() > Field.PADDING) {
             picture.translate(0, -1);
             rectangle.translate(0, -1);
         }
     }
 
     public void moveDown() {
-        if (picture.getY() < field.getHeight() - 1) {
-            //row++;
-            //picture.translate(0, Field.cellSize);
+        if (picture.getMaxY() < field.getHeight() + Field.PADDING) {
             picture.translate(0, 1);
             rectangle.translate(0, 1);
         }
     }
 
     public void moveLeft() {
-        if (picture.getX() > 0) {
-            //col--;
-            picture.translate(1, 0);
-            rectangle.translate(1 , 0);
+        if (picture.getX() > Field.PADDING) {
+            picture.translate(-1, 0);
+            rectangle.translate(-1, 0);
         }
-
     }
 
     public void moveRight() {
-        if (picture.getMaxX() < field.getWidth() - 1) {
-            //col++;
+        if (picture.getMaxX() < field.getWidth() + Field.PADDING) {
             picture.translate(1, 0);
-            rectangle.translate(1 , 0);
-
+            rectangle.translate(1, 0);
         }
-
     }
 
-    public int getX () {
+    public int getX() {
         return rectangle.getX();
     }
 
@@ -81,11 +64,11 @@ public class Position {
         return rectangle.getY();
     }
 
-    public int getMaxX () {
-        return rectangle.getX() + rectangle.getWidth();
+    public int getMaxX() {
+        return picture.getMaxX();
     }
 
-    public int getMaxY () {
+    public int getMaxY() {
         return rectangle.getY() + rectangle.getHeight();
     }
 
