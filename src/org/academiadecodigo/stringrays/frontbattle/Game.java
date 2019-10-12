@@ -8,6 +8,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game implements KeyboardHandler {
 
+    private final int distance = 1;
     private Player player1;
     private Player player2;
     private Field field;
@@ -23,11 +24,11 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.RIGHT,
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png"), field, Direction.RIGHT,
                 new Picture(field.getX(), field.getHeight() + 20, "img/100health.png"));
 
         player2 = new Player("Player Two",
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.LEFT,
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
         player1.getPosition().show();
@@ -97,43 +98,43 @@ public class Game implements KeyboardHandler {
 
         if (upKey) {
             if (!collision.movableCollisions(player2, player1, Direction.UP)) {
-                player2.getPosition().moveUp();
+                player2.getPosition().moveUp(distance);
             }
 
         }
         if (downKey) {
             if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
-                player2.getPosition().moveDown();
+                player2.getPosition().moveDown(distance);
             }
         }
         if (rightKey) {
             if (!collision.movableCollisions(player2, player1, Direction.RIGHT)) {
-                player2.getPosition().moveRight();
+                player2.getPosition().moveRight(distance);
             }
         }
         if (leftKey) {
             if (!collision.movableCollisions(player2, player1, Direction.LEFT)) {
-                player2.getPosition().moveLeft();
+                player2.getPosition().moveLeft(distance);
             }
         }
         if (wKey) {
             if (!collision.movableCollisions(player1, player2, Direction.UP)) {
-                player1.getPosition().moveUp();
+                player1.getPosition().moveUp(distance);
             }
         }
         if (sKey) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWN)) {
-                player1.getPosition().moveDown();
+                player1.getPosition().moveDown(distance);
             }
         }
         if (aKey) {
             if (!collision.movableCollisions(player1, player2, Direction.LEFT)) {
-                player1.getPosition().moveLeft();
+                player1.getPosition().moveLeft(distance);
             }
         }
         if (dKey) {
             if (!collision.movableCollisions(player1, player2, Direction.RIGHT)) {
-                player1.getPosition().moveRight();
+                player1.getPosition().moveRight(distance);
             }
         }
 

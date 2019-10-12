@@ -33,14 +33,14 @@ public class Player implements Movables {
             //TODO GET THE BULLET SIZE FIXED AND SHOOT RIGHT WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 10, field, "img/bullet.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 10, field, "img/bullet.png"), direction);
                 case DOWN:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet.png"), direction);
                 case LEFT:
-                    return new Bullet(new Position(position.getX() - 10, (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
+                    return new Bullet(new Position(position.getX() - 10, (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png"), direction);
                 case RIGHT:
                     if (this.position.getMaxX() < field.getWidth() - 10) {
-                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png", 2), direction);
+                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png"), direction);
                     }
             }
         }
@@ -52,20 +52,20 @@ public class Player implements Movables {
     }
 
     @Override
-    public void move(Direction direction) {
+    public void move(Direction direction, int distance) {
 
         switch (direction) {
             case UP:
-                position.moveUp();
+                position.moveUp(distance);
                 break;
             case DOWN:
-                position.moveDown();
+                position.moveDown(distance);
                 break;
             case LEFT:
-                position.moveLeft();
+                position.moveLeft(distance);
                 break;
             case RIGHT:
-                position.moveRight();
+                position.moveRight(distance);
                 break;
         }
     }

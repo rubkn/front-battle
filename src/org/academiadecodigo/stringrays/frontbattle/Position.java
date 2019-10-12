@@ -5,17 +5,11 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Position {
 
-    private int x;
-    private int y;
     private Field field;
     private Picture picture;
     private Rectangle rectangle;
-    private int distance;
 
-    public Position(int x, int y, Field field, String path, int distance) {
-        this.distance = distance;
-        this.x = x;
-        this.y = y;
+    public Position(int x, int y, Field field, String path) {
         this.field = field;
         picture = new Picture(x, y, path);
         rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
@@ -33,35 +27,28 @@ public class Position {
         picture.delete();
     }
 
-    public void moveUpLeft() {
-        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
-            picture.translate(-distance, -distance);
-            rectangle.translate(-distance, -distance);
-        }
-    }
-
-    public void moveUp() {
+    public void moveUp(int distance) {
         if (picture.getY() > Field.PADDING) {
             picture.translate(0, -distance);
             rectangle.translate(0, -distance);
         }
     }
 
-    public void moveDown() {
+    public void moveDown(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING) {
             picture.translate(0, distance);
             rectangle.translate(0, distance);
         }
     }
 
-    public void moveLeft() {
+    public void moveLeft(int distance) {
         if (picture.getX() > Field.PADDING) {
             picture.translate(-distance, 0);
             rectangle.translate(-distance, 0);
         }
     }
 
-    public void moveRight() {
+    public void moveRight(int distance) {
         if (picture.getMaxX() < field.getWidth() + Field.PADDING) {
             picture.translate(distance, 0);
             rectangle.translate(distance, 0);
