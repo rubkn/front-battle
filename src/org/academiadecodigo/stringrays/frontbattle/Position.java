@@ -6,13 +6,10 @@ public class Position {
 
     private Field field;
     private Picture picture;
-    private int distance;
 
-    public Position(int x, int y, Field field, String path, int distance) {
-        this.distance = distance;
+    public Position(int x, int y, Field field, String path) {
         this.field = field;
         picture = new Picture(x, y, path);
-        //rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
     }
 
     public void show() {
@@ -25,53 +22,53 @@ public class Position {
 
     //TODO CHECK BORDERS ON DIAGONALS AND CHECK IF WE NEED TO MOVE FASTER ON STRAIGHT LINES
 
-    public void moveUpLeft() {
+    public void moveUpLeft(int distance) {
         if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
             //double mag = Math.sqrt((-distance * -distance) + (-distance * -distance));
             picture.translate(-distance, -distance);
         }
     }
 
-    public void moveUpRight() {
+    public void moveUpRight(int distance) {
         if (picture.getY() > Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
             //double mag = Math.sqrt((distance * distance) + (-distance * -distance));
             picture.translate(distance, -distance);
         }
     }
 
-    public void moveDownLeft() {
+    public void moveDownLeft(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getX() > Field.PADDING) {
             //double mag = Math.sqrt((-distance * -distance) + (distance * distance));
             picture.translate(-distance, distance);
         }
     }
 
-    public void moveDownRight() {
+    public void moveDownRight(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
             //double mag = Math.sqrt((distance * distance) + (distance * distance));
             picture.translate(distance, distance);
         }
     }
 
-    public void moveUp() {
+    public void moveUp(int distance) {
         if (picture.getY() > Field.PADDING) {
             picture.translate(0, -distance);
         }
     }
 
-    public void moveDown() {
+    public void moveDown(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING) {
             picture.translate(0, distance);
         }
     }
 
-    public void moveLeft() {
+    public void moveLeft(int distance) {
         if (picture.getX() > Field.PADDING) {
             picture.translate(-distance, 0);
         }
     }
 
-    public void moveRight() {
+    public void moveRight(int distance) {
         if (picture.getMaxX() < field.getWidth() + Field.PADDING) {
             picture.translate(distance, 0);
         }
