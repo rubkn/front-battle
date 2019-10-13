@@ -42,6 +42,14 @@ public class Player implements Movables {
                     if (this.position.getMaxX() < field.getWidth() - 10) {
                         return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png", 2), direction);
                     }
+                case UPLEFT:
+                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                case UPRIGHT:
+                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                case DOWNLEFT:
+                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                case DOWNRIGHT:
+                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
             }
         }
         return null;
@@ -66,6 +74,18 @@ public class Player implements Movables {
                 break;
             case RIGHT:
                 position.moveRight();
+                break;
+            case UPLEFT:
+                position.moveUpLeft();
+                break;
+            case UPRIGHT:
+                position.moveUpRight();
+                break;
+            case DOWNLEFT:
+                position.moveDownLeft();
+                break;
+            case DOWNRIGHT:
+                position.moveDownRight();
                 break;
         }
     }
@@ -104,8 +124,7 @@ public class Player implements Movables {
             case 0:
                 healthPicture.delete();
         }
-        //position.hide();
-        //position.show();
+
         if (health <= 0) {
             position.hide();
             destroyed = true;

@@ -30,6 +30,18 @@ public class Bullet {
             case RIGHT:
                 position.moveRight();
                 break;
+            case UPLEFT:
+                position.moveUpLeft();
+                break;
+            case UPRIGHT:
+                position.moveUpRight();
+                break;
+            case DOWNLEFT:
+                position.moveDownLeft();
+                break;
+            case DOWNRIGHT:
+                position.moveDownRight();
+                break;
         }
     }
 

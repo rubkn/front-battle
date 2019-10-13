@@ -19,9 +19,6 @@ public class Position {
         this.field = field;
         picture = new Picture(x, y, path);
         rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
-        //rectangle.draw();
-
-
     }
 
     public void show() {
@@ -33,10 +30,33 @@ public class Position {
         picture.delete();
     }
 
+    //TODO CHECK BORDERS ON DIAGONALS AND CHECK IF WE NEED TO MOVE FASTER ON STRAIGHT LINES
+
     public void moveUpLeft() {
         if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
             picture.translate(-distance, -distance);
             rectangle.translate(-distance, -distance);
+        }
+    }
+
+    public void moveUpRight() {
+        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
+            picture.translate(distance, -distance);
+            rectangle.translate(distance, -distance);
+        }
+    }
+
+    public void moveDownLeft() {
+        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
+            picture.translate(-distance, distance);
+            rectangle.translate(-distance, distance);
+        }
+    }
+
+    public void moveDownRight() {
+        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
+            picture.translate(distance, distance);
+            rectangle.translate(distance, distance);
         }
     }
 
