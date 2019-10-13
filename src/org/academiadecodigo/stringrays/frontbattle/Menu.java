@@ -23,7 +23,7 @@ public class Menu implements KeyboardHandler {
 
         try {
             while(!sKeyPressed && !qKeyPressed){
-                Thread.sleep(30);
+                Thread.sleep(0);
             }
             if (sKeyPressed) {
                 Game game = new Game();
@@ -45,7 +45,7 @@ public class Menu implements KeyboardHandler {
         winner.draw();
         try{
             while(!mKeyPressed) {
-                Thread.sleep(30);
+                Thread.sleep(0);
             }
             startMenu();
         } catch (InterruptedException e) {

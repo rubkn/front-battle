@@ -5,17 +5,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Player implements Movables {
 
     private Position position;
-    private String name;
     private int health = 100;
-    private boolean destroyed;
     private Field field;
     private Direction direction;
     private Picture healthPicture;
     private Direction oldDirection;
     private String picturePath;
 
-    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
-        this.name = name;
+    public Player(Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
         this.position = position;
         this.field = field;
         this.direction = direction;
@@ -31,7 +28,7 @@ public class Player implements Movables {
 
     public Bullet attack() {
 
-            //TODO GET THE BULLET SIZE FIXED AND SHOOT RIGHT WITHOUT EXPANDING CANVAS
+            //TODO: SHOOT DOWN AND RIGHT, AT THE BORDERS, WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
                     return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "img/bullet/upbullet1.png"), direction);
@@ -163,19 +160,10 @@ public class Player implements Movables {
 
         if (health <= 0) {
             position.hide();
-            destroyed = true;
         }
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
     }
 
     public int getHealth() {
         return health;
-    }
-
-    public String getName() {
-        return name;
     }
 }

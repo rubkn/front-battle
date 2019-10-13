@@ -12,6 +12,7 @@ public class Bullet {
         this.position = position;
         this.direction = direction;
         bulletDamage = 10;
+        //TODO CHECK BULLET DAMAGE VALUE
     }
 
     //sets bullet to move in the direction given by the player

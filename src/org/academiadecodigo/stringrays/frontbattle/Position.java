@@ -20,32 +20,29 @@ public class Position {
         picture.delete();
     }
 
-    //TODO CHECK BORDERS ON DIAGONALS AND CHECK IF WE NEED TO MOVE FASTER ON STRAIGHT LINES
+    //TODO: CHECK IF WE NEED THIS EQUATION TO GO DIAGONALLY
+    //double mag = Math.sqrt((-distance * -distance) + (-distance * -distance));
 
     public void moveUpLeft(int distance) {
         if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
-            //double mag = Math.sqrt((-distance * -distance) + (-distance * -distance));
             picture.translate(-distance, -distance);
         }
     }
 
     public void moveUpRight(int distance) {
         if (picture.getY() > Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
-            //double mag = Math.sqrt((distance * distance) + (-distance * -distance));
             picture.translate(distance, -distance);
         }
     }
 
     public void moveDownLeft(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getX() > Field.PADDING) {
-            //double mag = Math.sqrt((-distance * -distance) + (distance * distance));
             picture.translate(-distance, distance);
         }
     }
 
     public void moveDownRight(int distance) {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
-            //double mag = Math.sqrt((distance * distance) + (distance * distance));
             picture.translate(distance, distance);
         }
     }
