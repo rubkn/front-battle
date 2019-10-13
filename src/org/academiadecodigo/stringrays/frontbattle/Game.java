@@ -26,7 +26,7 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player2/right/right1.png", 1), field, Direction.RIGHT,
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player1/right/right1.png", 1), field, Direction.RIGHT,
                 new Picture(field.getX(), field.getHeight() + 20, "img/health/fullhealth.png"));
 
         player2 = new Player("Player Two",
@@ -104,7 +104,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UPLEFT);
             if (!collision.movableCollisions(player2, player1, Direction.UPLEFT)) {
-                player2.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
                 player2.getPosition().moveUpLeft();
             }
         }
@@ -114,7 +114,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(leftKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UPRIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.UPRIGHT)) {
-                player2.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
                 player2.getPosition().moveUpRight();
             }
         }
@@ -124,7 +124,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWNLEFT);
             if (!collision.movableCollisions(player2, player1, Direction.DOWNLEFT)) {
-                player2.getPosition().getPicture().load("img/player2/front/front1.png");
+                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
                 player2.getPosition().moveDownLeft();
             }
         }
@@ -134,7 +134,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(leftKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWNRIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.DOWNRIGHT)) {
-                player2.getPosition().getPicture().load("img/player2/front/front1.png");
+                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
                 player2.getPosition().moveDownRight();
             }
         }
@@ -144,7 +144,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UP);
             if (!collision.movableCollisions(player2, player1, Direction.UP)) {
-                player2.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
                 player2.getPosition().moveUp();
             }
 
@@ -155,7 +155,7 @@ public class Game implements KeyboardHandler {
                 && !keys.contains(rightKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWN);
             if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
-                player2.getPosition().getPicture().load("img/player2/front/front1.png");
+                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
                 player2.getPosition().moveDown();
             }
         }
@@ -165,7 +165,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(downKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.RIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.RIGHT)) {
-                player2.getPosition().getPicture().load("img/player2/right/right1.png");
+                //player2.getPosition().getPicture().load("img/player2/right/right1.png");
                 player2.getPosition().moveRight();
             }
         }
@@ -175,7 +175,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(downKey) ) {
             player2.setDirection(Direction.LEFT);
             if (!collision.movableCollisions(player2, player1, Direction.LEFT)) {
-                player2.getPosition().getPicture().load("img/player2/left/left1.png");
+                //player2.getPosition().getPicture().load("img/player2/left/left1.png");
                 player2.getPosition().moveLeft();
             }
         }
@@ -185,7 +185,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UPLEFT)) {
                 player1.setDirection(Direction.UPLEFT);
-                player1.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
                 player1.getPosition().moveUpLeft();
             }
         }
@@ -195,7 +195,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UPRIGHT)) {
                 player1.setDirection(Direction.UPRIGHT);
-                player1.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
                 player1.getPosition().moveUpRight();
             }
         }
@@ -205,7 +205,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWNLEFT)) {
                 player1.setDirection(Direction.DOWNLEFT);
-                player1.getPosition().getPicture().load("img/player2/front/front1.png");
+                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
                 player1.getPosition().moveDownLeft();
             }
         }
@@ -215,7 +215,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWNRIGHT)) {
                 player1.setDirection(Direction.DOWNRIGHT);
-                player1.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
                 player1.getPosition().moveDownRight();
             }
         }
@@ -225,7 +225,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UP)) {
                 player1.setDirection(Direction.UP);
-                player1.getPosition().getPicture().load("img/player2/back/back1.png");
+                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
                 player1.getPosition().moveUp();
             }
         }
@@ -235,7 +235,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && ! keys.contains(dKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWN)) {
                 player1.setDirection(Direction.DOWN);
-                player1.getPosition().getPicture().load("img/player2/front/front1.png");
+                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
                 player1.getPosition().moveDown();
             }
         }
@@ -245,7 +245,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.LEFT)) {
                 player1.setDirection(Direction.LEFT);
-                player1.getPosition().getPicture().load("img/player2/left/left1.png");
+                //player1.getPosition().getPicture().load("img/player1/left/left1.png");
                 player1.getPosition().moveLeft();
             }
         }
@@ -255,7 +255,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(sKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.RIGHT)) {
                 player1.setDirection(Direction.RIGHT);
-                player1.getPosition().getPicture().load("img/player2/right/right1.png");
+                //player1.getPosition().getPicture().load("img/player1/right/right1.png");
                 player1.getPosition().moveRight();
             }
         }
