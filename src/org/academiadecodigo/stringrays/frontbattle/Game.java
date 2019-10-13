@@ -1,6 +1,4 @@
 package org.academiadecodigo.stringrays.frontbattle;
-
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -26,11 +24,11 @@ public class Game implements KeyboardHandler {
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
                 new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player2/right/right1.png", 1), field, Direction.RIGHT,
-                new Picture(field.getX(), field.getHeight() + 20, "img/health/fullhealth.png"));
+                new Picture(field.getX(), field.getHeight() -15, "img/health/fullhealth.png"));
 
         player2 = new Player("Player Two",
                 new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png", 1), field, Direction.LEFT,
-                new Picture(field.getWidth() - 140, field.getHeight() + 20, "img/health/fullhealth.png"));
+                new Picture(field.getWidth() - 140, field.getHeight()-15, "img/health/fullhealth.png"));
 
         player1.getPosition().show();
         player2.getPosition().show();
@@ -57,10 +55,8 @@ public class Game implements KeyboardHandler {
             delay++;
             //TODO CHANGE BULLET DELAY
         }
-
         menu.gameOverMenu();
     }
-
 
     public void addKeyboardEvent(int key, KeyboardEventType type) {
         KeyboardEvent event = new KeyboardEvent();
@@ -275,7 +271,6 @@ public class Game implements KeyboardHandler {
                 break;
             case (KeyboardEvent.KEY_P):
                 pKey = true;
-                System.out.println(pKey);
                 break;
         }
     }

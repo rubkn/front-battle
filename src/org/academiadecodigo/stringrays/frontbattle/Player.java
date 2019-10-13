@@ -123,4 +123,5 @@ public class Player implements Movables {
     public String getName() {
         return name;
     }
+
 }
