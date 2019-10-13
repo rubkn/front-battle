@@ -102,6 +102,7 @@ public class Collision {
             //check if any bullet is hitting player 1
             if (player1.getPosition().colliding(bullets[i].getPosition())) {
                 player1.hit(bullets[i].getBulletDamage());
+                player1.move(bullets[i].getDirection(), 8);
                 bullets[i].setFired(false);
                 bullets[i] = null;
                 continue;
@@ -110,6 +111,7 @@ public class Collision {
             //check if any bullet is hitting player 2
             if (player2.getPosition().colliding(bullets[i].getPosition())) {
                 player2.hit(bullets[i].getBulletDamage());
+                player2.move(bullets[i].getDirection(), 8);
                 bullets[i].setFired(false);
                 bullets[i] = null;
             }

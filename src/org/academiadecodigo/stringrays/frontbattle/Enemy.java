@@ -2,7 +2,7 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Player implements Movables {
+public class Enemy implements Movables {
 
     private Position position;
     private String name;
@@ -12,7 +12,7 @@ public class Player implements Movables {
     private Direction direction;
     private Picture healthPicture;
 
-    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
+    public Enemy(String name, Position position, Field field, Direction direction, Picture healthPicture) {
         this.name = name;
         this.position = position;
         this.field = field;
@@ -33,14 +33,14 @@ public class Player implements Movables {
             //TODO GET THE BULLET SIZE FIXED AND SHOOT RIGHT WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "img/bullet/upbullet1.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 10, field, "img/bullet.png"), direction);
                 case DOWN:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet.png"), direction);
                 case LEFT:
-                    return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "img/bullet/leftbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getX() - 10, (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png"), direction);
                 case RIGHT:
                     if (this.position.getMaxX() < field.getWidth() - 10) {
-                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png", 2), direction);
+                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet.png"), direction);
                     }
             }
         }
@@ -52,20 +52,20 @@ public class Player implements Movables {
     }
 
     @Override
-    public void move(Direction direction) {
+    public void move(Direction direction, int distance) {
 
         switch (direction) {
             case UP:
-                position.moveUp();
+                position.moveUp(distance);
                 break;
             case DOWN:
-                position.moveDown();
+                position.moveDown(distance);
                 break;
             case LEFT:
-                position.moveLeft();
+                position.moveLeft(distance);
                 break;
             case RIGHT:
-                position.moveRight();
+                position.moveRight(distance);
                 break;
         }
     }

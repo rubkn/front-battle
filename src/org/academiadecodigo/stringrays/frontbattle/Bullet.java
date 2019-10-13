@@ -2,6 +2,7 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 public class Bullet {
 
+    private final int distance = 2;
     private Position position;
     private int bulletDamage;
     private boolean isFired;
@@ -19,16 +20,16 @@ public class Bullet {
 
         switch (direction) {
             case UP:
-                position.moveUp();
+                position.moveUp(distance);
                 break;
             case DOWN:
-                position.moveDown();
+                position.moveDown(distance);
                 break;
             case LEFT:
-                position.moveLeft();
+                position.moveLeft(distance);
                 break;
             case RIGHT:
-                position.moveRight();
+                position.moveRight(distance);
                 break;
         }
     }
@@ -54,5 +55,9 @@ public class Bullet {
 
     public boolean isFired() {
         return isFired;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }
