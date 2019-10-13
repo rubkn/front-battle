@@ -11,6 +11,7 @@ public class Game implements KeyboardHandler {
     private final int distance = 1;
     private Player player1;
     private Player player2;
+    private Enemy enemy;
     private Field field;
     private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
     private Keyboard keyboard = new Keyboard(this);
@@ -19,28 +20,48 @@ public class Game implements KeyboardHandler {
     private Bullet[] bullets;
     private Collision collision;
 
-    public void creation() {
+    public Game(){
+        //instantiate game
         field = new Field();
+        collision = new Collision();
+        bullets = new Bullet[100];
 
-        //instantiate players with name, initial position, image, initial direction and health score board
+        //instantiate player with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png"), field, Direction.RIGHT,
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png"),
+                field,
+                Direction.RIGHT,
                 new Picture(field.getX(), field.getHeight() + 20, "img/100health.png"));
 
+        player1.getPosition().show();
+    }
+
+    public void pvpCreation() {
+
+        //instantiate second player
         player2 = new Player("Player Two",
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"), field, Direction.LEFT,
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"),
+                field,
+                Direction.LEFT,
                 new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
 
-        player1.getPosition().show();
         player2.getPosition().show();
-        collision = new Collision();
+    }
 
-        //bullet array for both players to use
-        bullets = new Bullet[100];
+    public void singlePlayerCreation() {
+        //instantiate enemy
+        enemy = new Enemy("Enemy",
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png"),
+                field,
+                Direction.LEFT,
+                new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
+
+        enemy.getPosition().show();
     }
 
     public void gameStart() throws InterruptedException {
 
+        //instantiate keyboard
         keyboardKeys();
 
         //game engine
