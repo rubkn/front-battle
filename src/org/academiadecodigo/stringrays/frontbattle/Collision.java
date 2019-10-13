@@ -13,26 +13,24 @@ public class Collision {
             colliding = true;
         }
 
-        //TODO DECIDE IF 4 IF'S OR 1 LONG FUCKING IF
-        /*
-        if (colliding && direction == Direction.UP && playerMoving.getPosition().getY() == otherPlayer.getPosition().getMaxY()) {
-            return true;
-        }
-        if (colliding && direction == Direction.DOWN && playerMoving.getPosition().getMaxY() == otherPlayer.getPosition().getY()) {
-            return true;
-        }
-        if (colliding && direction == Direction.LEFT && playerMoving.getPosition().getX() == otherPlayer.getPosition().getMaxX()) {
-            return true;
-        }
-        if (colliding && direction == Direction.RIGHT && playerMoving.getPosition().getMaxX() == otherPlayer.getPosition().getX()) {
-            return true;
-        }
-        */
-
-        if (colliding && direction == Direction.UP && playerMoving.getPosition().getY() == otherPlayer.getPosition().getMaxY() ||
+        if (
+                colliding && direction == Direction.UP && playerMoving.getPosition().getY() == otherPlayer.getPosition().getMaxY() ||
                 colliding && direction == Direction.DOWN && playerMoving.getPosition().getMaxY() == otherPlayer.getPosition().getY() ||
                 colliding && direction == Direction.LEFT && playerMoving.getPosition().getX() == otherPlayer.getPosition().getMaxX() ||
-                colliding && direction == Direction.RIGHT && playerMoving.getPosition().getMaxX() == otherPlayer.getPosition().getX()) {
+                colliding && direction == Direction.RIGHT && playerMoving.getPosition().getMaxX() == otherPlayer.getPosition().getX() ||
+
+                colliding && direction == Direction.UPRIGHT && playerMoving.getPosition().getY() == otherPlayer.getPosition().getMaxY() ||
+                colliding && direction == Direction.UPRIGHT && playerMoving.getPosition().getMaxX() == otherPlayer.getPosition().getX() ||
+
+                colliding && direction == Direction.UPLEFT && playerMoving.getPosition().getX() == otherPlayer.getPosition().getMaxX() ||
+                colliding && direction == Direction.UPLEFT && playerMoving.getPosition().getY() == otherPlayer.getPosition().getMaxY() ||
+
+                colliding && direction == Direction.DOWNLEFT && playerMoving.getPosition().getMaxY() == otherPlayer.getPosition().getY() ||
+                colliding && direction == Direction.DOWNLEFT && playerMoving.getPosition().getX() == otherPlayer.getPosition().getMaxX() ||
+
+                colliding && direction == Direction.DOWNRIGHT && playerMoving.getPosition().getMaxY() == otherPlayer.getPosition().getY() ||
+                colliding && direction == Direction.DOWNRIGHT && playerMoving.getPosition().getMaxX() == otherPlayer.getPosition().getX()
+        ) {
             return true;
         }
 
@@ -102,7 +100,7 @@ public class Collision {
             //check if any bullet is hitting player 1
             if (player1.getPosition().colliding(bullets[i].getPosition())) {
                 player1.hit(bullets[i].getBulletDamage());
-                player1.move(bullets[i].getDirection(), 8);
+                player1.move(bullets[i].getDirection());
                 bullets[i].setFired(false);
                 bullets[i] = null;
                 continue;
@@ -111,7 +109,7 @@ public class Collision {
             //check if any bullet is hitting player 2
             if (player2.getPosition().colliding(bullets[i].getPosition())) {
                 player2.hit(bullets[i].getBulletDamage());
-                player2.move(bullets[i].getDirection(), 8);
+                player2.move(bullets[i].getDirection());
                 bullets[i].setFired(false);
                 bullets[i] = null;
             }

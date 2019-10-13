@@ -1,21 +1,18 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Position {
 
     private Field field;
     private Picture picture;
-    private Rectangle rectangle;
+    private int distance;
 
-    public Position(int x, int y, Field field, String path) {
+    public Position(int x, int y, Field field, String path, int distance) {
+        this.distance = distance;
         this.field = field;
         picture = new Picture(x, y, path);
-        rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
-        //rectangle.draw();
-
-
+        //rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
     }
 
     public void show() {
@@ -23,35 +20,60 @@ public class Position {
     }
 
     public void hide() {
-        rectangle.delete();
         picture.delete();
     }
 
-    public void moveUp(int distance) {
+    //TODO CHECK BORDERS ON DIAGONALS AND CHECK IF WE NEED TO MOVE FASTER ON STRAIGHT LINES
+
+    public void moveUpLeft() {
+        if (picture.getY() > Field.PADDING && picture.getX() > Field.PADDING) {
+            //double mag = Math.sqrt((-distance * -distance) + (-distance * -distance));
+            picture.translate(-distance, -distance);
+        }
+    }
+
+    public void moveUpRight() {
+        if (picture.getY() > Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
+            //double mag = Math.sqrt((distance * distance) + (-distance * -distance));
+            picture.translate(distance, -distance);
+        }
+    }
+
+    public void moveDownLeft() {
+        if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getX() > Field.PADDING) {
+            //double mag = Math.sqrt((-distance * -distance) + (distance * distance));
+            picture.translate(-distance, distance);
+        }
+    }
+
+    public void moveDownRight() {
+        if (picture.getMaxY() < field.getHeight() + Field.PADDING && picture.getMaxX() < field.getWidth() + Field.PADDING) {
+            //double mag = Math.sqrt((distance * distance) + (distance * distance));
+            picture.translate(distance, distance);
+        }
+    }
+
+    public void moveUp() {
         if (picture.getY() > Field.PADDING) {
             picture.translate(0, -distance);
-            rectangle.translate(0, -distance);
         }
     }
 
-    public void moveDown(int distance) {
+    public void moveDown() {
         if (picture.getMaxY() < field.getHeight() + Field.PADDING) {
             picture.translate(0, distance);
-            rectangle.translate(0, distance);
         }
     }
 
-    public void moveLeft(int distance) {
+    public void moveLeft() {
         if (picture.getX() > Field.PADDING) {
             picture.translate(-distance, 0);
-            rectangle.translate(-distance, 0);
         }
     }
 
-    public void moveRight(int distance) {
+    public void moveRight() {
         if (picture.getMaxX() < field.getWidth() + Field.PADDING) {
             picture.translate(distance, 0);
-            rectangle.translate(distance, 0);
         }
     }
 

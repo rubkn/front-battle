@@ -8,7 +8,7 @@ public class Field{
     private Picture fieldPicture;
 
     public Field(){
-        fieldPicture = new Picture(PADDING, PADDING, "img/field/field1.png");
+        fieldPicture = new Picture(PADDING, PADDING, "img/field/field-bg.jpg");
         fieldPicture.draw();
     }
 

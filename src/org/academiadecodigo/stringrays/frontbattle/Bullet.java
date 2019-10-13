@@ -20,16 +20,28 @@ public class Bullet {
 
         switch (direction) {
             case UP:
-                position.moveUp(distance);
+                position.moveUp();
                 break;
             case DOWN:
-                position.moveDown(distance);
+                position.moveDown();
                 break;
             case LEFT:
-                position.moveLeft(distance);
+                position.moveLeft();
                 break;
             case RIGHT:
-                position.moveRight(distance);
+                position.moveRight();
+                break;
+            case UPLEFT:
+                position.moveUpLeft();
+                break;
+            case UPRIGHT:
+                position.moveUpRight();
+                break;
+            case DOWNLEFT:
+                position.moveDownLeft();
+                break;
+            case DOWNRIGHT:
+                position.moveDownRight();
                 break;
         }
     }

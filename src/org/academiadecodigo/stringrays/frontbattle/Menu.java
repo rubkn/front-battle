@@ -22,7 +22,7 @@ public class Menu implements KeyboardHandler {
     public void startMenu() {
         keyboardKeys();
 
-        Picture background = new Picture(Field.PADDING, Field.PADDING, "img/menu.png");
+        Picture background = new Picture(Field.PADDING, Field.PADDING, "img/menu/menu.png");
         background.draw();
 
         try {
@@ -43,9 +43,10 @@ public class Menu implements KeyboardHandler {
         }
     }
 
-    public void gameOverMenu() {
+    public void gameOverMenu(String path) {
         keyboardKeys();
-
+        Picture winner = new Picture(field.getX(),field.getY(),path);
+        winner.draw();
         try{
             while(!mKeyPressed) {
                 Thread.sleep(30);

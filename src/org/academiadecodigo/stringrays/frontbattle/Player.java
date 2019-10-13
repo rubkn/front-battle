@@ -11,13 +11,17 @@ public class Player implements Movables {
     private Field field;
     private Direction direction;
     private Picture healthPicture;
+    private Direction oldDirection;
+    private String picturePath;
 
-    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
+    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
         this.name = name;
         this.position = position;
         this.field = field;
         this.direction = direction;
+        this.oldDirection = direction;
         this.healthPicture = healthPicture;
+        this.picturePath = picturePath;
         healthPicture.draw();
     }
 
@@ -39,16 +43,60 @@ public class Player implements Movables {
                 case LEFT:
                     return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "img/bullet/leftbullet1.png", 2), direction);
                 case RIGHT:
-                    if (this.position.getMaxX() < field.getWidth() - 10) {
-                        return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png", 2), direction);
-                    }
+                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png", 2), direction);
+                case UPLEFT:
+                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                case UPRIGHT:
+                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                case DOWNLEFT:
+                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                case DOWNRIGHT:
+                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
             }
         }
         return null;
     }
 
     public void setDirection(Direction direction) {
+
         this.direction = direction;
+
+        if (direction != oldDirection) {
+            switch (direction) {
+                case UP:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWN:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+                case LEFT:
+                    position.getPicture().load(picturePath + "left/left1.png");
+                    oldDirection = direction;
+                    break;
+                case RIGHT:
+                    position.getPicture().load(picturePath + "right/right1.png");
+                    oldDirection = direction;
+                    break;
+                case UPLEFT:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case UPRIGHT:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWNLEFT:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWNRIGHT:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+            }
+        }
     }
 
     @Override
@@ -67,6 +115,18 @@ public class Player implements Movables {
             case RIGHT:
                 position.moveRight();
                 break;
+            case UPLEFT:
+                position.moveUpLeft();
+                break;
+            case UPRIGHT:
+                position.moveUpRight();
+                break;
+            case DOWNLEFT:
+                position.moveDownLeft();
+                break;
+            case DOWNRIGHT:
+                position.moveDownRight();
+                break;
         }
     }
 
@@ -75,37 +135,36 @@ public class Player implements Movables {
 
         switch (health) {
             case 90:
-                healthPicture.load("img/90health.png");
+                healthPicture.load("img/health/90health.png");
                 break;
             case 80:
-                healthPicture.load("img/80health.png");
+                healthPicture.load("img/health/80health.png");
                 break;
             case 70:
-                healthPicture.load("img/70health.png");
+                healthPicture.load("img/health/70health.png");
                 break;
             case 60:
-                healthPicture.load("img/60health.png");
+                healthPicture.load("img/health/60health.png");
                 break;
             case 50:
-                healthPicture.load("img/50health.png");
+                healthPicture.load("img/health/50health.png");
                 break;
             case 40:
-                healthPicture.load("img/40health.png");
+                healthPicture.load("img/health/40health.png");
                 break;
             case 30:
-                healthPicture.load("img/30health.png");
+                healthPicture.load("img/health/30health.png");
                 break;
             case 20:
-                healthPicture.load("img/20health.png");
+                healthPicture.load("img/health/20health.png");
                 break;
             case 10:
-                healthPicture.load("img/10health.png");
+                healthPicture.load("img/health/10health.png");
                 break;
             case 0:
                 healthPicture.delete();
         }
-        //position.hide();
-        //position.show();
+
         if (health <= 0) {
             position.hide();
             destroyed = true;
