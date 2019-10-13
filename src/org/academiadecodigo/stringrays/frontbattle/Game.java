@@ -1,5 +1,6 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -11,12 +12,13 @@ public class Game implements KeyboardHandler {
     private Player player1;
     private Player player2;
     private Field field;
-    private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey;
+    private boolean wKey, aKey, sKey, dKey, spaceKey, upKey, leftKey, downKey, rightKey, pKey, tKey;
     private Keyboard keyboard = new Keyboard(this);
     private int bulletCounter;
     private int delay = 30;
     private Bullet[] bullets;
     private Collision collision;
+    private Menu menu;
 
     public void creation() {
         field = new Field();
@@ -38,8 +40,8 @@ public class Game implements KeyboardHandler {
         bullets = new Bullet[100];
     }
 
-    public void gameStart() throws InterruptedException {
-
+    public void gameStart(Menu menu) throws InterruptedException {
+        this.menu = menu;
         keyboardKeys();
 
         //game engine
@@ -55,7 +57,8 @@ public class Game implements KeyboardHandler {
             delay++;
             //TODO CHANGE BULLET DELAY
         }
-        GameOver.gameOver(field, player1, player2);
+
+        menu.gameOverMenu();
     }
 
 
@@ -87,7 +90,7 @@ public class Game implements KeyboardHandler {
         addKeyboardEvent(KeyboardEvent.KEY_SPACE, KeyboardEventType.KEY_RELEASED);
         addKeyboardEvent(KeyboardEvent.KEY_P, KeyboardEventType.KEY_PRESSED);
         addKeyboardEvent(KeyboardEvent.KEY_P, KeyboardEventType.KEY_RELEASED);
-
+        addKeyboardEvent(KeyboardEvent.KEY_T, KeyboardEventType.KEY_PRESSED);
     }
 
     public void movePlayers() {
@@ -272,6 +275,7 @@ public class Game implements KeyboardHandler {
                 break;
             case (KeyboardEvent.KEY_P):
                 pKey = true;
+                System.out.println(pKey);
                 break;
         }
     }
