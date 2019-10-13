@@ -6,6 +6,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Game implements KeyboardHandler {
@@ -27,11 +28,11 @@ public class Game implements KeyboardHandler {
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
                 new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player1/right/right1.png", 1), field, Direction.RIGHT,
-                new Picture(field.getX(), field.getHeight() + 20, "img/health/fullhealth.png"));
+                new Picture(field.getX(), field.getHeight() + 20, "img/health/fullhealth.png"), "img/player1/");
 
         player2 = new Player("Player Two",
                 new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png", 1), field, Direction.LEFT,
-                new Picture(field.getWidth() - 140, field.getHeight() + 20, "img/health/fullhealth.png"));
+                new Picture(field.getWidth() - 140, field.getHeight() + 20, "img/health/fullhealth.png"), "img/player2/");
 
         player1.getPosition().show();
         player2.getPosition().show();
@@ -97,7 +98,6 @@ public class Game implements KeyboardHandler {
 
         //all the keys to move the players but they only move if they're not trying to go against the other player
         //needs to checkBulletHits() after every movement!
-
 
         //player2 move upleft
         if (keys.contains(leftKey) && keys.contains(upKey) &&

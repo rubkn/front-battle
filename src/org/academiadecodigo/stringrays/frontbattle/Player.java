@@ -11,13 +11,17 @@ public class Player implements Movables {
     private Field field;
     private Direction direction;
     private Picture healthPicture;
+    private Direction oldDirection;
+    private String picturePath;
 
-    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture) {
+    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
         this.name = name;
         this.position = position;
         this.field = field;
         this.direction = direction;
+        this.oldDirection = direction;
         this.healthPicture = healthPicture;
+        this.picturePath = picturePath;
         healthPicture.draw();
     }
 
@@ -56,7 +60,45 @@ public class Player implements Movables {
     }
 
     public void setDirection(Direction direction) {
+
         this.direction = direction;
+
+        if (direction != oldDirection) {
+            switch (direction) {
+                case UP:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWN:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+                case LEFT:
+                    position.getPicture().load(picturePath + "left/left1.png");
+                    oldDirection = direction;
+                    break;
+                case RIGHT:
+                    position.getPicture().load(picturePath + "right/right1.png");
+                    oldDirection = direction;
+                    break;
+                case UPLEFT:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case UPRIGHT:
+                    position.getPicture().load(picturePath + "back/back1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWNLEFT:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+                case DOWNRIGHT:
+                    position.getPicture().load(picturePath + "front/front1.png");
+                    oldDirection = direction;
+                    break;
+            }
+        }
     }
 
     @Override
