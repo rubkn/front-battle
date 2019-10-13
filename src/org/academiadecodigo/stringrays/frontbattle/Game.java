@@ -23,12 +23,12 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.RIGHT,
-                new Picture(field.getX(), field.getHeight() + 20, "img/100health.png"));
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player2/right/right1.png", 1), field, Direction.RIGHT,
+                new Picture(field.getX(), field.getHeight() + 20, "img/health/fullhealth.png"));
 
         player2 = new Player("Player Two",
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player50.png", 1), field, Direction.LEFT,
-                new Picture(field.getWidth() - 80, field.getHeight() + 20, "img/100health.png"));
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png", 1), field, Direction.LEFT,
+                new Picture(field.getWidth() - 140, field.getHeight() + 20, "img/health/fullhealth.png"));
 
         player1.getPosition().show();
         player2.getPosition().show();
@@ -97,42 +97,50 @@ public class Game implements KeyboardHandler {
 
         if (upKey) {
             if (!collision.movableCollisions(player2, player1, Direction.UP)) {
+                player2.getPosition().getPicture().load("img/player2/back/back1.png");
                 player2.getPosition().moveUp();
             }
 
         }
         if (downKey) {
             if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
+                player2.getPosition().getPicture().load("img/player2/front/front1.png");
                 player2.getPosition().moveDown();
             }
         }
         if (rightKey) {
             if (!collision.movableCollisions(player2, player1, Direction.RIGHT)) {
+                player2.getPosition().getPicture().load("img/player2/right/right1.png");
                 player2.getPosition().moveRight();
             }
         }
         if (leftKey) {
             if (!collision.movableCollisions(player2, player1, Direction.LEFT)) {
+                player2.getPosition().getPicture().load("img/player2/left/left1.png");
                 player2.getPosition().moveLeft();
             }
         }
         if (wKey) {
             if (!collision.movableCollisions(player1, player2, Direction.UP)) {
+                player1.getPosition().getPicture().load("img/player2/back/back1.png");
                 player1.getPosition().moveUp();
             }
         }
         if (sKey) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWN)) {
+                player1.getPosition().getPicture().load("img/player2/front/front1.png");
                 player1.getPosition().moveDown();
             }
         }
         if (aKey) {
             if (!collision.movableCollisions(player1, player2, Direction.LEFT)) {
+                player1.getPosition().getPicture().load("img/player2/left/left1.png");
                 player1.getPosition().moveLeft();
             }
         }
         if (dKey) {
             if (!collision.movableCollisions(player1, player2, Direction.RIGHT)) {
+                player1.getPosition().getPicture().load("img/player2/right/right1.png");
                 player1.getPosition().moveRight();
             }
         }

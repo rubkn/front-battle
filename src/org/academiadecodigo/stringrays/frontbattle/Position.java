@@ -19,7 +19,7 @@ public class Position {
         this.field = field;
         picture = new Picture(x, y, path);
         rectangle = new Rectangle(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight());
-        rectangle.draw();
+        //rectangle.draw();
 
 
     }
@@ -89,5 +89,9 @@ public class Position {
                 (this.getX()) < (position.getMaxX()) &&
                 (this.getMaxY()) > (position.getY()) &&
                 (this.getY()) < (position.getMaxY());
+    }
+
+    public Picture getPicture() {
+        return picture;
     }
 }

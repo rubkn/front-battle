@@ -76,14 +76,14 @@ public class Collision {
             }
 
             //checks if bullet is out of bounds by left or right side of arena
-            if (bullets[i].getPosition().getX() <= field.getX() || bullets[i].getPosition().getX() >= field.getWidth()) {
+            if (bullets[i].getPosition().getX() <= field.getX() || bullets[i].getPosition().getMaxX() >= field.getWidth() + Field.PADDING) {
                 bullets[i].setFired(false);
                 bullets[i] = null;
                 continue;
             }
 
             //checks if bullet is out of bounds by top or bottom side of arena
-            if (bullets[i].getPosition().getY() <= field.getY() || bullets[i].getPosition().getY() >= field.getHeight()) {
+            if (bullets[i].getPosition().getY() <= field.getY() || bullets[i].getPosition().getMaxY() >= field.getHeight() + Field.PADDING) {
                 bullets[i].setFired(false);
                 bullets[i] = null;
             }
