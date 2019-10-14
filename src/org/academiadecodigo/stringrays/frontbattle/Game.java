@@ -16,7 +16,7 @@ public class Game implements KeyboardHandler {
     private ArrayList<Boolean> keys = new ArrayList<>(10);
     private Keyboard keyboard = new Keyboard(this);
     private int bulletCounter;
-    private int delay = 30;
+    private int delay = 60;
     private Bullet[] bullets;
     private Collision collision;
     private Menu menu;
@@ -45,10 +45,11 @@ public class Game implements KeyboardHandler {
         this.menu = menu;
         keyboardKeys();
 
+
         //game engine
         while (player1.getHealth() > 0 && player2.getHealth() > 0) {
             Thread.sleep(3);
-            if (delay == 30) {
+            if (delay == 60) {
                 createBullets();
                 delay = 0;
             }

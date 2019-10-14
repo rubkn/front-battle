@@ -2,6 +2,10 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Player implements Movables {
 
     private Position position;
@@ -13,6 +17,7 @@ public class Player implements Movables {
     private Picture healthPicture;
     private Direction oldDirection;
     private String picturePath;
+    private Sound sound;
 
     public Player(String name, Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
         this.name = name;
