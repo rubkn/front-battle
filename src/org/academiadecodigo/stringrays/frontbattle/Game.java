@@ -26,12 +26,12 @@ public class Game implements KeyboardHandler {
 
         //instantiate players with name, initial position, image, initial direction and health score board
         player1 = new Player(
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player1/right/right1.png"), field, Direction.RIGHT,
-                new Picture(field.getX() + 10, field.getHeight() - 20, "img/health/fullhealth.png"), "img/player1/");
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "resources/img/player1/right/right1.png"), field, Direction.RIGHT,
+                new Picture(field.getX() + 10, field.getHeight() - 20, "resources/img/health/fullhealth.png"), "resources/img/player1/");
 
         player2 = new Player(
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png"), field, Direction.LEFT,
-                new Picture(field.getWidth() - 120, field.getHeight() - 20, "img/health/fullhealth.png"), "img/player2/");
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "resources/img/player2/left/left1.png"), field, Direction.LEFT,
+                new Picture(field.getWidth() - 120, field.getHeight() - 20, "resources/img/health/fullhealth.png"), "resources/img/player2/");
 
         player1.getPosition().show();
         player2.getPosition().show();
@@ -59,10 +59,10 @@ public class Game implements KeyboardHandler {
             //TODO CHANGE BULLET DELAY
         }
         if (player1.getHealth() <= 0) {
-            menu.gameOverMenu("img/wins/player2wins.png");
+            menu.gameOverMenu("resources/img/wins/player2wins.png");
         }
         if (player2.getHealth() <= 0) {
-            menu.gameOverMenu("img/wins/player1wins.png");
+            menu.gameOverMenu("resources/img/wins/player1wins.png");
         }
     }
 

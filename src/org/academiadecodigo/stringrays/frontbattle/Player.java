@@ -32,21 +32,21 @@ public class Player implements Movables {
             //TODO: SHOOT DOWN AND RIGHT, AT THE BORDERS, WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "img/bullet/upbullet1.png"), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "resources/img/bullet/upbullet1.png"), direction);
                 case DOWN:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "resources/img/bullet/downbullet1.png"), direction);
                 case LEFT:
-                    return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "img/bullet/leftbullet1.png"), direction);
+                    return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "resources/img/bullet/leftbullet1.png"), direction);
                 case RIGHT:
-                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png"), direction);
+                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "resources/img/bullet/rightbullet1.png"), direction);
                 case UPLEFT:
-                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "img/bullet/upbullet1.png"), direction);
+                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "resources/img/bullet/upbullet1.png"), direction);
                 case UPRIGHT:
-                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "img/bullet/upbullet1.png"), direction);
+                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "resources/img/bullet/upbullet1.png"), direction);
                 case DOWNLEFT:
-                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
+                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "resources/img/bullet/downbullet1.png"), direction);
                 case DOWNRIGHT:
-                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
+                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "resources/img/bullet/downbullet1.png"), direction);
             }
         return null;
     }
@@ -129,31 +129,31 @@ public class Player implements Movables {
 
         switch (health) {
             case 90:
-                healthPicture.load("img/health/90health.png");
+                healthPicture.load("resources/img/health/90health.png");
                 break;
             case 80:
-                healthPicture.load("img/health/80health.png");
+                healthPicture.load("resources/img/health/80health.png");
                 break;
             case 70:
-                healthPicture.load("img/health/70health.png");
+                healthPicture.load("resources/img/health/70health.png");
                 break;
             case 60:
-                healthPicture.load("img/health/60health.png");
+                healthPicture.load("resources/img/health/60health.png");
                 break;
             case 50:
-                healthPicture.load("img/health/50health.png");
+                healthPicture.load("resources/img/health/50health.png");
                 break;
             case 40:
-                healthPicture.load("img/health/40health.png");
+                healthPicture.load("resources/img/health/40health.png");
                 break;
             case 30:
-                healthPicture.load("img/health/30health.png");
+                healthPicture.load("resources/img/health/30health.png");
                 break;
             case 20:
-                healthPicture.load("img/health/20health.png");
+                healthPicture.load("resources/img/health/20health.png");
                 break;
             case 10:
-                healthPicture.load("img/health/10health.png");
+                healthPicture.load("resources/img/health/10health.png");
                 break;
             case 0:
                 healthPicture.delete();

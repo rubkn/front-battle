@@ -19,11 +19,11 @@ public class Menu implements KeyboardHandler {
     public void startMenu() {
         keyboardKeys();
 
-        Picture background = new Picture(Field.PADDING, Field.PADDING, "img/menu/menu.png");
+        Picture background = new Picture(Field.PADDING, Field.PADDING, "resources/img/menu/menu.png");
         background.draw();
 
         sound = new Sound();
-        sound.playMusic("src/soundfx/menusoundtrack.wav");
+        sound.playMusic("resources/soundfx/menusoundtrack.wav");
 
         try {
             while(!sKeyPressed && !qKeyPressed){
@@ -32,7 +32,7 @@ public class Menu implements KeyboardHandler {
             if (sKeyPressed) {
                 Game game = new Game();
                 sound.stopMusic();
-                sound.playMusic("src/soundfx/battlesoundtrack.wav");
+                sound.playMusic("resources/soundfx/battlesoundtrack.wav");
                 game.creation();
                 game.gameStart(this);
             }
