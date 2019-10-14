@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 import java.util.ArrayList;
 
 public class Game implements KeyboardHandler {
@@ -19,19 +20,18 @@ public class Game implements KeyboardHandler {
     private int delay = 60;
     private Bullet[] bullets;
     private Collision collision;
-    private Menu menu;
 
     public void creation() {
         field = new Field();
 
         //instantiate players with name, initial position, image, initial direction and health score board
-        player1 = new Player("Player One",
-                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player1/right/right1.png", 1), field, Direction.RIGHT,
+        player1 = new Player(
+                new Position(field.getX() + Field.PADDING, field.getHeight() / 2, field, "img/player1/right/right1.png"), field, Direction.RIGHT,
                 new Picture(field.getX() + 10, field.getHeight() - 20, "img/health/fullhealth.png"), "img/player1/");
 
-        player2 = new Player("Player Two",
-                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png", 1), field, Direction.LEFT,
-                new Picture(field.getWidth() -120, field.getHeight() -20, "img/health/fullhealth.png"), "img/player2/");
+        player2 = new Player(
+                new Position(field.getWidth() - 50, field.getHeight() / 2, field, "img/player2/left/left1.png"), field, Direction.LEFT,
+                new Picture(field.getWidth() - 120, field.getHeight() - 20, "img/health/fullhealth.png"), "img/player2/");
 
         player1.getPosition().show();
         player2.getPosition().show();
@@ -42,7 +42,6 @@ public class Game implements KeyboardHandler {
     }
 
     public void gameStart(Menu menu) throws InterruptedException {
-        this.menu = menu;
         keyboardKeys();
 
 
@@ -59,15 +58,13 @@ public class Game implements KeyboardHandler {
             delay++;
             //TODO CHANGE BULLET DELAY
         }
-        if(player1.getHealth() <= 0) {
+        if (player1.getHealth() <= 0) {
             menu.gameOverMenu("img/wins/player2wins.png");
         }
-        if(player2.getHealth() <= 0) {
+        if (player2.getHealth() <= 0) {
             menu.gameOverMenu("img/wins/player1wins.png");
         }
-
     }
-
 
     public void addKeyboardEvent(int key, KeyboardEventType type) {
         KeyboardEvent event = new KeyboardEvent();
@@ -110,8 +107,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UPLEFT);
             if (!collision.movableCollisions(player2, player1, Direction.UPLEFT)) {
-                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
-                player2.getPosition().moveUpLeft();
+                player2.getPosition().moveUpLeft(1);
             }
         }
 
@@ -120,8 +116,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(leftKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UPRIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.UPRIGHT)) {
-                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
-                player2.getPosition().moveUpRight();
+                player2.getPosition().moveUpRight(1);
             }
         }
 
@@ -130,8 +125,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWNLEFT);
             if (!collision.movableCollisions(player2, player1, Direction.DOWNLEFT)) {
-                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
-                player2.getPosition().moveDownLeft();
+                player2.getPosition().moveDownLeft(1);
             }
         }
 
@@ -140,8 +134,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(leftKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWNRIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.DOWNRIGHT)) {
-                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
-                player2.getPosition().moveDownRight();
+                player2.getPosition().moveDownRight(1);
             }
         }
 
@@ -150,8 +143,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(rightKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.UP);
             if (!collision.movableCollisions(player2, player1, Direction.UP)) {
-                //player2.getPosition().getPicture().load("img/player2/back/back1.png");
-                player2.getPosition().moveUp();
+                player2.getPosition().moveUp(1);
             }
 
         }
@@ -161,8 +153,7 @@ public class Game implements KeyboardHandler {
                 && !keys.contains(rightKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.DOWN);
             if (!collision.movableCollisions(player2, player1, Direction.DOWN)) {
-                //player2.getPosition().getPicture().load("img/player2/front/front1.png");
-                player2.getPosition().moveDown();
+                player2.getPosition().moveDown(1);
             }
         }
 
@@ -171,18 +162,16 @@ public class Game implements KeyboardHandler {
                 !keys.contains(downKey) && !keys.contains(upKey)) {
             player2.setDirection(Direction.RIGHT);
             if (!collision.movableCollisions(player2, player1, Direction.RIGHT)) {
-                //player2.getPosition().getPicture().load("img/player2/right/right1.png");
-                player2.getPosition().moveRight();
+                player2.getPosition().moveRight(1);
             }
         }
 
         //player2 move left
         if (keys.contains(leftKey) && !keys.contains(upKey) &&
-                !keys.contains(rightKey) && !keys.contains(downKey) ) {
+                !keys.contains(rightKey) && !keys.contains(downKey)) {
             player2.setDirection(Direction.LEFT);
             if (!collision.movableCollisions(player2, player1, Direction.LEFT)) {
-                //player2.getPosition().getPicture().load("img/player2/left/left1.png");
-                player2.getPosition().moveLeft();
+                player2.getPosition().moveLeft(1);
             }
         }
 
@@ -191,8 +180,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UPLEFT)) {
                 player1.setDirection(Direction.UPLEFT);
-                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
-                player1.getPosition().moveUpLeft();
+                player1.getPosition().moveUpLeft(1);
             }
         }
 
@@ -201,8 +189,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UPRIGHT)) {
                 player1.setDirection(Direction.UPRIGHT);
-                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
-                player1.getPosition().moveUpRight();
+                player1.getPosition().moveUpRight(1);
             }
         }
 
@@ -211,8 +198,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWNLEFT)) {
                 player1.setDirection(Direction.DOWNLEFT);
-                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
-                player1.getPosition().moveDownLeft();
+                player1.getPosition().moveDownLeft(1);
             }
         }
 
@@ -221,8 +207,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWNRIGHT)) {
                 player1.setDirection(Direction.DOWNRIGHT);
-                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
-                player1.getPosition().moveDownRight();
+                player1.getPosition().moveDownRight(1);
             }
         }
 
@@ -231,18 +216,16 @@ public class Game implements KeyboardHandler {
                 !keys.contains(aKey) && !keys.contains(sKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.UP)) {
                 player1.setDirection(Direction.UP);
-                //player1.getPosition().getPicture().load("img/player1/back/back1.png");
-                player1.getPosition().moveUp();
+                player1.getPosition().moveUp(1);
             }
         }
 
         //player1 move down
         if (keys.contains(sKey) && !keys.contains(wKey) &&
-                !keys.contains(aKey) && ! keys.contains(dKey)) {
+                !keys.contains(aKey) && !keys.contains(dKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.DOWN)) {
                 player1.setDirection(Direction.DOWN);
-                //player1.getPosition().getPicture().load("img/player1/front/front1.png");
-                player1.getPosition().moveDown();
+                player1.getPosition().moveDown(1);
             }
         }
 
@@ -251,8 +234,7 @@ public class Game implements KeyboardHandler {
                 !keys.contains(dKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.LEFT)) {
                 player1.setDirection(Direction.LEFT);
-                //player1.getPosition().getPicture().load("img/player1/left/left1.png");
-                player1.getPosition().moveLeft();
+                player1.getPosition().moveLeft(1);
             }
         }
 
@@ -261,53 +243,13 @@ public class Game implements KeyboardHandler {
                 !keys.contains(sKey) && !keys.contains(wKey)) {
             if (!collision.movableCollisions(player1, player2, Direction.RIGHT)) {
                 player1.setDirection(Direction.RIGHT);
-                //player1.getPosition().getPicture().load("img/player1/right/right1.png");
-                player1.getPosition().moveRight();
+                player1.getPosition().moveRight(1);
             }
         }
 
         //needs to checkBulletHits() after every movement!
         collision.checkBulletHits(player1, player2, bullets);
     }
-
-    //TODO BEST METHOD FOR PLAYER MOVEMENT
-    /*
-    public void movePlayer(Player player, Direction direction) {
-
-        Player otherPlayer = player2;
-
-        if (player == player2) {
-            otherPlayer = player1;
-        }
-
-        switch (direction) {
-            case UP:
-                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
-                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() + 1) {
-                    player.getPosition().moveUp();
-                }
-                break;
-            case DOWN:
-                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() ||
-                        player.getPosition().getRow() != otherPlayer.getPosition().getRow() - 1) {
-                    player.getPosition().moveDown();
-                }
-                break;
-            case LEFT:
-                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() + 1 ||
-                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
-                    player.getPosition().moveLeft();
-                }
-                break;
-            case RIGHT:
-                if (player.getPosition().getCol() != otherPlayer.getPosition().getCol() - 1 ||
-                        player.getPosition().getRow() != otherPlayer.getPosition().getRow()) {
-                    player.getPosition().moveRight();
-                }
-                break;
-        }
-    }
-    */
 
     public void createBullets() {
 

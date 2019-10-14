@@ -1,9 +1,5 @@
 package org.academiadecodigo.stringrays.frontbattle;
 
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -30,7 +26,7 @@ public class Menu implements KeyboardHandler {
         sound.playMusic("src/soundfx/menusoundtrack.wav");
 
         try {
-            while (!sKeyPressed && !qKeyPressed) {
+            while(!sKeyPressed && !qKeyPressed){
                 Thread.sleep(30);
             }
             if (sKeyPressed) {
@@ -51,10 +47,10 @@ public class Menu implements KeyboardHandler {
 
     public void gameOverMenu(String path) {
         keyboardKeys();
-        Picture winner = new Picture(field.getX(), field.getY(), path);
+        Picture winner = new Picture(field.getX(),field.getY(),path);
         winner.draw();
-        try {
-            while (!mKeyPressed) {
+        try{
+            while(!mKeyPressed) {
                 Thread.sleep(30);
             }
             sound.stopMusic();

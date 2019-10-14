@@ -2,16 +2,10 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-
 public class Player implements Movables {
 
     private Position position;
-    private String name;
     private int health = 100;
-    private boolean destroyed;
     private Field field;
     private Direction direction;
     private Picture healthPicture;
@@ -19,8 +13,7 @@ public class Player implements Movables {
     private String picturePath;
     private Sound sound;
 
-    public Player(String name, Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
-        this.name = name;
+    public Player(Position position, Field field, Direction direction, Picture healthPicture, String picturePath) {
         this.position = position;
         this.field = field;
         this.direction = direction;
@@ -36,29 +29,25 @@ public class Player implements Movables {
 
     public Bullet attack() {
 
-        //TODO REMOVE THIS CONDITION IF THE GAME OVER IS WELL DONE
-        if (health > 0) {
-
-            //TODO GET THE BULLET SIZE FIXED AND SHOOT RIGHT WITHOUT EXPANDING CANVAS
+            //TODO: SHOOT DOWN AND RIGHT, AT THE BORDERS, WITHOUT EXPANDING CANVAS
             switch (direction) {
                 case UP:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "img/bullet/upbullet1.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getY() - 20, field, "img/bullet/upbullet1.png"), direction);
                 case DOWN:
-                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                    return new Bullet(new Position((position.getX() + position.getMaxX()) / 2, position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
                 case LEFT:
-                    return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "img/bullet/leftbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getX() - 20, (position.getY() + position.getMaxY()) / 2, field, "img/bullet/leftbullet1.png"), direction);
                 case RIGHT:
-                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getMaxX(), (position.getY() + position.getMaxY()) / 2, field, "img/bullet/rightbullet1.png"), direction);
                 case UPLEFT:
-                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getX() - 20, position.getY(), field, "img/bullet/upbullet1.png"), direction);
                 case UPRIGHT:
-                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "img/bullet/upbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getMaxX() + 20, position.getY(), field, "img/bullet/upbullet1.png"), direction);
                 case DOWNLEFT:
-                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getX(), position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
                 case DOWNRIGHT:
-                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "img/bullet/downbullet1.png", 2), direction);
+                    return new Bullet(new Position(position.getMaxX(), position.getMaxY(), field, "img/bullet/downbullet1.png"), direction);
             }
-        }
         return null;
     }
 
@@ -105,32 +94,32 @@ public class Player implements Movables {
     }
 
     @Override
-    public void move(Direction direction) {
+    public void move(Direction direction, int distance) {
 
         switch (direction) {
             case UP:
-                position.moveUp();
+                position.moveUp(distance);
                 break;
             case DOWN:
-                position.moveDown();
+                position.moveDown(distance);
                 break;
             case LEFT:
-                position.moveLeft();
+                position.moveLeft(distance);
                 break;
             case RIGHT:
-                position.moveRight();
+                position.moveRight(distance);
                 break;
             case UPLEFT:
-                position.moveUpLeft();
+                position.moveUpLeft(distance);
                 break;
             case UPRIGHT:
-                position.moveUpRight();
+                position.moveUpRight(distance);
                 break;
             case DOWNLEFT:
-                position.moveDownLeft();
+                position.moveDownLeft(distance);
                 break;
             case DOWNRIGHT:
-                position.moveDownRight();
+                position.moveDownRight(distance);
                 break;
         }
     }
@@ -172,19 +161,10 @@ public class Player implements Movables {
 
         if (health <= 0) {
             position.hide();
-            destroyed = true;
         }
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
     }
 
     public int getHealth() {
         return health;
-    }
-
-    public String getName() {
-        return name;
     }
 }

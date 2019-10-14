@@ -3,8 +3,8 @@ package org.academiadecodigo.stringrays.frontbattle;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import java.io.File;
 import javax.sound.sampled.Clip;
+import java.io.File;
 
 public class Sound {
     Clip clip;
