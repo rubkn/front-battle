@@ -17,9 +17,10 @@ public class Game implements KeyboardHandler {
     private ArrayList<Boolean> keys = new ArrayList<>(10);
     private Keyboard keyboard = new Keyboard(this);
     private int bulletCounter;
-    private int delay = 60;
     private Bullet[] bullets;
     private Collision collision;
+    private int playerOneDelay = 0;
+    private int playerTwoDelay = 0;
 
     public void creation() {
         field = new Field();
@@ -48,16 +49,12 @@ public class Game implements KeyboardHandler {
         //game engine
         while (player1.getHealth() > 0 && player2.getHealth() > 0) {
             Thread.sleep(3);
-            if (delay == 60) {
-                createBullets();
-                delay = 0;
-            }
+            createBullets();
             moveBullets();
             collision.checkBulletBounds(bullets, field);
             movePlayers();
-            delay++;
-            //TODO CHANGE BULLET DELAY
         }
+
         if (player1.getHealth() <= 0) {
             menu.gameOverMenu("resources/img/wins/player2wins.png");
         }
@@ -253,21 +250,33 @@ public class Game implements KeyboardHandler {
 
     public void createBullets() {
 
-        //the key for the players to shoot bullets
-
+        //if the key the players use to shoot bullets is pressed, use method shootBullet
         if (spaceKey) {
-            shootBullet(player1);
+            if (playerOneDelay == 0) {
+                shootBullet(player1);
+            }
+            playerOneDelay++;
         }
 
         if (pKey) {
-            shootBullet(player2);
+            if (playerTwoDelay == 0) {
+                shootBullet(player2);
+            }
+            playerTwoDelay++;
+        }
+
+        if (playerOneDelay == 60) {
+            playerOneDelay = 0;
+        }
+
+        if (playerTwoDelay == 60) {
+            playerTwoDelay = 0;
         }
     }
 
     public void shootBullet(Player player) {
 
         //method for returning a new bullet if the player presses the shoot key
-
         Bullet newBullet = player.attack();
         if (newBullet != null) {
             bullets[bulletCounter] = newBullet;
@@ -370,7 +379,7 @@ public class Game implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_SPACE:
                 spaceKey = false;
-                //keys.remove(spaceKey);
+                playerOneDelay = 0;
                 break;
             case (KeyboardEvent.KEY_UP):
                 upKey = false;
@@ -390,7 +399,7 @@ public class Game implements KeyboardHandler {
                 break;
             case (KeyboardEvent.KEY_P):
                 pKey = false;
-                //keys.remove(pKey);
+                playerTwoDelay = 0;
                 break;
         }
     }

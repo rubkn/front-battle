@@ -13,7 +13,8 @@ public class Menu implements KeyboardHandler {
     private boolean sKeyPressed;
     private boolean qKeyPressed;
     private boolean mKeyPressed;
-    private Sound sound;
+    private Sound openingSound;
+    private Sound gameSound;
 
     //show menu
     public void startMenu() {
@@ -22,8 +23,8 @@ public class Menu implements KeyboardHandler {
         Picture background = new Picture(Field.PADDING, Field.PADDING, "resources/img/menu/menu.png");
         background.draw();
 
-        sound = new Sound();
-        sound.playMusic("resources/soundfx/menusoundtrack.wav");
+        openingSound = new Sound("/resources/soundfx/menusoundtrack.wav");
+        openingSound.play(true);
 
         try {
             while(!sKeyPressed && !qKeyPressed){
@@ -31,8 +32,9 @@ public class Menu implements KeyboardHandler {
             }
             if (sKeyPressed) {
                 Game game = new Game();
-                sound.stopMusic();
-                sound.playMusic("resources/soundfx/battlesoundtrack.wav");
+                openingSound.stop();
+                gameSound = new Sound("/resources/soundfx/battlesoundtrack.wav");
+                gameSound.play(true);
                 game.creation();
                 game.gameStart(this);
             }
@@ -53,7 +55,7 @@ public class Menu implements KeyboardHandler {
             while(!mKeyPressed) {
                 Thread.sleep(30);
             }
-            sound.stopMusic();
+            gameSound.stop();
             startMenu();
         } catch (InterruptedException e) {
             e.printStackTrace();
