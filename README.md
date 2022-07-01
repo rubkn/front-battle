@@ -20,7 +20,7 @@ Java, IntelliJ, Linux, Mac OS, Google Slides, Simple Gfx, Adobe Photoshop, Git.
 ## Authors
 
 * **Ruben Brandão** - [rvbrd](https://github.com/rvbrd)
-* **João Madeira** - [hattomhub](https://github.com/hattomhub)
+* **João Madeira** - [jpmmadeira](https://github.com/jpmmadeira)
 * **Josué Almeida** - [z3ux](https://github.com/z3ux)
 * **Denise Machado** - [denisemachado](https://github.com/DeniseMachado)
 * **Ricardo Dias** - [ricardosnaw](https://github.com/RicardoSnaw)
